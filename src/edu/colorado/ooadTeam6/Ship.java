@@ -12,7 +12,5 @@ public class Ship {
   }
 
   public Ship() {
-    // Team Apple, pair 1 was here.
-    // Team6 Pair2 was
   }
 }
