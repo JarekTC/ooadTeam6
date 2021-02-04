@@ -1,6 +1,9 @@
 # CSCI 4448-5448 Team 6 Battleship
 ### <ins>Team Members:</ins>
-Isaac Vance, Jarek Carlson (Reynolds), Neel Karsanbhai, Stefan Primelles
+* Isaac Vance
+* Neel Karsanbhai
+* Stefan Primelles
+* Jarek Carlson (Reynolds)
 <br><br>
 ### <ins>Technology Stack</ins>
 We are utilizing the following technologies for our project:
