@@ -1,5 +1,4 @@
 # CSCI 4448-5448 Team 6 Battleship
-## Milestone 1
 ### <ins>Team Members:</ins>
 Isaac Vance, Jarek Carlson, Neel Karsanbhai, Stefan Primelles
 <br><br>
