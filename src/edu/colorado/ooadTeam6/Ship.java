@@ -12,5 +12,6 @@ public class Ship {
   }
 
   public Ship() {
+    //Team 6 Pair 2 yeet
   }
 }
