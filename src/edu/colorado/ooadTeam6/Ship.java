@@ -12,10 +12,8 @@ public class Ship {
   }
 
   public Ship() {
-<<<<<<< HEAD
-    //Team 6 Pair 2 yeet
-=======
+    // Team 6 Pair 2 yeet
     // Team 6, pair 1 was here.
->>>>>>> 798e9d3dc18c568905f563b7ab5accb7b35cf7b4
+    // Merge conflict was reconciled.
   }
 }
