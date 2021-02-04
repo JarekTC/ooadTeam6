@@ -12,10 +12,10 @@ We are utilizing the following technologies for our project:
 * google-java-format IntelliJ plugin
 <br><br>
 ### <ins>Project Structure Overview</ins>
-<ins>`src/edu/colorado/team6`</ins>: All Battleship source code<br><br>
-<ins>`docs`</ins>:  Location for all PDF's. Includes CRC cards PDF and Group Contract.<br><br>
-<ins>`.gitignore`</ins>: git ignore file configured to ignore user-specific IntelliJ directories and files<br><br>
-<ins>`.README.md`</ins>: Contains a brief project overview, for additional details or progress see the project wiki or project board.
+`src/edu/colorado/team6`: All Battleship source code<br><br>
+`docs`:  Location for all PDF's. Includes CRC cards PDF and Group Contract.<br><br>
+`.gitignore`: git ignore file configured to ignore user-specific IntelliJ directories and files<br><br>
+`.README.md`: Contains a brief project overview, for additional details or progress see the project wiki or project board.
 <br><br>
 ### <ins>Coding Standards</ins>
 Our group has agreed to adhere to and apply the Google Java Style Guide. We feel this is a succinct and concise java style guide and adhering to it serves to benefit us should we later decide to apply for jobs at Google. Additionally, we chose Google's style guide because they are a reputable tech company with products that have scaled well, which means they have a well maintained code base. Google has made the documentation for their style guide public and it can be found at the following link: https://google.github.io/styleguide/javaguide.html.
