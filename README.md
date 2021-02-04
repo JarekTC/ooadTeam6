@@ -1,5 +1,5 @@
 # CSCI 4448-5448 Team 6 Battleship
-### <ins>Team Members:</ins>
+### <ins>Team Members</ins>
 * Isaac Vance
 * Neel Karsanbhai
 * Stefan Primelles
