@@ -22,11 +22,11 @@ Our group has agreed to adhere to and apply the Google Java Style Guide. We feel
 <br><br>
 
 ### <ins>Design Process</ins>
-We agreed to build our project using a Agile and Kanban hybrid methodolgy. Our board is on ur github repository. We plan on doing two week sprints. We have laid out 5 columns in our github:<br>
+We agreed to build our project using a Agile and Kanban hybrid methodology. Our project board is already integrated into our project repository under the project tab. We plan on doing two week sprints. We have laid out 5 columns in our github:<br>
 * Brainstorming/Backlog 
 * To Do
 * In Progress 
 * Testing 
 * Done<br>
 
-This allows us to better organize what we need to accomplish during a sprint. Our backlog column will hold all tasks that we know that we will have to do over the course of the project. The To do column will be for tasks that will be done during the current sprint. The In Progress column will be for things that are currently being worked on. The Testing column will be tasks that need to be tested by other team members so ensure each aspect is working correctly. Last, the Done column will be for tasks that have been completed. We plan on clearing the Done column after each sprint to stay organized. We will also assign ourselves to a task, so that github will tell other team members what team member is working on a specific task. This hybrid approach allows us to incorporate various design methodologies to acheive the best of what agile, continuous scrum, and kanban have to offer.
+This allows us to better organize what we need to accomplish during a sprint. Our backlog column will hold all tasks that we know that we will have to do over the course of the project. The To do column will be for tasks that will be done during the current sprint. The In Progress column will be for things that are currently being worked on. The Testing column will be tasks that need to be tested by other team members so ensure each aspect is working correctly. Last, the Done column will be for tasks that have been completed. We plan on clearing the Done column after each sprint to stay organized. We will also assign ourselves to a task, so that github will tell other team members what team member is working on a specific task. This hybrid approach allows us to incorporate various design methodologies to achieve the best of what agile, continuous scrum, and Kanban have to offer.
