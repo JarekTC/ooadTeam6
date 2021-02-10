@@ -52,7 +52,7 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-### JetBrains Patch ###
+# JetBrains Patch FAQ
 *.iml
 modules.xml
 .idea/misc.xml 
