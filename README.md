@@ -25,7 +25,7 @@ Our group has agreed to adhere to and apply the Google Java Style Guide. We feel
 <br><br>
 
 ### <ins>Design Process</ins>
-We agreed to build our project using a Agile and Kanban hybrid methodology. Our project board is already integrated into our project repository under the project tab. We plan on doing two week sprints. We have laid out 5 columns in our github:<br>
+We agreed to build our project using a Agile (Extreme Programming) and Kanban hybrid methodology. Our project board is already integrated into our project repository under the project tab. We plan on doing two week sprints. We have laid out 5 columns in our github:<br>
 * Brainstorming/Backlog 
 * To Do
 * In Progress 
