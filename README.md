@@ -18,6 +18,7 @@ We are utilizing the following technologies for our project:
 `src/edu/colorado/team6`: All Battleship source code<br><br>
 `docs`:  Location for all PDF's. Includes CRC cards and group contract.<br><br>
 `.gitignore`: git ignore file configured to ignore user-specific IntelliJ directories and files<br><br>
+`.idea`: Project specific coding style, google-java formatter, and VCS configuration files.<br><br>
 `README.md`: Contains a brief project overview, for additional details or progress see the project wiki or project board.
 <br><br>
 ### <ins>Coding Standards</ins>
