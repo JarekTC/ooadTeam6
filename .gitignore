@@ -52,9 +52,6 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
-# JetBrains Patch FAQ
-*.iml
-modules.xml
+# Misc
 .idea/misc.xml
-.idea/.gitignore 
-*.ipr 
+.idea/.gitignore
