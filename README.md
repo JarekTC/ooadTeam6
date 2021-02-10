@@ -10,8 +10,8 @@ We are utilizing the following technologies for our project:
 * git
 * Slack
 * Github
+* Java 11
 * IntelliJ IDEA IDE
-* Java 11 SDK, JRE, and JVM
 * google-java-format IntelliJ plugin
 <br><br>
 ### <ins>Project Structure</ins>
