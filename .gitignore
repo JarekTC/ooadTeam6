@@ -55,5 +55,6 @@ fabric.properties
 # JetBrains Patch FAQ
 *.iml
 modules.xml
-.idea/misc.xml 
+.idea/misc.xml
+.idea/.gitignore 
 *.ipr 
