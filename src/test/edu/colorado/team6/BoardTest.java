@@ -16,6 +16,15 @@ class BoardTest {
 
     @Test
     public void testGetBoard() {
-        b.getBoard();
+        assertArrayEquals(new int[10][10], b.getBoard());
+    }
+
+    @Test
+    public void testSetBoard() {
+        int[][] testBoard = new int[10][10];
+        testBoard[0][0] = 1;
+        b.setBoard(testBoard);
+        assertArrayEquals(testBoard, b.getBoard());
+
     }
 }
