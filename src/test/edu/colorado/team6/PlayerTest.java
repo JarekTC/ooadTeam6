@@ -19,4 +19,17 @@ class PlayerTest {
         assertEquals(name, p.getName());
     }
 
+    @Test
+    public void testGetScore() {
+        assertEquals(0, p.getScore());
+    }
+
+    @Test
+    public void testSetScore() {
+        int testScore = 90;
+        p.setScore(90);
+
+        assertEquals(testScore, p.getScore());
+    }
+
 }
