@@ -15,5 +15,6 @@ public class Ship {
     // Team 6 Pair 2 yeet
     // Team 6, pair 1 was here.
     // Merge conflict was reconciled.
+
   }
 }
