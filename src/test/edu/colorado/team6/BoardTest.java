@@ -26,4 +26,15 @@ class BoardTest {
     b.setBoard(testBoard);
     assertArrayEquals(testBoard, b.getBoard());
   }
+
+  @Test
+  public void testHitStatus() {
+    int[][] testBoard = new int[10][10];
+    testBoard[0][0] = 1; // Hit
+    testBoard[0][1] = 0; // Miss
+    b.setBoard(testBoard);
+
+    assertEquals(1, b.hitStatus(0, 0));
+    assertEquals(0, b.hitStatus(0, 1));
+  }
 }

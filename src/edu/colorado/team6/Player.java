@@ -8,11 +8,13 @@ public class Player {
     }
 
     private String name;
+    private Record record;
     private int score = 0;
 
     //constructor
-    public Player(String name) {
+    public Player(String name, Player.Record record) {
         this.name = name;
+        this.record = record;
     }
     //getter for name
     public String getName() {

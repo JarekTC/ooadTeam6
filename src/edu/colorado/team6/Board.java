@@ -15,7 +15,6 @@ public class Board {
     this.board = board;
   }
   public Integer hitStatus(int x, int y){
-    int element = this.board[x][y];
-    return element;
+    return this.board[x][y];
   }
 }
