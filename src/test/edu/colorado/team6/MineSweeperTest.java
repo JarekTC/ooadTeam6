@@ -11,6 +11,12 @@ public class MineSweeperTest {
     @Test
     public void canTakeDamage(){
         MineSweeper mine1 = new MineSweeper("MineSweeper");
-        MineSweeper.takeDamage();
+        mine1.takeDamage();
+    }
+
+    @Test
+    public void initializeHealthTest(){
+        MineSweeper mine2 = new MineSweeper("MineSweeper");
+        mine2.initializeCorrectHealth(2);
     }
 }

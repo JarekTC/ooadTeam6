@@ -19,15 +19,13 @@ public class Ship {
   }
 
   //helper function for subclasses to set proper starting health
-  public static void initializeCorrecthealth(int startHealth){
+  public static void initializeCorrectHealth(int startHealth){
     health = startHealth;
   }
 
   //decrement ship health
   public static void takeDamage() {
-    if (health != 0) {
-      health = health - 1;
-    }
+    if (health != 0) health = health - 1;
   }
 
   //displays subclass type name passed into constructor

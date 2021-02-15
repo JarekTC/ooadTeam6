@@ -12,7 +12,7 @@ public class ShipTest {
   @Test
   public void canSetHealth(){
     Ship ship = new Ship("MineSweeper");
-    Ship.initializeCorrecthealth(3);
+    Ship.initializeCorrectHealth(3);
   }
 
   @Test
