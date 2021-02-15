@@ -5,18 +5,18 @@ import org.junit.jupiter.api.Test;
 public class MineSweeperTest {
     @Test
     public void canMakeMineSweeper(){
-        new MineSweeper("MineSweeper");
+        new MineSweeper();
     }
 
     @Test
     public void canTakeDamage(){
-        MineSweeper mine1 = new MineSweeper("MineSweeper");
+        MineSweeper mine1 = new MineSweeper();
         mine1.takeDamage();
     }
 
     @Test
     public void initializeHealthTest(){
-        MineSweeper mine2 = new MineSweeper("MineSweeper");
+        MineSweeper mine2 = new MineSweeper();
         mine2.initializeCorrectHealth(2);
     }
 }
