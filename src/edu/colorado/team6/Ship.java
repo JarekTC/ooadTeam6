@@ -1,14 +1,10 @@
 package edu.colorado.team6;
 
 
-// This is the  baseclass for your ship.  Modify accordingly
-// TODO: practice good OO design
 public class Ship {
-  private String typeName;
-  // TODO: create appropriate getter and setter methods
-  // TODO: Understand encapsulation
-  // TODO: Understand what these todo comments mean
 
+  //basic private member variables
+  private String typeName;
   private static int health;
 
 
@@ -16,16 +12,25 @@ public class Ship {
     System.out.println("IF you can't see this then something is severely wrong!!");
   }
 
+
+  //constructor, currently initialized with name of subclass type
   public Ship(String typeOfShip) {
     typeName = typeOfShip;
   }
 
-  public static void takeDamage(int i) {
+  //helper function for subclasses to set proper starting health
+  public static void initializeCorrecthealth(int startHealth){
+    health = startHealth;
+  }
+
+  //decrement ship health
+  public static void takeDamage() {
     if (health != 0) {
       health = health - 1;
     }
   }
 
+  //displays subclass type name passed into constructor
   public void showShipType() {
     System.out.println(typeName);
   }

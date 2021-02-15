@@ -10,9 +10,15 @@ public class ShipTest {
   }
 
   @Test
+  public void canSetHealth(){
+    Ship ship = new Ship("MineSweeper");
+    Ship.initializeCorrecthealth(3);
+  }
+
+  @Test
   public void canTakeDamage(){
     Ship ship = new Ship("MineSweeper");
-    ship.takeDamage(0);
+    ship.takeDamage();
   }
 
   @Test
