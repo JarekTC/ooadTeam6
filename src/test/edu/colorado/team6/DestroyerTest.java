@@ -22,4 +22,10 @@ class DestroyerTest {
         d2.initializeCorrectHealth(3);
     }
 
+    @Test
+    public void canDisplayTypeName(){
+        Destroyer d3 = new Destroyer();
+        d3.showShipType();
+    }
+
 }

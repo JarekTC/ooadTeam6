@@ -22,4 +22,10 @@ class BattleShipTest {
         b2.initializeCorrectHealth(4);
     }
 
+    @Test
+    public void canDisplayTypeName(){
+        BattleShip b3 = new BattleShip();
+        b3.showShipType();
+    }
+
 }

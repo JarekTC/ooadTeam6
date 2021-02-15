@@ -19,4 +19,10 @@ public class MineSweeperTest {
         MineSweeper mine2 = new MineSweeper();
         mine2.initializeCorrectHealth(2);
     }
+
+    @Test
+    public void canDisplayTypeName(){
+        MineSweeper mine3 = new MineSweeper();
+        mine3.showShipType();
+    }
 }
