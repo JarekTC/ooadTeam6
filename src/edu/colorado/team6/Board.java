@@ -17,4 +17,8 @@ public class Board {
   public Integer hitStatus(int x, int y){
     return this.board[x][y];
   }
+
+  public void setCoord(int x, int y, int shipOrSea) {
+    this.board[x][y] = shipOrSea;
+  }
 }

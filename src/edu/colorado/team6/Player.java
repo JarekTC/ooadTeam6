@@ -32,14 +32,25 @@ public class Player {
         this.score = score;
     }
 
-    public void hit(int x, int y, Player enemy){
+    // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
+    public void setShip(int x, int y, int shipOrSea) {
+        this.b.setCoord(x, y, shipOrSea);
+    }
+
+    public int hit(int x, int y, Player enemy){
         int hitStat;
         hitStat = enemy.b.hitStatus(x,y);
         if (hitStat == 1) {
             System.out.print("Ship hit!");
+            return hitStat;
         }
         else if(hitStat == 0){
             System.out.print("Missed!");
+            return hitStat;
+        }
+        else {
+            System.out.println("Error: enemy board hitStatus returned non 0, or 1 value");
+            return -1;
         }
     }
 }
