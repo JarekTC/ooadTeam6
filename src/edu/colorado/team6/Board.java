@@ -14,4 +14,8 @@ public class Board {
   public void setBoard(int[][] board) {
     this.board = board;
   }
+  public Integer hitStatus(int x, int y){
+    int element = this.board[x][y];
+    return element;
+  }
 }
