@@ -7,4 +7,10 @@ public class MineSweeperTest {
     public void canMakeMineSweeper(){
         new MineSweeper("MineSweeper");
     }
+
+    @Test
+    public void canTakeDamage(){
+        MineSweeper mine1 = new MineSweeper("MineSweeper");
+        MineSweeper.takeDamage(0);
+    }
 }

@@ -9,7 +9,7 @@ public class Ship {
   // TODO: Understand encapsulation
   // TODO: Understand what these todo comments mean
 
-  private int health;
+  private static int health;
 
 
   public void show() { // dunno why this is here maybe it is just an example method
@@ -20,7 +20,7 @@ public class Ship {
     typeName = typeOfShip;
   }
 
-  public void takeDamage(int i) {
+  public static void takeDamage(int i) {
     if (health != 0) {
       health = health - 1;
     }
