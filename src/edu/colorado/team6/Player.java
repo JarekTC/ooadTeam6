@@ -1,6 +1,12 @@
 package edu.colorado.team6;
 
 public class Player {
+    public static class Record{
+        int x;
+        int y;
+        String hitMissNone;
+    }
+
     private String name;
     private int score = 0;
 

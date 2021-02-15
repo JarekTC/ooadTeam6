@@ -2,16 +2,19 @@ package edu.colorado.team6;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
     private Player p;
     private String name = "Neefan";
+    private Player.Record r;
 
     @BeforeEach
     public void setUp() {
-        p = new Player(name);
+        r = new Player.Record();
+        p = new Player(name, r);
     }
 
     @Test
