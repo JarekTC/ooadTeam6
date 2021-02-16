@@ -41,6 +41,14 @@ class PlayerTest {
   }
 
   @Test
+  public void testGetSetPosition() {
+    int positionVal = 1;
+    p2.setShip(0, 0, positionVal); // (0, 0) is a ship now
+    assertEquals(positionVal, p2.getPosition(0, 0));
+
+  }
+
+  @Test
   public void testHit() {
     int hit = 1;
     int miss = 0;

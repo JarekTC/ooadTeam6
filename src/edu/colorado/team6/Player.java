@@ -31,13 +31,13 @@ public class Player {
     this.score = score;
   }
 
+  public int getPosition(int x, int y){
+    return this.board[x][y];
+  }
+
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
   public void setShip(int x, int y, int shipOrSea) {
     this.board[x][y] = shipOrSea;
-  }
-
-  public int getPosition(int x, int y){
-    return this.board[x][y];
   }
 
   public int hit(int x, int y, Player enemy) {
