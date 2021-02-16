@@ -12,7 +12,6 @@ public class Player {
   private int score = 0;
 
   private int[][] board = new int[10][10];
-  private Board b = new Board(board);
 
   // constructor
   public Player(String name, Player.Record record) {
@@ -34,12 +33,16 @@ public class Player {
 
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
   public void setShip(int x, int y, int shipOrSea) {
-    this.b.setCoord(x, y, shipOrSea);
+    this.board[x][y] = shipOrSea;
+  }
+
+  public int getPosition(int x, int y){
+    return this.board[x][y];
   }
 
   public int hit(int x, int y, Player enemy) {
     int hitStat;
-    hitStat = enemy.b.hitStatus(x, y);
+    hitStat = enemy.getPosition(x,y);
     if (hitStat == 1) {
       System.out.print("Ship hit!");
       return hitStat;
