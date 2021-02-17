@@ -1,6 +1,7 @@
 package edu.colorado.team6;
 
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class Player {
   public static class Record {
@@ -14,16 +15,16 @@ public class Player {
       this.hitMiss = hitMiss;
     }
 
-    public int[] get_Coordinates() {
+    public int[] getCoordinates() {
       int arr[] = {this.x, this.y};
       return arr;
     }
 
-    public String get_hitMiss() {
+    public String getHitMiss() {
       return hitMiss;
     }
 
-    public void set_hitMiss(String hitMiss) {
+    public void setHitMiss(String hitMiss) {
       this.hitMiss = hitMiss;
     }
   }
@@ -31,7 +32,8 @@ public class Player {
   private String name;
   private Record record;
   private int score = 0;
-  //  private int Record
+  //  array list of records
+  private ArrayList<Record> hitsMisses = new ArrayList<Record>();
   private int[][] board = new int[10][10];
 
   // constructor
@@ -84,6 +86,13 @@ public class Player {
   public int hit(int x, int y, Player enemy) {
     int hitStat;
     hitStat = enemy.getPosition(x, y);
+    if (hitStat == 0){
+      keepRecord(x,y,"H");
+    }
+    else{
+      keepRecord(x,y,"M");
+    }
+
     if (hitStat == 1) {
       System.out.println("Ship hit!");
       return hitStat;
@@ -91,5 +100,11 @@ public class Player {
       System.out.println("Missed!");
       return hitStat;
     }
+  }
+
+  public void keepRecord(int x, int y, String hitMiss){
+    //append Record to array list of records
+    Record r = new Record(x,y,hitMiss);
+    this.hitsMisses.add(r);
   }
 }
