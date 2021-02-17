@@ -5,13 +5,30 @@ public class Player {
   public static class Record {
     int x;
     int y;
-    String hitMissNone;
+    String hitMiss;
+    Record(int x, int y, String hitMiss){
+      this.x = x;
+      this.y = y;
+      this.hitMiss = hitMiss;
+    }
+
+    public int[] get_Coordinates(){
+      int arr[] = {this.x, this.y};
+      return arr;
+    }
+    public String get_hitMiss(){
+      return hitMiss;
+    }
+
+    public void set_hitMiss(String hitMiss){
+      this.hitMiss = hitMiss;
+    }
   }
 
   private String name;
   private Record record;
   private int score = 0;
-
+//  private int Record
   private int[][] board = new int[10][10];
 
   // constructor
