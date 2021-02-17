@@ -53,10 +53,17 @@ class PlayerTest {
     int ship = 1;
     int sea = 0;
 
+    // Place horizontal ship
     p2.setShip(0, 0, 2, 0, ship);
     assertEquals(ship, p2.getPosition(0, 0));
     assertEquals(ship, p2.getPosition(1, 0));
     assertEquals(ship, p2.getPosition(2, 0));
+
+    // Place vertical ship
+    p2.setShip(0, 0, 0, 2, ship);
+    assertEquals(ship, p2.getPosition(0, 0));
+    assertEquals(ship, p2.getPosition(0, 1));
+    assertEquals(ship, p2.getPosition(0, 2));
 
     // Error when set board position to non 0, or 1 label
     assertEquals(-1, p2.setShip(0, 0, 2, 0, 90));
