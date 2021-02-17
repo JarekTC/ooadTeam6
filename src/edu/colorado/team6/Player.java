@@ -1,4 +1,5 @@
 package edu.colorado.team6;
+import java.lang.Math;
 
 public class Player {
   public static class Record {
@@ -36,8 +37,24 @@ public class Player {
   }
 
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
-  public void setShip(int x, int y, int shipOrSea) {
-    this.board[x][y] = shipOrSea;
+  // come back later to verify length of ship matches dist between points
+  public int setShip(int x1, int y1, int x2, int y2) {
+    if((Math.abs(x1-x2) != 0) && (Math.abs(y1-y2) != 0)){
+      System.out.println("Cannot place ships diagonally!");
+      return -1;
+    }
+    //adapted for cartesian coordinates
+    if (Math.abs(x1-x2) != 0){
+      for(int i = x1; i <= x2; i++){
+        this.board[y1][i] = 1;
+      }
+    }
+    else{
+      for(int i = y1; i <= y2; i++){
+        this.board[i][x1] = 1;
+      }
+    }
+    return 1;
   }
 
   public int hit(int x, int y, Player enemy) {
