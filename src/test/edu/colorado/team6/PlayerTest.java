@@ -41,10 +41,28 @@ class PlayerTest {
   }
 
   @Test
-  public void testGetSetPosition() {
+  public void testGetPosition() {
     int positionVal = 1;
-    p2.setShip(0, 0, positionVal); // (0, 0) is a ship now
+    p2.setShip(0, 0, 2, 0, positionVal); // (0, 0) through 2(0) is a ship now
     assertEquals(positionVal, p2.getPosition(0, 0));
+
+  }
+
+  @Test
+  public void testSetShip() {
+    int ship = 1;
+    int sea = 0;
+
+    p2.setShip(0, 0, 2, 0, ship);
+    assertEquals(ship, p2.getPosition(0, 0));
+    assertEquals(ship, p2.getPosition(1, 0));
+    assertEquals(ship, p2.getPosition(2, 0));
+
+    // Error when set board position to non 0, or 1 label
+    assertEquals(-1, p2.setShip(0, 0, 2, 0, 90));
+
+    // Error when place ship diagonally
+    assertEquals(-1, p2.setShip(0, 0, 1, 1, 1));
 
   }
 
@@ -52,9 +70,11 @@ class PlayerTest {
   public void testHit() {
     int hit = 1;
     int miss = 0;
-    p2.setShip(0, 0, hit);
-    p2.setShip(0, 1, miss);
+    p2.setShip(0, 0, 2, 0, hit);
     assertEquals(hit, p1.hit(0, 0, p2));
+    assertEquals(hit, p1.hit(1, 0, p2));
+    assertEquals(hit, p1.hit(2, 0, p2));
     assertEquals(miss, p1.hit(0, 1, p2));
+
   }
 }

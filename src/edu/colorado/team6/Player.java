@@ -33,12 +33,17 @@ public class Player {
   }
 
   public int getPosition(int x, int y){
-    return this.board[x][y];
+    return this.board[y][x];
   }
 
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
   // come back later to verify length of ship matches dist between points
-  public int setShip(int x1, int y1, int x2, int y2) {
+  // Also, prevent overlapping ships
+  public int setShip(int x1, int y1, int x2, int y2, int label) {
+    if(label != 0 && label != 1){
+      System.out.println("Label must be a 1(ship), or a 0(sea)");
+      return -1;
+    }
     if((Math.abs(x1-x2) != 0) && (Math.abs(y1-y2) != 0)){
       System.out.println("Cannot place ships diagonally!");
       return -1;
@@ -46,12 +51,12 @@ public class Player {
     //adapted for cartesian coordinates
     if (Math.abs(x1-x2) != 0){
       for(int i = x1; i <= x2; i++){
-        this.board[y1][i] = 1;
+        this.board[y1][i] = label;
       }
     }
     else{
       for(int i = y1; i <= y2; i++){
-        this.board[i][x1] = 1;
+        this.board[i][x1] = label;
       }
     }
     return 1;
@@ -61,14 +66,11 @@ public class Player {
     int hitStat;
     hitStat = enemy.getPosition(x,y);
     if (hitStat == 1) {
-      System.out.print("Ship hit!");
-      return hitStat;
-    } else if (hitStat == 0) {
-      System.out.print("Missed!");
+      System.out.println("Ship hit!");
       return hitStat;
     } else {
-      System.out.println("Error: enemy board hitStatus returned non 0, or 1 value");
-      return -1;
+      System.out.println("Missed!");
+      return hitStat;
     }
   }
 }
