@@ -1,9 +1,9 @@
 package edu.colorado.team6;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +20,10 @@ class PlayerTest {
   private final int MISS = 0;
   private final int ERROR = -1;
   private final int NONERROR = 1;
+  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+  private final PrintStream originalOut = System.out;
+  private final PrintStream originalErr = System.err;
 
   @BeforeEach
   public void setUp() {
@@ -114,6 +118,7 @@ class PlayerTest {
 
   @Test
   public void testAddRecord() {
+    // Add record
     Player.Record r = new Player.Record(0, 1, HIT);
     p1.addRecord(0, 1, HIT);
 
@@ -124,5 +129,8 @@ class PlayerTest {
     assertEquals(0, x);
     assertEquals(1, y);
     assertEquals(HIT, hitMiss);
+
+    //Try to add record again
+    assertEquals(false, p1.addRecord(x, y, hitMiss));
   }
 }

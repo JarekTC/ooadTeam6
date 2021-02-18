@@ -116,20 +116,23 @@ public class Player {
     return new Record(-1, -1, -1);
   }
 
-  public void addRecord(int x, int y, int hitMiss){
+  public boolean addRecord(int x, int y, int hitMiss){
     //append Record to array list of records
     // CHECK IF RECORD EXISTS
     for(int i = 0; i < hitsMisses.size(); i++) {
       if(x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
         if(hitMiss == hitsMisses.get(i).hitMiss){
           System.out.println("The record already exists!");
+          return false;
         }
         else{
           hitsMisses.get(i).hitMiss = hitMiss;
+          return true;
         }
       }
     }
     Record r = new Record(x,y,hitMiss);
     this.hitsMisses.add(r);
+    return true;
   }
 }
