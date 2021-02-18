@@ -119,6 +119,16 @@ public class Player {
   public void addRecord(int x, int y, int hitMiss){
     //append Record to array list of records
     // CHECK IF RECORD EXISTS
+    for(int i = 0; i < hitsMisses.size(); i++) {
+      if(x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
+        if(hitMiss == hitsMisses.get(i).hitMiss){
+          System.out.println("The record already exists!");
+        }
+        else{
+          hitsMisses.get(i).hitMiss = hitMiss;
+        }
+      }
+    }
     Record r = new Record(x,y,hitMiss);
     this.hitsMisses.add(r);
   }
