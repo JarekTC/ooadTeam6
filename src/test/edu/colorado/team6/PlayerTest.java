@@ -132,5 +132,10 @@ class PlayerTest {
 
     //Try to add record again
     assertEquals(false, p1.addRecord(x, y, hitMiss));
+
+    //Try to add record with same coordinates, but different label
+    assertEquals(true, p1.addRecord(x, y, MISS));
+
+
   }
 }
