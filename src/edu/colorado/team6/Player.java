@@ -91,11 +91,10 @@ public class Player {
   public int hit(int x, int y, Player enemy) {
     int hitStat;
     hitStat = enemy.getPosition(x, y);
-    if (hitStat == SEA){ // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
-      addRecord(x,y, MISS);
-    }
-    else{
-      addRecord(x,y, HIT);
+    if (hitStat == SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
+      addRecord(x, y, MISS);
+    } else {
+      addRecord(x, y, HIT);
     }
 
     if (hitStat == 1) {
@@ -108,30 +107,29 @@ public class Player {
   }
 
   public Record lookupRecord(int x, int y) {
-    for(int i = 0; i < hitsMisses.size(); i++) {
-      if(x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
+    for (int i = 0; i < hitsMisses.size(); i++) {
+      if (x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
         return hitsMisses.get(i);
       }
     }
     return new Record(-1, -1, -1);
   }
 
-  public boolean addRecord(int x, int y, int hitMiss){
-    //append Record to array list of records
+  public boolean addRecord(int x, int y, int hitMiss) {
+    // append Record to array list of records
     // CHECK IF RECORD EXISTS
-    for(int i = 0; i < hitsMisses.size(); i++) {
-      if(x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
-        if(hitMiss == hitsMisses.get(i).hitMiss){
+    for (int i = 0; i < hitsMisses.size(); i++) {
+      if (x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
+        if (hitMiss == hitsMisses.get(i).hitMiss) {
           System.out.println("The record already exists!");
           return false;
-        }
-        else{
+        } else {
           hitsMisses.get(i).hitMiss = hitMiss;
           return true;
         }
       }
     }
-    Record r = new Record(x,y,hitMiss);
+    Record r = new Record(x, y, hitMiss);
     this.hitsMisses.add(r);
     return true;
   }
