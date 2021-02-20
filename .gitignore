@@ -1,6 +1,6 @@
 # User-specific
 .idea/**/Project.xml
-.idea/**/codeStyleConfig.xml
+.idea/codeStyles/codeStyleConfig.xml
 .idea/**/google-java-format.xml
 .idea/vcs.xml
 .idea/**/workspace.xml
@@ -8,6 +8,7 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+
 
 # Generated files
 .idea/**/contentModel.xml
