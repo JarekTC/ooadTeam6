@@ -17,7 +17,7 @@ class PlayerTest {
   private final int SHIP = 1;
   private final int SEA = 0;
   private final int HIT = 1;
-  private final int MISS = 0;
+  private final int MISS = 0; //Remove HIT and MISS. Replace variables with SHIP and SEA accordingly
   private final int ERROR = -1;
   private final int NONERROR = 1;
   private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -68,25 +68,18 @@ class PlayerTest {
   }
 
   @Test
-  public void testGetPosition() {
-    p2.setShip(0, 0, 2, 0, SHIP); // (0, 0) through 2(0) is a ship now
-    assertEquals(SHIP, p2.getPosition(0, 0));
-
-  }
-
-  @Test
   public void testSetShip() {
     // Place horizontal ship
     p2.setShip(0, 0, 2, 0, SHIP);
-    assertEquals(SHIP, p2.getPosition(0, 0));
-    assertEquals(SHIP, p2.getPosition(1, 0));
-    assertEquals(SHIP, p2.getPosition(2, 0));
+    assertEquals(SHIP, p1.hit(0, 0, p2));
+    assertEquals(SHIP, p1.hit(1, 0, p2));
+    assertEquals(SHIP, p1.hit(2, 0, p2));
 
     // Place vertical ship
     p2.setShip(0, 0, 0, 2, SHIP);
-    assertEquals(SHIP, p2.getPosition(0, 0));
-    assertEquals(SHIP, p2.getPosition(0, 1));
-    assertEquals(SHIP, p2.getPosition(0, 2));
+    assertEquals(SHIP, p1.hit(0, 0, p2));
+    assertEquals(SHIP, p1.hit(0, 1, p2));
+    assertEquals(SHIP, p1.hit(0, 2, p2));
 
     // Error when set board position to non 0, or 1 label
     assertEquals(ERROR, p2.setShip(0, 0, 2, 0, 90));

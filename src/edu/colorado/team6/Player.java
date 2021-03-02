@@ -36,7 +36,7 @@ public class Player {
 //  private int[][] board = new int[10][10];
   private final int SHIP = 1;
   private final int SEA = 0;
-  private final int HIT = 1;
+  private final int HIT = 1; //Remove HIT and MISS. Replace variables with SHIP and SEA accordingly
   private final int MISS = 0;
   private final int ERROR = -1;
   private final int NONEERROR = 1;
@@ -90,15 +90,14 @@ public class Player {
   }
 
   public int hit(int x, int y, Player enemy) {
-    int hitStat;
-    hitStat = enemy.b.getCoord(x, y);
+    int hitStat = enemy.b.getCoord(x, y);
     if (hitStat == SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
       addRecord(x, y, MISS);
     } else {
       addRecord(x, y, HIT);
     }
 
-    if (hitStat == 1) {
+    if (hitStat == SHIP) {
       System.out.println("Ship hit!");
       return hitStat;
     } else {
