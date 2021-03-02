@@ -19,15 +19,27 @@ class BoardTest {
 
 
     @Test
-    void testGetCoord() {
+    public void testGetCoord() {
         b.setCoord(0, 0, SEA);
         assertEquals(SEA, b.getCoord(0, 0));
 
     }
 
     @Test
-    void testSetCoord() {
+    public void testSetCoord() {
         b.setCoord(0, 0, SEA);
         assertEquals(SEA, b.getCoord(0, 0));
+    }
+
+    @Test
+    public void testSetShip() {
+        // Place horizontal ship
+        assertEquals(NONERROR, b.setShip(0, 0, 2, 0, 3));
+
+        // Error when place ship diagonally
+        assertEquals(ERROR, b.setShip(0, 0, 1, 1, 1));
+
+        //Error when length of ship doesn't match distance between corrdinates
+        assertEquals(ERROR, b.setShip(3, 0, 7, 0, 3));
     }
 }

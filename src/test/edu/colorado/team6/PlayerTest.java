@@ -47,30 +47,30 @@ class PlayerTest {
   }
 
   @Test
-  public void testSetShip() {
+  public void testPlaceShip() {
     // Place horizontal ship
-    assertEquals(NONERROR, p2.placeShip(0, 0, 2, 0, SHIP));
+    assertEquals(NONERROR, p2.placeShip(0, 0, 2, 0, 3));
     assertEquals(SHIP, p1.hit(0, 0, p2));
     assertEquals(SHIP, p1.hit(1, 0, p2));
     assertEquals(SHIP, p1.hit(2, 0, p2));
 
     // Place vertical ship
-    p2.placeShip(0, 0, 0, 2, SHIP);
+    p2.placeShip(0, 0, 0, 2, 3);
     assertEquals(SHIP, p1.hit(0, 0, p2));
     assertEquals(SHIP, p1.hit(0, 1, p2));
     assertEquals(SHIP, p1.hit(0, 2, p2));
 
-    // Error when set board position to non 0, or 1 label
-    assertEquals(ERROR, p2.placeShip(0, 0, 2, 0, 90));
-
     // Error when place ship diagonally
-    assertEquals(ERROR, p2.placeShip(0, 0, 1, 1, 1));
+    assertEquals(ERROR, p2.placeShip(0, 0, 1, 1, 2));
+
+    //Error when length of ship doesn't match distance between corrdinates
+    assertEquals(ERROR, p2.placeShip(3, 0, 7, 0, 3));
 
   }
 
   @Test
   public void testHit() {
-    p2.placeShip(0, 0, 2, 0, SHIP);
+    p2.placeShip(0, 0, 2, 0, 3);
     assertEquals(SHIP, p1.hit(0, 0, p2));
     assertEquals(SHIP, p1.hit(1, 0, p2));
     assertEquals(SHIP, p1.hit(2, 0, p2));
