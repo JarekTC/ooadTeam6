@@ -33,13 +33,14 @@ public class Player {
   private Record record;
   private int score = 0;
   private ArrayList<Record> hitsMisses = new ArrayList<Record>();
-  private int[][] board = new int[10][10];
+//  private int[][] board = new int[10][10];
   private final int SHIP = 1;
   private final int SEA = 0;
   private final int HIT = 1;
   private final int MISS = 0;
   private final int ERROR = -1;
-  private final int NONERROR = 1;
+  private final int NONEERROR = 1;
+  private Board b = new Board();
 
   // constructor
   public Player(String name, Player.Record record) {
@@ -59,9 +60,9 @@ public class Player {
     this.score = score;
   }
 
-  public int getPosition(int x, int y) {
-    return this.board[y][x];
-  }
+//  public int getPosition(int x, int y) {
+//    return this.b.board[y][x];
+//  }
 
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
   // come back later to verify length of ship matches dist between points
@@ -78,19 +79,19 @@ public class Player {
     // adapted for cartesian coordinates
     if (Math.abs(x1 - x2) != 0) {
       for (int i = x1; i <= x2; i++) {
-        this.board[y1][i] = label;
+        this.b.setCoord(i,y1,label);
       }
     } else {
       for (int i = y1; i <= y2; i++) {
-        this.board[i][x1] = label;
+        this.b.setCoord(x1,i,label);
       }
     }
-    return NONERROR;
+    return NONEERROR;
   }
 
   public int hit(int x, int y, Player enemy) {
     int hitStat;
-    hitStat = enemy.getPosition(x, y);
+    hitStat = enemy.b.getCoord(x, y);
     if (hitStat == SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
       addRecord(x, y, MISS);
     } else {
