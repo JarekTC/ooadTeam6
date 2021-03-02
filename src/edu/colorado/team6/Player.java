@@ -2,7 +2,6 @@ package edu.colorado.team6;
 
 import java.awt.*;
 import java.lang.Math;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
@@ -10,7 +9,7 @@ public class Player {
   private String name;
 //  private Record record;
   private int score = 0;
-  private HashMap<Point, Integer> hitsMisses = new HashMap<Point, Integer>();
+  private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
 //  private int[][] board = new int[10][10];
   private final int SHIP = 1;
   private final int SEA = 0;
@@ -85,8 +84,8 @@ public class Player {
 
   public int lookupRecord(int x, int y) {
     Point p = new Point(x,y);
-    if(this.hitsMisses.containsKey(p)){
-        return hitsMisses.get(p);
+    if(this.record.containsKey(p)){
+        return record.get(p);
     }
     return ERROR;
   }
@@ -95,11 +94,11 @@ public class Player {
     // append Record to array list of records
     // CHECK IF RECORD EXISTS
     Point p = new Point(x,y);
-    if(this.hitsMisses.containsKey(p)){
+    if(this.record.containsKey(p)){
       System.out.println("The record already exists!");
       return false;
     }
-    this.hitsMisses.put(p, hitMiss);
+    this.record.put(p, hitMiss);
     return true;
   }
 }
