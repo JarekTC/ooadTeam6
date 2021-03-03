@@ -3,10 +3,6 @@ package edu.colorado.team6;
 import java.awt.*;
 
 public class Board {
-    private final int SHIP = 1;
-    private final int SEA = 0;
-    private final int ERROR = -1;
-    private final int NONEERROR = 1;
     private int[][] board = new int[10][10];
 
 //    private Point[] MineS_pos = new Point[2];
@@ -25,11 +21,11 @@ public class Board {
         int label = 1;
         if ((Math.abs(x1 - x2) != 0) && (Math.abs(y1 - y2) != 0)) {
             System.out.println("Cannot place ships diagonally!");
-            return ERROR;
+            return Constants.ERROR;
         }
         if((Math.abs(x1 - x2) > health) || (Math.abs(y1 - y2) > health)){
             System.out.println("Coordinates longer than health!");
-            return ERROR;
+            return Constants.ERROR;
         }
         // adapted for cartesian coordinates
         // choose position array
@@ -42,6 +38,6 @@ public class Board {
                 this.setCoord(x1,i,label);
             }
         }
-        return NONEERROR;
+        return Constants.NONEERROR;
     }
 }

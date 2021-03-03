@@ -11,10 +11,6 @@ public class Player {
   private int score = 0;
   private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
 //  private int[][] board = new int[10][10];
-  private final int SHIP = 1;
-  private final int SEA = 0;
-  private final int ERROR = -1;
-  private final int NONEERROR = 1;
   private Board b = new Board();
 
   // constructor
@@ -47,13 +43,13 @@ public class Player {
 
   public int hit(int x, int y, Player enemy) {
     int hitStat = enemy.b.getCoord(x, y);
-    if (hitStat == SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
-      addRecord(x, y, SEA);
+    if (hitStat == Constants.SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
+      addRecord(x, y, Constants.SEA);
     } else {
-      addRecord(x, y, SHIP);
+      addRecord(x, y, Constants.SHIP);
     }
 
-    if (hitStat == SHIP) {
+    if (hitStat == Constants.SHIP) {
       System.out.println("Ship hit!");
       return hitStat;
     } else {
@@ -67,7 +63,7 @@ public class Player {
     if(this.record.containsKey(p)){
         return record.get(p);
     }
-    return ERROR;
+    return Constants.ERROR;
   }
 
   public boolean addRecord(int x, int y, int hitMiss) {
