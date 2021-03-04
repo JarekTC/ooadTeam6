@@ -6,13 +6,17 @@ import java.util.Arrays;
 public class Ship {
 
     // Basic private member variables
-    private String typeName;
+    private final String typeName;
     private static int health;
     private static int[][] hits;
 
     // Constructor, currently initialized with name of subclass type
     public Ship(String typeOfShip) {
         typeName = typeOfShip;
+    }
+
+    public void updateHealth(int update){
+        health = update;
     }
 
     // Helper function for subclasses to set proper starting health
@@ -23,6 +27,10 @@ public class Ship {
         for (int i=0; i<hits.length; i++){
             hits[i][1] = 1;
         }
+    }
+    // hits helper
+    public void updateHits(int i, int j, int a){
+        hits[i][j] = a;
     }
 
     // Decrement ship health
@@ -51,7 +59,7 @@ public class Ship {
     }
 
     // Set Captains quarters
-    public static void setCaptainsQuarters(int cpt){
+    public void setCaptainsQuarters(int cpt){
         hits[cpt][0] = 1;
         hits[cpt][1] = 2;
     }

@@ -9,4 +9,11 @@ public class MineSweeper extends Ship {
 
         setCaptainsQuarters(0);
     }
+
+    public void captainsQuartersHit(int index) {
+        for (int i=0; i < 2; i++){
+            updateHits(i, 1, 0);
+        }
+        updateHealth(0);
+    }
 }

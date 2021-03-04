@@ -15,6 +15,19 @@ public class ShipTest {
     }
 
     @Test
+    public void canUpdateHealth(){
+        Ship ship = new Ship("TestShip");
+        ship.updateHealth(3);
+    }
+
+    @Test
+    public void canUpdateHits(){
+        Ship ship = new Ship("TestShip");
+        ship.initializeCorrectHealth(3);
+        ship.updateHits(0,0,1);
+    }
+
+    @Test
     public void canTakeDamage() {
         Ship ship = new Ship("TestShip");
         ship.initializeCorrectHealth(3);
