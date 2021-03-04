@@ -1,6 +1,8 @@
 package edu.colorado.team6;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Board {
@@ -9,6 +11,9 @@ public class Board {
     private MineSweeper ms = new MineSweeper();
     private Destroyer ds = new Destroyer();
     private BattleShip bs = new BattleShip();
+    private ArrayList<Point> msOrientation = new ArrayList <Point>();
+    private ArrayList<Point> dsOrientation = new ArrayList <Point>();
+    private ArrayList<Point> bsOrientation = new ArrayList <Point>();
 
     public int getCoord(int x, int y) {
         int pos = this.board[y][x];
@@ -18,8 +23,18 @@ public class Board {
         else{
             Point coord = new Point(x,y);
             Ship s = getShipLocations(coord);
+            int shipIndex;
+            if(s instanceof MineSweeper){
+                shipIndex = msOrientation.indexOf(coord);
+            }
+            else if(s instanceof Destroyer){
+                shipIndex = dsOrientation.indexOf(coord);
+            }
+            else{
+                shipIndex = bsOrientation.indexOf(coord);
+            }
             //inflict damage
-            //s.takeDamage();
+            s.takeDamage(shipIndex);
             return pos;
         }
     }
@@ -39,7 +54,7 @@ public class Board {
             return Constants.ERROR;
         }
         // adapted for cartesian coordinates
-        // choose position array
+        // CALL SETSHIP ARRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (Math.abs(x1 - x2) != 0) {
             for (int i = x1; i <= x2; i++) {
                 Point coord = new Point(i,y1);
@@ -82,6 +97,34 @@ public class Board {
 
     public Ship getShipLocations(Point coord){
         return this.shipLocations.get(coord);
+    }
+
+    public int setShipArray(int x1, int y1, int x2, int y2, int health, String ship){
+        ArrayList<Point> posi = new ArrayList <Point>();
+        if (Math.abs(x1 - x2) != 0) {
+            for (int i = x1; i <= x2; i++) {
+                Point coord = new Point(i,y1);
+                posi.add(coord);
+            }
+        } else {
+            for (int i = y1; i <= y2; i++) {
+                Point coord = new Point(x1,i);
+                posi.add(coord);
+            }
+        }
+        if (ship.equals(Constants.MINESWEEPER)){
+            Collections.copy(this.msOrientation, posi);
+            return Constants.NONEERROR;
+        }
+        else if(ship.equals(Constants.DESTROYER)){
+            Collections.copy(this.dsOrientation, posi);
+            return Constants.NONEERROR;
+        }
+        else if(ship.equals(Constants.BATTLESHIP)){
+            Collections.copy(this.bsOrientation, posi);
+            return Constants.NONEERROR;
+        }
+        return Constants.ERROR;
     }
 }
 
