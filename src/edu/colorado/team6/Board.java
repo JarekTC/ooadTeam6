@@ -17,7 +17,7 @@ public class Board {
         this.board[y][x] = shipOrSea;
     }
 
-    public int setShip(int x1, int y1, int x2, int y2, int health){ //replace health
+    public int setShip(int x1, int y1, int x2, int y2, int health, String ship){ //replace health
         int label = 1;
         if ((Math.abs(x1 - x2) != 0) && (Math.abs(y1 - y2) != 0)) {
             System.out.println("Cannot place ships diagonally!");
