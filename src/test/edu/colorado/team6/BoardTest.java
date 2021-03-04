@@ -4,10 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
 
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
     private Board b;
+    private MineSweeper ms = new MineSweeper();
+    private Destroyer ds = new Destroyer();
+    private BattleShip bs = new BattleShip();
 
     @BeforeEach
     public void setUp() {
@@ -42,15 +47,19 @@ class BoardTest {
 
     @Test
     public void testSetShipLocations() {
-        assertEquals(Constants.NONEERROR, b.setShipLocations(0, 0, Constants.BATTLESHIP));
-        assertEquals(Constants.ERROR, b.setShipLocations(0, 0, Constants.BATTLESHIP));
+        assertEquals(Constants.NONEERROR, b.setShipLocations(new Point(0, 0), Constants.MINESWEEPER));
+        assertEquals(Constants.ERROR, b.setShipLocations(new Point(0, 0), "randomString"));
+
+        assertEquals(Constants.NONEERROR, b.setShipLocations(new Point(0, 0), Constants.DESTROYER));
+
+        assertEquals(Constants.NONEERROR, b.setShipLocations(new Point(0, 0), Constants.BATTLESHIP));
 
     }
 
     @Test
     public void testGetShipLocation() {
-        b.setShipLocations(0, 0);
-        assertEquals(Constants.SHIP, b.getShipLocations(0, 0));
+        b.setShipLocations(new Point(0, 0), Constants.MINESWEEPER);
+        assertTrue(b.getShipLocations(new Point(0, 0)) instanceof MineSweeper);
     }
 
 }

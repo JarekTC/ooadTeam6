@@ -38,28 +38,28 @@ class PlayerTest {
   @Test
   public void testPlaceShip() {
     // Place horizontal ship
-    assertEquals(Constants.NONEERROR, p2.placeShip(0, 0, 2, 0, 3));
+    assertEquals(Constants.NONEERROR, p2.placeShip(0, 0, 2, 0, 3, Constants.MINESWEEPER));
     assertEquals(Constants.SHIP, p1.hit(0, 0, p2));
     assertEquals(Constants.SHIP, p1.hit(1, 0, p2));
     assertEquals(Constants.SHIP, p1.hit(2, 0, p2));
 
     // Place vertical ship
-    p2.placeShip(0, 0, 0, 2, 3);
+    p2.placeShip(0, 0, 0, 2, 3, Constants.MINESWEEPER);
     assertEquals(Constants.SHIP, p1.hit(0, 0, p2));
     assertEquals(Constants.SHIP, p1.hit(0, 1, p2));
     assertEquals(Constants.SHIP, p1.hit(0, 2, p2));
 
     // Error when place ship diagonally
-    assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2));
+    assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2, Constants.MINESWEEPER));
 
     //Error when length of ship doesn't match distance between corrdinates
-    assertEquals(Constants.ERROR, p2.placeShip(3, 0, 7, 0, 3));
+    assertEquals(Constants.ERROR, p2.placeShip(3, 0, 7, 0, 3, Constants.MINESWEEPER));
 
   }
 
   @Test
   public void testHit() {
-    p2.placeShip(0, 0, 2, 0, 3);
+    p2.placeShip(0, 0, 2, 0, 3, Constants.MINESWEEPER);
     assertEquals(Constants.SHIP, p1.hit(0, 0, p2));
     assertEquals(Constants.SHIP, p1.hit(1, 0, p2));
     assertEquals(Constants.SHIP, p1.hit(2, 0, p2));

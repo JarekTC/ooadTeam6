@@ -19,7 +19,7 @@ public class Board {
             Point coord = new Point(x,y);
             Ship s = getShipLocations(coord);
             //inflict damage
-            s.takeDamage();
+            //s.takeDamage();
             return pos;
         }
     }
@@ -57,15 +57,15 @@ public class Board {
     }
 
     public int setShipLocations(Point coord, String ship){
-        if (ship == Constants.MINESWEEPER){
+        if (ship.equals(Constants.MINESWEEPER)){
             this.shipLocations.put(coord, this.ms);
             return Constants.NONEERROR;
         }
-        else if (ship == Constants.DESTROYER){
+        else if (ship.equals(Constants.DESTROYER)){
             this.shipLocations.put(coord, this.ds);
             return Constants.NONEERROR;
         }
-        else if (ship == Constants.BATTLESHIP){
+        else if (ship.equals(Constants.BATTLESHIP)){
             this.shipLocations.put(coord, this.bs);
             return Constants.NONEERROR;
         }
