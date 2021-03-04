@@ -3,7 +3,7 @@ package edu.colorado.team6;
 public class MineSweeper extends Ship {
     public MineSweeper() {
 
-        super("MineSweeper");
+        super(Constants.MINESWEEPER);
 
         initializeCorrectHealth(2);
 
