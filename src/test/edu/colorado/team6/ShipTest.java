@@ -72,6 +72,7 @@ public class ShipTest {
     @Test
     public void captainsQuartersHit(){
         Ship ship = new Ship("TestShip");
+        ship.initializeCorrectHealth(3);
         ship.setCaptainsQuarters(1);
         ship.takeDamage(1);
         ship.takeDamage(1);
