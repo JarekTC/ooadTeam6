@@ -7,8 +7,8 @@ public class Ship {
 
     // Basic private member variables
     private final String typeName;
-    private static int health;
-    private static int[][] hits;
+    private int health;
+    private int[][] hits;
 
     // Constructor, currently initialized with name of subclass type
     public Ship(String typeOfShip) {
@@ -21,7 +21,7 @@ public class Ship {
 
     // Helper function for subclasses to set proper starting health
     // and initialize array to correct size
-    public static void initializeCorrectHealth(int startHealth) {
+    public void initializeCorrectHealth(int startHealth) {
         health = startHealth;
         hits = new int[health][2];
         for (int i=0; i<hits.length; i++){
