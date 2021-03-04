@@ -1,50 +1,19 @@
 package edu.colorado.team6;
 
+import java.awt.*;
 import java.lang.Math;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
-  public static class Record {
-    int x;
-    int y;
-    int hitMiss;
-
-    Record(int x, int y, int hitMiss) {
-      this.x = x;
-      this.y = y;
-      this.hitMiss = hitMiss;
-    }
-
-    public int[] getRecord() {
-      int arr[] = {this.x, this.y, this.hitMiss};
-      return arr;
-    }
-
-    public int getHitMiss() {
-      return hitMiss;
-    }
-
-    public void setHitMiss(int hitMiss) {
-      this.hitMiss = hitMiss;
-    }
-  }
 
   private String name;
-  private Record record;
   private int score = 0;
-  private ArrayList<Record> hitsMisses = new ArrayList<Record>();
-  private int[][] board = new int[10][10];
-  private final int SHIP = 1;
-  private final int SEA = 0;
-  private final int HIT = 1;
-  private final int MISS = 0;
-  private final int ERROR = -1;
-  private final int NONERROR = 1;
+  private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
+  private Board b = new Board();
 
   // constructor
-  public Player(String name, Player.Record record) {
+  public Player(String name) {
     this.name = name;
-    this.record = record;
   }
   // getter for name
   public String getName() {
@@ -59,45 +28,22 @@ public class Player {
     this.score = score;
   }
 
-  public int getPosition(int x, int y) {
-    return this.board[y][x];
-  }
-
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
   // come back later to verify length of ship matches dist between points
   // Also, prevent overlapping ships
-  public int setShip(int x1, int y1, int x2, int y2, int label) {
-    if (label != SEA && label != SHIP) {
-      System.out.println("Label must be a 1(ship), or a 0(sea)");
-      return ERROR;
-    }
-    if ((Math.abs(x1 - x2) != 0) && (Math.abs(y1 - y2) != 0)) {
-      System.out.println("Cannot place ships diagonally!");
-      return ERROR;
-    }
-    // adapted for cartesian coordinates
-    if (Math.abs(x1 - x2) != 0) {
-      for (int i = x1; i <= x2; i++) {
-        this.board[y1][i] = label;
-      }
-    } else {
-      for (int i = y1; i <= y2; i++) {
-        this.board[i][x1] = label;
-      }
-    }
-    return NONERROR;
+  public int placeShip(int x1, int y1, int x2, int y2, int health, String ship) {
+    return this.b.setShip(x1,y1,x2,y2,health,ship);
   }
 
   public int hit(int x, int y, Player enemy) {
-    int hitStat;
-    hitStat = enemy.getPosition(x, y);
-    if (hitStat == SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
-      addRecord(x, y, MISS);
+    int hitStat = enemy.b.getCoord(x, y);
+    if (hitStat == Constants.SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
+      addRecord(x, y, Constants.SEA);
     } else {
-      addRecord(x, y, HIT);
+      addRecord(x, y, Constants.SHIP);
     }
 
-    if (hitStat == 1) {
+    if (hitStat == Constants.SHIP) {
       System.out.println("Ship hit!");
       return hitStat;
     } else {
@@ -106,31 +52,23 @@ public class Player {
     }
   }
 
-  public Record lookupRecord(int x, int y) {
-    for (int i = 0; i < hitsMisses.size(); i++) {
-      if (x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
-        return hitsMisses.get(i);
-      }
+  public int lookupRecord(int x, int y) {
+    Point p = new Point(x,y);
+    if(this.record.containsKey(p)){
+        return record.get(p);
     }
-    return new Record(-1, -1, -1);
+    return Constants.ERROR;
   }
 
   public boolean addRecord(int x, int y, int hitMiss) {
     // append Record to array list of records
     // CHECK IF RECORD EXISTS
-    for (int i = 0; i < hitsMisses.size(); i++) {
-      if (x == hitsMisses.get(i).x && y == hitsMisses.get(i).y) {
-        if (hitMiss == hitsMisses.get(i).hitMiss) {
-          System.out.println("The record already exists!");
-          return false;
-        } else {
-          hitsMisses.get(i).hitMiss = hitMiss;
-          return true;
-        }
-      }
+    Point p = new Point(x,y);
+    if(this.record.containsKey(p)){
+      System.out.println("The record already exists!");
+      return false;
     }
-    Record r = new Record(x, y, hitMiss);
-    this.hitsMisses.add(r);
+    this.record.put(p, hitMiss);
     return true;
   }
 }
