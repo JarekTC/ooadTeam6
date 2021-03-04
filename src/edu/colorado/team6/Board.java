@@ -42,14 +42,20 @@ public class Board {
         // choose position array
         if (Math.abs(x1 - x2) != 0) {
             for (int i = x1; i <= x2; i++) {
-                this.setCoord(i,y1,label);
                 Point coord = new Point(i,y1);
+                if (shipLocations.containsKey(coord)){
+                    return Constants.ERROR;
+                }
+                this.setCoord(i,y1,label);
                 int success = setShipLocations(coord,ship);
             }
         } else {
             for (int i = y1; i <= y2; i++) {
-                this.setCoord(x1,i,label);
                 Point coord = new Point(x1,i);
+                if (shipLocations.containsKey(coord)){
+                    return Constants.ERROR;
+                }
+                this.setCoord(x1,i,label);
                 int success = setShipLocations(coord,ship);
             }
         }
