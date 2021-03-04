@@ -7,10 +7,8 @@ import java.util.HashMap;
 public class Player {
 
   private String name;
-//  private Record record;
   private int score = 0;
   private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
-//  private int[][] board = new int[10][10];
   private Board b = new Board();
 
   // constructor
@@ -30,15 +28,11 @@ public class Player {
     this.score = score;
   }
 
-//  public int getPosition(int x, int y) {
-//    return this.b.board[y][x];
-//  }
-
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
   // come back later to verify length of ship matches dist between points
   // Also, prevent overlapping ships
-  public int placeShip(int x1, int y1, int x2, int y2, int health) {
-    return this.b.setShip(x1,y1,x2,y2,health);
+  public int placeShip(int x1, int y1, int x2, int y2, int health, String ship) {
+    return this.b.setShip(x1,y1,x2,y2,health,ship);
   }
 
   public int hit(int x, int y, Player enemy) {

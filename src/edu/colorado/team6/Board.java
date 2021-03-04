@@ -1,16 +1,27 @@
 package edu.colorado.team6;
 
 import java.awt.*;
+import java.util.HashMap;
 
 public class Board {
     private int[][] board = new int[10][10];
+    private HashMap<Point, Ship> shipLocations = new HashMap<Point, Ship>();
+    private MineSweeper ms = new MineSweeper();
+    private Destroyer ds = new Destroyer();
+    private BattleShip bs = new BattleShip();
 
-//    private Point[] MineS_pos = new Point[2];
-//    private Point[] Dest_pos = new Point[3];
-//    private Point[] BattleS_pos = new Point[4];
-
-    public Integer getCoord(int x, int y) {
-        return this.board[y][x];
+    public int getCoord(int x, int y) {
+        int pos = this.board[y][x];
+        if (pos == 0){
+            return pos;
+        }
+        else{
+            Point coord = new Point(x,y);
+            Ship s = getShipLocations(coord);
+            //inflict damage
+            s.takeDamage();
+            return pos;
+        }
     }
 
     public void setCoord(int x, int y, int shipOrSea) {
@@ -32,12 +43,48 @@ public class Board {
         if (Math.abs(x1 - x2) != 0) {
             for (int i = x1; i <= x2; i++) {
                 this.setCoord(i,y1,label);
+                Point coord = new Point(i,y1);
+                int success = setShipLocations(coord,ship);
             }
         } else {
             for (int i = y1; i <= y2; i++) {
                 this.setCoord(x1,i,label);
+                Point coord = new Point(x1,i);
+                int success = setShipLocations(coord,ship);
             }
         }
         return Constants.NONEERROR;
     }
+
+    public int setShipLocations(Point coord, String ship){
+        if (ship == Constants.MINESWEEPER){
+            this.shipLocations.put(coord, this.ms);
+            return Constants.NONEERROR;
+        }
+        else if (ship == Constants.DESTROYER){
+            this.shipLocations.put(coord, this.ds);
+            return Constants.NONEERROR;
+        }
+        else if (ship == Constants.BATTLESHIP){
+            this.shipLocations.put(coord, this.bs);
+            return Constants.NONEERROR;
+        }
+        else {
+            return Constants.ERROR;
+        }
+    }
+
+    public Ship getShipLocations(Point coord){
+        return this.shipLocations.get(coord);
+    }
 }
+
+
+
+
+
+
+
+
+
+
