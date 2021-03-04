@@ -25,15 +25,16 @@ public class Board {
             Ship s = getShipLocations(coord);
             int shipIndex;
             if(s instanceof MineSweeper){
-                shipIndex = msOrientation.indexOf(coord);
+                shipIndex = this.msOrientation.indexOf(coord);
             }
             else if(s instanceof Destroyer){
-                shipIndex = dsOrientation.indexOf(coord);
+                shipIndex = this.dsOrientation.indexOf(coord);
             }
             else{
-                shipIndex = bsOrientation.indexOf(coord);
+                shipIndex = this.bsOrientation.indexOf(coord);
             }
             //inflict damage
+            System.out.println(shipIndex);
             s.takeDamage(shipIndex);
             return pos;
         }
@@ -54,7 +55,7 @@ public class Board {
             return Constants.ERROR;
         }
         // adapted for cartesian coordinates
-        // CALL SETSHIP ARRAY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        int retVal = setShipArray(x1, y1, x2, y2, health, ship);
         if (Math.abs(x1 - x2) != 0) {
             for (int i = x1; i <= x2; i++) {
                 Point coord = new Point(i,y1);
@@ -113,15 +114,15 @@ public class Board {
             }
         }
         if (ship.equals(Constants.MINESWEEPER)){
-            Collections.copy(this.msOrientation, posi);
+            this.msOrientation = posi;
             return Constants.NONEERROR;
         }
         else if(ship.equals(Constants.DESTROYER)){
-            Collections.copy(this.dsOrientation, posi);
+            this.dsOrientation = posi;
             return Constants.NONEERROR;
         }
         else if(ship.equals(Constants.BATTLESHIP)){
-            Collections.copy(this.bsOrientation, posi);
+            this.bsOrientation = posi;
             return Constants.NONEERROR;
         }
         return Constants.ERROR;
