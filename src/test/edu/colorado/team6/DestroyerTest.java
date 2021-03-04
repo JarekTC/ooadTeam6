@@ -13,7 +13,7 @@ class DestroyerTest {
     @Test
     public void canTakeDamage() {
         Destroyer d1 = new Destroyer();
-        d1.takeDamage();
+        d1.takeDamage(1);
     }
 
     @Test

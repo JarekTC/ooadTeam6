@@ -13,7 +13,7 @@ class BattleShipTest {
     @Test
     public void canTakeDamage() {
         BattleShip b1 = new BattleShip();
-        b1.takeDamage();
+        b1.takeDamage(1);
     }
 
     @Test

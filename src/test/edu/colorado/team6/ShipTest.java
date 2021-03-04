@@ -17,7 +17,16 @@ public class ShipTest {
     @Test
     public void canTakeDamage() {
         Ship ship = new Ship("TestShip");
-        ship.takeDamage();
+        ship.initializeCorrectHealth(3);
+        ship.takeDamage(1);
+    }
+
+    @Test
+    public void hitEmptySpot() {
+        Ship ship = new Ship("TestShip");
+        ship.initializeCorrectHealth(3);
+        ship.takeDamage(1);
+        ship.takeDamage(1);
     }
 
     @Test
@@ -26,5 +35,32 @@ public class ShipTest {
         ship.showShipType();
     }
 
+    @Test
+    public void canViewHealth() {
+        Ship ship = new Ship("TestShip");
+        ship.getShipHealth();
+    }
 
+    @Test
+    public void hasCaptainsQuarters(){
+        Ship ship = new Ship("TestShip");
+        ship.initializeCorrectHealth(3);
+        ship.setCaptainsQuarters(1);
+    }
+
+    @Test
+    public void canViewCaptainsQuarters(){
+        Ship ship = new Ship("TestShip");
+        ship.initializeCorrectHealth(3);
+        ship.setCaptainsQuarters(1);
+        ship.getCaptainsQuarters();
+    }
+
+    @Test
+    public void captainsQuartersHit(){
+        Ship ship = new Ship("TestShip");
+        ship.setCaptainsQuarters(1);
+        ship.takeDamage(1);
+        ship.takeDamage(1);
+    }
 }
