@@ -43,6 +43,10 @@ class BoardTest {
 
         //Error when length of ship doesn't match distance between corrdinates
         assertEquals(Constants.ERROR, b.setShip(3, 0, 7, 0, 3, Constants.MINESWEEPER));
+
+        //Error when try to place ship that will overlap with another ship
+        assertEquals(Constants.ERROR, b.setShip(0, 0, 0, 4, 4, Constants.BATTLESHIP));
+        assertEquals(Constants.ERROR, b.setShip(0, 0, 4, 0, 4, Constants.BATTLESHIP));
     }
 
     @Test

@@ -44,10 +44,10 @@ class PlayerTest {
     assertEquals(Constants.SHIP, p1.hit(2, 0, p2));
 
     // Place vertical ship
-    p2.placeShip(0, 0, 0, 2, 3, Constants.MINESWEEPER);
-    assertEquals(Constants.SHIP, p1.hit(0, 0, p2));
-    assertEquals(Constants.SHIP, p1.hit(0, 1, p2));
-    assertEquals(Constants.SHIP, p1.hit(0, 2, p2));
+    p2.placeShip(5, 5, 5, 7, 3, Constants.MINESWEEPER);
+    assertEquals(Constants.SHIP, p1.hit(5, 5, p2));
+    assertEquals(Constants.SHIP, p1.hit(5, 6, p2));
+    assertEquals(Constants.SHIP, p1.hit(5, 7, p2));
 
     // Error when place ship diagonally
     assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2, Constants.MINESWEEPER));
