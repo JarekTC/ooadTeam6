@@ -2,9 +2,6 @@ package edu.colorado.team6;
 
 import org.junit.jupiter.api.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
@@ -12,41 +9,12 @@ class PlayerTest {
   private Player p2;
   private String name1 = "Neefan";
   private String name2 = "Sefeel";
-  private Player.Record r1;
-  private Player.Record r2;
-  private final int SHIP = 1;
-  private final int SEA = 0;
-  private final int HIT = 1;
-  private final int MISS = 0;
-  private final int ERROR = -1;
-  private final int NONERROR = 1;
-  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-  private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-  private final PrintStream originalOut = System.out;
-  private final PrintStream originalErr = System.err;
 
   @BeforeEach
   public void setUp() {
-    r1 = new Player.Record(0, 0, HIT);
-    r2 = new Player.Record(0, 1, MISS);
-    p1 = new Player(name1, r1);
-    p2 = new Player(name2, r2);
-  }
 
-  @Test
-  public void testGetRecord() {
-    assertArrayEquals(new int[]{0, 0, HIT}, r1.getRecord());
-  }
-
-  @Test
-  public void testGetHitMiss() {
-    assertEquals(MISS, r2.getHitMiss());
-  }
-
-  @Test
-  public void testSetHitMiss() {
-    r2.setHitMiss(HIT);
-    assertEquals(HIT, r2.getHitMiss());
+    p1 = new Player(name1);
+    p2 = new Player(name2);
   }
 
   @Test
@@ -68,74 +36,43 @@ class PlayerTest {
   }
 
   @Test
-  public void testGetPosition() {
-    p2.setShip(0, 0, 2, 0, SHIP); // (0, 0) through 2(0) is a ship now
-    assertEquals(SHIP, p2.getPosition(0, 0));
-
-  }
-
-  @Test
-  public void testSetShip() {
+  public void testPlaceShip() {
     // Place horizontal ship
-    p2.setShip(0, 0, 2, 0, SHIP);
-    assertEquals(SHIP, p2.getPosition(0, 0));
-    assertEquals(SHIP, p2.getPosition(1, 0));
-    assertEquals(SHIP, p2.getPosition(2, 0));
+    assertEquals(Constants.NONEERROR, p2.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER));
+    assertEquals(Constants.SHIP, p1.hit(0, 0, p2));
+    assertEquals(Constants.SHIP, p1.hit(1, 0, p2));
 
     // Place vertical ship
-    p2.setShip(0, 0, 0, 2, SHIP);
-    assertEquals(SHIP, p2.getPosition(0, 0));
-    assertEquals(SHIP, p2.getPosition(0, 1));
-    assertEquals(SHIP, p2.getPosition(0, 2));
-
-    // Error when set board position to non 0, or 1 label
-    assertEquals(ERROR, p2.setShip(0, 0, 2, 0, 90));
+    p2.placeShip(5, 5, 5, 6, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.SHIP, p1.hit(5, 5, p2));
+    assertEquals(Constants.SHIP, p1.hit(5, 6, p2));
 
     // Error when place ship diagonally
-    assertEquals(ERROR, p2.setShip(0, 0, 1, 1, 1));
+    assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2, Constants.MINESWEEPER));
+
+    //Error when length of ship doesn't match distance between corrdinates
+    assertEquals(Constants.ERROR, p2.placeShip(3, 0, 7, 0, 2, Constants.MINESWEEPER));
 
   }
 
   @Test
   public void testHit() {
-    p2.setShip(0, 0, 2, 0, HIT);
-    assertEquals(HIT, p1.hit(0, 0, p2));
-    assertEquals(HIT, p1.hit(1, 0, p2));
-    assertEquals(HIT, p1.hit(2, 0, p2));
-    assertEquals(MISS, p1.hit(0, 1, p2));
+    p2.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.SHIP, p1.hit(0, 0, p2));
+    assertEquals(Constants.SHIP, p1.hit(1, 0, p2));
+    assertEquals(Constants.SEA, p1.hit(0, 1, p2));
   }
 
   @Test
   public void testLookupRecord() {
-    int x = p1.lookupRecord(400, 400).getRecord()[0];
-    int y = p1.lookupRecord(400, 400).getRecord()[1];
-    int hitMiss = p1.lookupRecord(400, 400).getRecord()[2];
-
-    assertEquals(-1, x);
-    assertEquals(-1, y);
-    assertEquals(-1, hitMiss);
+    p1.addRecord(0, 0, Constants.SHIP);
+    assertEquals(Constants.SHIP, p1.lookupRecord(0, 0));
+    assertEquals(Constants.ERROR, p1.lookupRecord(2, 1));
   }
 
   @Test
   public void testAddRecord() {
-    // Add record
-    Player.Record r = new Player.Record(0, 1, HIT);
-    p1.addRecord(0, 1, HIT);
-
-    int x = p1.lookupRecord(0, 1).getRecord()[0];
-    int y = p1.lookupRecord(0, 1).getRecord()[1];
-    int hitMiss = p1.lookupRecord(0, 1).getRecord()[2];
-
-    assertEquals(0, x);
-    assertEquals(1, y);
-    assertEquals(HIT, hitMiss);
-
-    //Try to add record again
-    assertEquals(false, p1.addRecord(x, y, hitMiss));
-
-    //Try to add record with same coordinates, but different label
-    assertEquals(true, p1.addRecord(x, y, MISS));
-
-
+    assertTrue(p1.addRecord(1, 1, Constants.SEA));
+    assertFalse(p1.addRecord(1, 1, Constants.SEA));
   }
 }
