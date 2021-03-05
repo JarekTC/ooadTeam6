@@ -50,9 +50,8 @@ class PlayerTest {
     // Error when place ship diagonally
     assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2, Constants.MINESWEEPER));
 
-    //Error when length of ship doesn't match distance between corrdinates
+    // Error when length of ship doesn't match distance between corrdinates
     assertEquals(Constants.ERROR, p2.placeShip(3, 0, 7, 0, 2, Constants.MINESWEEPER));
-
   }
 
   @Test
