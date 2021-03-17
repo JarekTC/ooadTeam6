@@ -39,7 +39,7 @@ class PlayerTest {
   public void testPlaceShip() {
     // Place horizontal ship
     assertEquals(Constants.NONEERROR, p2.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER));
-    assertEquals(Constants.SEA, p1.hit(0, 0, p2));//changed to SEA because it was sunk
+    assertEquals(Constants.SEA, p1.hit(0, 0, p2)); // changed to SEA because it was sunk
     assertEquals(Constants.SHIP, p1.hit(1, 0, p2));
 
     // Place vertical ship
@@ -50,15 +50,14 @@ class PlayerTest {
     // Error when place ship diagonally
     assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2, Constants.MINESWEEPER));
 
-    //Error when length of ship doesn't match distance between corrdinates
+    // Error when length of ship doesn't match distance between corrdinates
     assertEquals(Constants.ERROR, p2.placeShip(3, 0, 7, 0, 2, Constants.MINESWEEPER));
-
   }
 
   @Test
   public void testHit() {
     p2.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER);
-    assertEquals(Constants.SEA, p1.hit(0, 0, p2));//changed to sea because it sunk
+    assertEquals(Constants.SEA, p1.hit(0, 0, p2)); // changed to sea because it sunk
     assertEquals(Constants.SHIP, p1.hit(1, 0, p2));
     assertEquals(Constants.SEA, p1.hit(0, 1, p2));
   }

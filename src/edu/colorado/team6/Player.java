@@ -15,6 +15,7 @@ public class Player {
   public Player(String name) {
     this.name = name;
   }
+
   // getter for name
   public String getName() {
     return name;
@@ -32,12 +33,14 @@ public class Player {
   // come back later to verify length of ship matches dist between points
   // Also, prevent overlapping ships
   public int placeShip(int x1, int y1, int x2, int y2, int health, String ship) {
-    return this.b.setShip(x1,y1,x2,y2,health,ship);
+    return this.b.setShip(x1, y1, x2, y2, health, ship);
   }
 
   public int hit(int x, int y, Player enemy) {
     int hitStat = enemy.b.getCoord(x, y);
-    if (hitStat == Constants.SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
+    if (hitStat
+        == Constants
+            .SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
       addRecord(x, y, Constants.SEA);
     } else {
       addRecord(x, y, Constants.SHIP);
@@ -53,9 +56,9 @@ public class Player {
   }
 
   public int lookupRecord(int x, int y) {
-    Point p = new Point(x,y);
-    if(this.record.containsKey(p)){
-        return record.get(p);
+    Point p = new Point(x, y);
+    if (this.record.containsKey(p)) {
+      return record.get(p);
     }
     return Constants.ERROR;
   }
@@ -63,8 +66,8 @@ public class Player {
   public boolean addRecord(int x, int y, int hitMiss) {
     // append Record to array list of records
     // CHECK IF RECORD EXISTS
-    Point p = new Point(x,y);
-    if(this.record.containsKey(p)){
+    Point p = new Point(x, y);
+    if (this.record.containsKey(p)) {
       System.out.println("The record already exists!");
       return false;
     }
