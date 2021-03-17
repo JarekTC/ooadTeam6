@@ -8,4 +8,5 @@ public class Constants {
   public static final String BATTLESHIP = "battleship";
   public static final String DESTROYER = "destroyer";
   public static final String MINESWEEPER = "minesweeper";
+  public static final String SUBMARINE = "submarine";
 }
