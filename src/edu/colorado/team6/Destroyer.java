@@ -1,12 +1,12 @@
 package edu.colorado.team6;
 
 public class Destroyer extends Ship {
-    public Destroyer() {
+  public Destroyer() {
 
-        super(Constants.DESTROYER);
+    super(Constants.DESTROYER);
 
-        initializeCorrectHealth(3);
+    initializeCorrectHealth(3);
 
-        setCaptainsQuarters(1);
-    }
+    setCaptainsQuarters(1);
+  }
 }

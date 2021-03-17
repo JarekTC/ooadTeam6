@@ -40,13 +40,13 @@ public class Ship {
   public int takeDamage(int shipIndex) {
     if (hits[shipIndex][1]
         == 1) { // Do not decrease the overall health of the ship if the captain's quarters has only
-                // been hit once.
+      // been hit once.
       System.out.println(this.typeName + this.health);
       if (this.health != 0)
         this.health =
             this.health
                 - 1; // If at any point, the part of the ship at shipIndex is 1, decrease the
-                     // overall health
+      // overall health
     }
 
     if (hits[shipIndex][0] == 1) {

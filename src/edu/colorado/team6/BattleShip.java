@@ -1,12 +1,12 @@
 package edu.colorado.team6;
 
 public class BattleShip extends Ship {
-    public BattleShip() {
+  public BattleShip() {
 
-        super(Constants.BATTLESHIP);
+    super(Constants.BATTLESHIP);
 
-        initializeCorrectHealth(4);
+    initializeCorrectHealth(4);
 
-        setCaptainsQuarters(2);
-    }
+    setCaptainsQuarters(2);
+  }
 }
