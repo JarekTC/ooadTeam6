@@ -29,7 +29,7 @@ public class Board {
         shipIndex = this.msOrientation.indexOf(coord);
       } else if (s instanceof Destroyer) {
         shipIndex = this.dsOrientation.indexOf(coord);
-      } else if (s instanceof Submarine) {
+      } else if (s instanceof BattleShip) {
         shipIndex = this.bsOrientation.indexOf(coord);
       } else {
         shipIndex = this.ssOrientation.indexOf(coord);
