@@ -11,9 +11,11 @@ public class Board {
   private MineSweeper ms = new MineSweeper();
   private Destroyer ds = new Destroyer();
   private BattleShip bs = new BattleShip();
+  private Submarine ss = new Submarine();
   private ArrayList<Point> msOrientation = new ArrayList<Point>(); // Holds positions of each ship
   private ArrayList<Point> dsOrientation = new ArrayList<Point>();
   private ArrayList<Point> bsOrientation = new ArrayList<Point>();
+  private ArrayList<Point> ssOrientation = new ArrayList<Point>();
 
   public int getCoord(int x, int y) {
     int pos = this.board[y][x];
