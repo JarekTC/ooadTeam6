@@ -21,6 +21,8 @@ public class Board {
     return this.board[y][x];
   }
 
+
+  //Function to be called by Hit() in Player class in order to get index of non overlapped ship/sub
   public int getStandardIndex(int x, int y) {
     Point coord = new Point(x, y);
     Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
@@ -37,6 +39,8 @@ public class Board {
     return shipIndex;
   }
 
+
+  //Function to be called by Hit() in Player class in order to get index of overlapped ship && sub
   public ArrayList<Integer> getOverlapIndex(int x, int y) {
     Point coord = new Point(x, y);
     ArrayList<Ship> overlap = getShipLocations(coord);
