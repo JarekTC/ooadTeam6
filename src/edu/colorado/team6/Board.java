@@ -224,14 +224,23 @@ public class Board {
   //TODO: implement method to enforce order of arrayList to account for overlap situations
 
   public int setShipLocations(Point coord, String ship) {
+    ArrayList<Ship> ships = new ArrayList<Ship>();
+
     if (ship.equals(Constants.MINESWEEPER)) {
-      this.shipLocations.put(coord, this.ms);
+      ships.add(this.ms);
+      this.shipLocations.put(coord, ships);
       return Constants.NONEERROR;
     } else if (ship.equals(Constants.DESTROYER)) {
-      this.shipLocations.put(coord, this.ds);
+      ships.add(this.ds);
+      this.shipLocations.put(coord, ships);
       return Constants.NONEERROR;
     } else if (ship.equals(Constants.BATTLESHIP)) {
-      this.shipLocations.put(coord, this.bs);
+      ships.add(this.bs);
+      this.shipLocations.put(coord, ships);
+      return Constants.NONEERROR;
+    } else if (ship.equals(Constants.SUBMARINE)){
+      ships.add(this.ss);
+      this.shipLocations.put(coord, ships);
       return Constants.NONEERROR;
     } else {
       return Constants.ERROR;

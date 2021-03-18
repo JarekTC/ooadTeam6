@@ -86,7 +86,7 @@ class BoardTest {
   @Test
   public void testGetShipLocation() {
     b.setShipLocations(new Point(0, 0), Constants.MINESWEEPER);
-    assertTrue(b.getShipLocations(new Point(0, 0)) instanceof MineSweeper);
+    assertTrue(b.getShipLocations(new Point(0, 0)).get(0) instanceof MineSweeper);
   }
 
   @Test
