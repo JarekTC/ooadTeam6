@@ -214,7 +214,7 @@ public class Board {
 
   //TODO: account for the fact that this function is using an arraylist
   //TODO: implement method to enforce order of arrayList to account for overlap situations
-  
+
   public int setShipLocations(Point coord, String ship) {
     if (ship.equals(Constants.MINESWEEPER)) {
       this.shipLocations.put(coord, this.ms);
