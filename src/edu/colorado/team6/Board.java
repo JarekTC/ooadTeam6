@@ -39,32 +39,6 @@ public class Board {
     return shipIndex;
   }
 
-  /*    DONT NEED THIS FUNCTION ANYMORE, WAITING FOR STEFAN TO CONFIRM CHANGES
-
-  //Function to be called by Hit() in Player class in order to get index of overlapped ship && sub
-  public ArrayList<Integer> getOverlapIndex(int x, int y) {
-    Point coord = new Point(x, y);
-    ArrayList<Ship> overlap = getShipLocations(coord);
-
-    ArrayList<Integer> shipIndecies = new ArrayList<Integer>();
-
-    for (Ship s : overlap) {
-      int shipIndex;
-      if (s instanceof MineSweeper) {
-        shipIndex = this.msOrientation.indexOf(coord);
-      } else if (s instanceof Destroyer) {
-        shipIndex = this.dsOrientation.indexOf(coord);
-      } else if (s instanceof BattleShip) {
-        shipIndex = this.bsOrientation.indexOf(coord);
-      } else {
-        shipIndex = this.ssOrientation.indexOf(coord);
-      }
-      shipIndecies.add(shipIndex);
-    }
-    return shipIndecies;
-  }
-  */
-
   public int bombApplyDamage(int x, int y) {
     int index = getStandardIndex(x, y, 0);
     Point coord = new Point(x, y);
@@ -82,10 +56,6 @@ public class Board {
   }
 
   /*
-      //Tentatively done----------------------------------------------
-  TODO: Need to account for order of ships in array list in order to deal damage to correct index
-  //when applying damage in this function
-  //
   //General idea is that hit function will call getCoord to know what is at spot, then call
   //correct functions to deal damage according to ship conditions and perk activations
   */
@@ -116,69 +86,6 @@ public class Board {
   }
 
 
-/*
-    OLD CODE FROM ORIGINAL GETCOORD FUNCTION
-
-  if (pos == 0) {
-      return pos;
-    } else if ((pos == 1 || pos == 2)) {
-      Point coord = new Point(x, y);
-      Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
-      int shipIndex;
-      if (s instanceof MineSweeper) {
-        shipIndex = this.msOrientation.indexOf(coord);
-      } else if (s instanceof Destroyer) {
-        shipIndex = this.dsOrientation.indexOf(coord);
-      } else if (s instanceof BattleShip) {
-        shipIndex = this.bsOrientation.indexOf(coord);
-      } else {
-        shipIndex = this.ssOrientation.indexOf(coord);
-      }
-      // inflict damage
-      System.out.println(shipIndex);
-
-      int preHealth = s.getShipHealth();
-      System.out.println("get coord health " + preHealth);
-      s.takeDamage(shipIndex);
-
-      // If a section of the ship is sunk, remove part of the ship from the board
-      if (s.getShipHealth() < preHealth) {
-        System.out.println("hello neel");
-        setCoord(x, y, Constants.SEA);
-      }
-      return this.board[y][x]; // switched from pos to this.board[y][x]
-    } else {
-      Point coord = new Point(x, y);
-      ArrayList<Ship> overlap = getShipLocations(coord);
-
-
-      for (Ship s : overlap) {
-        int shipIndex;
-        if (s instanceof MineSweeper) {
-          shipIndex = this.msOrientation.indexOf(coord);
-        } else if (s instanceof Destroyer) {
-          shipIndex = this.dsOrientation.indexOf(coord);
-        } else if (s instanceof BattleShip) {
-          shipIndex = this.bsOrientation.indexOf(coord);
-        } else {
-          shipIndex = this.ssOrientation.indexOf(coord);
-        }
-        int preHealth = s.getShipHealth();
-        s.takeDamage(shipIndex);
-
-        // If a section of the ship is sunk, remove part of the ship from the board
-        if (s.getShipHealth() < preHealth) {
-          setCoord(x, y, Constants.SEA);
-        }
-      }
-        return this.board[y][x];
-    }
-  }
-
-
-*/
-
-
   public void setCoord(int x, int y, int shipOrSea) {
     this.board[y][x] = shipOrSea;
   }
@@ -187,16 +94,59 @@ public class Board {
     return this.board[y][x];
   }
 
-  public int setShip(int x1, int y1, int x2, int y2, int health, String ship) { // replace health
-    int label = 1; //TODO: NEED TO PASS IN LABEL TO ACCOUNT FOR SUBMARINE, AND STACKED SHIPS
+  //Bounds Checking Functions ---------------------------------------------------------------------
+  public int diagonalBoundsCheck(int x1, int y1, int x2, int y2){
     if ((Math.abs(x1 - x2) != 0) && (Math.abs(y1 - y2) != 0)) {
       System.out.println("Cannot place ships diagonally!");
       return Constants.ERROR;
     }
-    if ((Math.abs(x1 - x2) > health) || (Math.abs(y1 - y2) > health)) {
+    return Constants.NONEERROR;
+  }
+
+  public int lengthCheck(int x1, int y1, int x2, int y2, int length, String shipName){
+
+    if ((Math.abs(x1 - x2) > length) || (Math.abs(y1 - y2) > length)) {
       System.out.println("Coordinates longer than health!");
       return Constants.ERROR;
     }
+
+    return Constants.NONEERROR;
+  }
+
+  public int outOfBoundsCheck(int x1, int y1, int x2, int y2, String shipName){
+
+    //This checks that all points are within the board
+    if ((x1 < 0) || (x1 > 9) || (y1 < 0) || (y1 > 9)){
+      return Constants.ERROR;
+    }
+
+    if ((x2 < 0) || (x2 > 9) || (y2 < 0) || (y2 > 9)){
+      return Constants.ERROR;
+    }
+
+    //This checks if the submarine is within bounds
+    if (shipName.equals(Constants.SUBMARINE)){
+      if ((x1 == 0) && (y1 < y2)){
+        return Constants.ERROR;
+      }
+      if ((y1 == 9) && (x1 < x2)){
+        return Constants.ERROR;
+      }
+      if ((x1 == 9) && (y1 > y2)){
+        return Constants.ERROR;
+      }
+      if ((y1 == 0) && (x1 > x2)){
+        return Constants.ERROR;
+      }
+    }
+
+    return Constants.NONEERROR;
+  }
+  //-----------------------------------------------------------------------------------------------
+
+  public int setShip(int x1, int y1, int x2, int y2, int health, String ship) { // replace health
+    int label = 1; //TODO: NEED TO PASS IN LABEL TO ACCOUNT FOR SUBMARINE, AND STACKED SHIPS
+
     // adapted for cartesian coordinates
     int retVal = setShipArray(x1, y1, x2, y2, health, ship);
     if (Math.abs(x1 - x2) != 0) {
