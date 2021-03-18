@@ -23,9 +23,9 @@ public class Board {
 
 
   //Function to be called by Hit() in Player class in order to get index of non overlapped ship/sub
-  public int getStandardIndex(int x, int y) {
+  public int getStandardIndex(int x, int y, int shipNumber) {
     Point coord = new Point(x, y);
-    Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
+    Ship s = getShipLocations(coord).get(shipNumber); // Handle just a ship or submarine at location (No overlap)
     int shipIndex;
     if (s instanceof MineSweeper) {
       shipIndex = this.msOrientation.indexOf(coord);
@@ -39,7 +39,7 @@ public class Board {
     return shipIndex;
   }
 
-
+  /*
   //Function to be called by Hit() in Player class in order to get index of overlapped ship && sub
   public ArrayList<Integer> getOverlapIndex(int x, int y) {
     Point coord = new Point(x, y);
@@ -62,9 +62,10 @@ public class Board {
     }
     return shipIndecies;
   }
+  */
 
   public int bombApplyDamage(int x, int y) {
-    int index = getStandardIndex(x, y);
+    int index = getStandardIndex(x, y, 0);
     Point coord = new Point(x, y);
     Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
 
@@ -91,26 +92,29 @@ public class Board {
       return 0;
     }
 
-    ArrayList<Integer> indices = getOverlapIndex(x, y);
+    //ArrayList<Integer> indices = getOverlapIndex(x, y);
     Point coord = new Point(x, y);
     ArrayList<Ship> shipList = getShipLocations(coord); // account for overlap
 
+    int incrementer = 0;
+
     for (Ship s : shipList) {
       int preHealth = s.getShipHealth();
-      s.takeDamage();
+      s.takeDamage(getStandardIndex(x, y, incrementer));
 
       // If a section of the ship is sunk, remove part of the ship from the board
       if (s.getShipHealth() < preHealth) {
         setCoord(x, y, Constants.SEA);
       }
+      incrementer++;
     }
-
-
 
     return 0;
   }
 
 
+/*
+    OLD CODE FROM ORIGINAL GETCOORD FUNCTION
 
   if (pos == 0) {
       return pos;
@@ -169,7 +173,7 @@ public class Board {
   }
 
 
-
+*/
 
 
   public void setCoord(int x, int y, int shipOrSea) {
