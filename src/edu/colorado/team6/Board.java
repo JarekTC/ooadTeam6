@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Board {
   private int[][] board = new int[10][10];
-  private HashMap<Point, Ship> shipLocations = new HashMap<Point, Ship>();
+  private HashMap<Point, ArrayList<Ship>> shipLocations = new HashMap<Point, ArrayList<Ship>>();
   private MineSweeper ms = new MineSweeper();
   private Destroyer ds = new Destroyer();
   private BattleShip bs = new BattleShip();
@@ -48,7 +48,7 @@ public class Board {
       }
       return this.board[y][x]; // switched from pos to this.board[y][x]
     } else {
-      
+
       return this.board[y][x];
     }
   }
@@ -113,7 +113,7 @@ public class Board {
   }
 
   public Ship getShipLocations(Point coord) {
-    return this.shipLocations.get(coord);
+    return this.shipLocations.get(coord).get(0);
   }
 
   public int setShipArray(int x1, int y1, int x2, int y2, int health, String ship) {
