@@ -21,7 +21,7 @@ public class Board {
     int pos = this.board[y][x];
     if (pos == 0) {
       return pos;
-    } else {
+    } else if (pos == 1 || pos == 2) {
       Point coord = new Point(x, y);
       Ship s = getShipLocations(coord);
       int shipIndex;
@@ -47,6 +47,9 @@ public class Board {
         setCoord(x, y, Constants.SEA);
       }
       return this.board[y][x]; // switched from pos to this.board[y][x]
+    } else {
+      
+      return this.board[y][x];
     }
   }
 
