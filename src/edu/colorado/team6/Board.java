@@ -18,9 +18,97 @@ public class Board {
   private ArrayList<Point> ssOrientation = new ArrayList<Point>();
 
   public int getCoord(int x, int y) {
-    int pos = this.board[y][x];
-    return pos;
-    if (pos == 0) {
+    return this.board[y][x];
+  }
+
+  public int getStandardIndex(int x, int y) {
+    Point coord = new Point(x, y);
+    Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
+    int shipIndex;
+    if (s instanceof MineSweeper) {
+      shipIndex = this.msOrientation.indexOf(coord);
+    } else if (s instanceof Destroyer) {
+      shipIndex = this.dsOrientation.indexOf(coord);
+    } else if (s instanceof BattleShip) {
+      shipIndex = this.bsOrientation.indexOf(coord);
+    } else {
+      shipIndex = this.ssOrientation.indexOf(coord);
+    }
+    return shipIndex;
+  }
+
+  public ArrayList<Integer> getOverlapIndex(int x, int y) {
+    Point coord = new Point(x, y);
+    ArrayList<Ship> overlap = getShipLocations(coord);
+
+    ArrayList<Integer> shipIndecies = new ArrayList<Integer>();
+
+    for (Ship s : overlap) {
+      int shipIndex;
+      if (s instanceof MineSweeper) {
+        shipIndex = this.msOrientation.indexOf(coord);
+      } else if (s instanceof Destroyer) {
+        shipIndex = this.dsOrientation.indexOf(coord);
+      } else if (s instanceof BattleShip) {
+        shipIndex = this.bsOrientation.indexOf(coord);
+      } else {
+        shipIndex = this.ssOrientation.indexOf(coord);
+      }
+      shipIndecies.add(shipIndex);
+    }
+    return shipIndecies;
+  }
+
+  public int bombApplyDamage(int x, int y) {
+    int index = getStandardIndex(x, y);
+    Point coord = new Point(x, y);
+    Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
+
+    int preHealth = s.getShipHealth();
+    s.takeDamage(index);
+
+    // If a section of the ship is sunk, remove part of the ship from the board
+    if (s.getShipHealth() < preHealth) {
+      setCoord(x, y, Constants.SEA);
+    }
+
+    return 0;
+  }
+
+  /*TODO: Need to account for order of ships in array list in order to deal damage to correct index
+  //when applying damage in this function
+  //
+  //General idea is that hit function will call getCoord to know what is at spot, then call
+  //correct functions to deal damage according to ship conditions and perk activations
+  */
+  public int laserApplyDamage(int x, int y, boolean overlap) {
+    if (!overlap) {
+      bombApplyDamage(x, y);
+      return 0;
+    }
+
+    ArrayList<Integer> indices = getOverlapIndex(x, y);
+    Point coord = new Point(x, y);
+    ArrayList<Ship> shipList = getShipLocations(coord); // account for overlap
+
+    for (Ship s : shipList) {
+      int preHealth = s.getShipHealth();
+      s.takeDamage();
+
+      // If a section of the ship is sunk, remove part of the ship from the board
+      if (s.getShipHealth() < preHealth) {
+        setCoord(x, y, Constants.SEA);
+      }
+    }
+
+
+
+    return 0;
+  }
+
+
+
+  if (pos == 0) {
       return pos;
     } else if ((pos == 1 || pos == 2)) {
       Point coord = new Point(x, y);
@@ -49,8 +137,8 @@ public class Board {
       }
       return this.board[y][x]; // switched from pos to this.board[y][x]
     } else {
-        Point coord = new Point(x, y);
-        ArrayList<Ship> overlap = getShipLocations(coord);
+      Point coord = new Point(x, y);
+      ArrayList<Ship> overlap = getShipLocations(coord);
 
 
       for (Ship s : overlap) {
@@ -76,13 +164,9 @@ public class Board {
     }
   }
 
-  public int applyDamage() {
 
-  }
 
-  public int getIndex() {
 
-  }
 
   public void setCoord(int x, int y, int shipOrSea) {
     this.board[y][x] = shipOrSea;
@@ -128,6 +212,9 @@ public class Board {
     return Constants.NONEERROR;
   }
 
+  //TODO: account for the fact that this function is using an arraylist
+  //TODO: implement method to enforce order of arrayList to account for overlap situations
+  
   public int setShipLocations(Point coord, String ship) {
     if (ship.equals(Constants.MINESWEEPER)) {
       this.shipLocations.put(coord, this.ms);

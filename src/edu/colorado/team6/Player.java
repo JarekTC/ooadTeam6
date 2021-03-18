@@ -37,7 +37,7 @@ public class Player {
   }
 
   public int hit(int x, int y, Player enemy) {
-    int hitStat = enemy.b.getCoord(x, y);
+    int hitStat = enemy.b.getCoord(x, y); //ISAAC CHANGE THIS
     if (hitStat
         == Constants
             .SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
