@@ -39,7 +39,8 @@ public class Board {
     return shipIndex;
   }
 
-  /*
+  /*    DONT NEED THIS FUNCTION ANYMORE, WAITING FOR STEFAN TO CONFIRM CHANGES
+
   //Function to be called by Hit() in Player class in order to get index of overlapped ship && sub
   public ArrayList<Integer> getOverlapIndex(int x, int y) {
     Point coord = new Point(x, y);
@@ -80,7 +81,9 @@ public class Board {
     return 0;
   }
 
-  /*TODO: Need to account for order of ships in array list in order to deal damage to correct index
+  /*
+      //Tentatively done----------------------------------------------
+  TODO: Need to account for order of ships in array list in order to deal damage to correct index
   //when applying damage in this function
   //
   //General idea is that hit function will call getCoord to know what is at spot, then call
