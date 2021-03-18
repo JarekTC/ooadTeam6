@@ -21,21 +21,35 @@ class BoardTest {
 
   @Test
   public void testGetCoord() {
-    b.setCoord(0, 0, Constants.SEA);
-    assertEquals(Constants.SEA, b.getCoord(0, 0));
-
-    b.setShip(0, 2, 3, 2, 4, Constants.BATTLESHIP);
-    b.setShip(0, 3, 2, 3, 3, Constants.DESTROYER);
-    b.setShip(0, 4, 1, 4, 2, Constants.MINESWEEPER);
-
-    // Should get a 0 when access coordinate where there are no ships
-    assertEquals(Constants.SEA, b.getCoord(0, 9));
-
-    // Should get a 1 when access coordinate where there is a ships
-    assertEquals(Constants.SHIP, b.getCoord(2, 2));
-    assertEquals(Constants.SEA, b.getCoord(0, 3));
-    assertEquals(Constants.SEA, b.getCoord(0, 4));
+    b.setCoord(1, 0, Constants.SHIP);
+    assertEquals(Constants.SHIP, b.getCoord(1, 0));
+    assertEquals(Constants.SEA, b.getCoord(0, 1));
+//    b.setCoord(0, 0, Constants.SEA);
+//    assertEquals(Constants.SEA, b.getCoord(0, 0));
+//
+//    b.setShip(0, 2, 3, 2, 4, Constants.BATTLESHIP);
+//    b.setShip(0, 3, 2, 3, 3, Constants.DESTROYER);
+//    b.setShip(0, 4, 1, 4, 2, Constants.MINESWEEPER);
+//
+//    // Should get a 0 when access coordinate where there are no ships
+//    assertEquals(Constants.SEA, b.getCoord(0, 9));
+//
+//    // Should get a 1 when access coordinate where there is a ships
+//    assertEquals(Constants.SHIP, b.getCoord(2, 2));
+//    assertEquals(Constants.SEA, b.getCoord(0, 3));
+//    assertEquals(Constants.SEA, b.getCoord(0, 4));
   }
+
+  @Test
+  void testGetStandardIndex() {
+
+  }
+
+//  @Test
+//  void testGetOverlapIndex() {}
+
+  @Test
+  void testBombApplyDamage() {}
 
   @Test
   public void testSetCoord() {
