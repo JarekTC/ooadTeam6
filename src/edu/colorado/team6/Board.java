@@ -19,11 +19,12 @@ public class Board {
 
   public int getCoord(int x, int y) {
     int pos = this.board[y][x];
+    return pos;
     if (pos == 0) {
       return pos;
-    } else if (pos == 1 || pos == 2) {
+    } else if ((pos == 1 || pos == 2)) {
       Point coord = new Point(x, y);
-      Ship s = getShipLocations(coord);
+      Ship s = getShipLocations(coord).get(0); // Handle just a ship or submarine at location (No overlap)
       int shipIndex;
       if (s instanceof MineSweeper) {
         shipIndex = this.msOrientation.indexOf(coord);
@@ -48,9 +49,39 @@ public class Board {
       }
       return this.board[y][x]; // switched from pos to this.board[y][x]
     } else {
+        Point coord = new Point(x, y);
+        ArrayList<Ship> overlap = getShipLocations(coord);
 
-      return this.board[y][x];
+
+      for (Ship s : overlap) {
+        int shipIndex;
+        if (s instanceof MineSweeper) {
+          shipIndex = this.msOrientation.indexOf(coord);
+        } else if (s instanceof Destroyer) {
+          shipIndex = this.dsOrientation.indexOf(coord);
+        } else if (s instanceof BattleShip) {
+          shipIndex = this.bsOrientation.indexOf(coord);
+        } else {
+          shipIndex = this.ssOrientation.indexOf(coord);
+        }
+        int preHealth = s.getShipHealth();
+        s.takeDamage(shipIndex);
+
+        // If a section of the ship is sunk, remove part of the ship from the board
+        if (s.getShipHealth() < preHealth) {
+          setCoord(x, y, Constants.SEA);
+        }
+      }
+        return this.board[y][x];
     }
+  }
+
+  public int applyDamage() {
+
+  }
+
+  public int getIndex() {
+
   }
 
   public void setCoord(int x, int y, int shipOrSea) {
@@ -112,8 +143,8 @@ public class Board {
     }
   }
 
-  public Ship getShipLocations(Point coord) {
-    return this.shipLocations.get(coord).get(0);
+  public ArrayList<Ship> getShipLocations(Point coord) {
+    return this.shipLocations.get(coord);
   }
 
   public int setShipArray(int x1, int y1, int x2, int y2, int health, String ship) {
