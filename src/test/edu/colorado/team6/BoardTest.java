@@ -24,32 +24,30 @@ class BoardTest {
     b.setCoord(1, 0, Constants.SHIP);
     assertEquals(Constants.SHIP, b.getCoord(1, 0));
     assertEquals(Constants.SEA, b.getCoord(0, 1));
-//    b.setCoord(0, 0, Constants.SEA);
-//    assertEquals(Constants.SEA, b.getCoord(0, 0));
-//
-//    b.setShip(0, 2, 3, 2, 4, Constants.BATTLESHIP);
-//    b.setShip(0, 3, 2, 3, 3, Constants.DESTROYER);
-//    b.setShip(0, 4, 1, 4, 2, Constants.MINESWEEPER);
-//
-//    // Should get a 0 when access coordinate where there are no ships
-//    assertEquals(Constants.SEA, b.getCoord(0, 9));
-//
-//    // Should get a 1 when access coordinate where there is a ships
-//    assertEquals(Constants.SHIP, b.getCoord(2, 2));
-//    assertEquals(Constants.SEA, b.getCoord(0, 3));
-//    assertEquals(Constants.SEA, b.getCoord(0, 4));
   }
 
   @Test
   void testGetStandardIndex() {
+    b.setShip(0, 0, 0, 1, 2, Constants.MINESWEEPER);
+    assertEquals(0, b.getStandardIndex(0, 0, 0));
 
+    b.setShip(0, 3, 2, 3, 3, Constants.DESTROYER);
+    assertEquals(1, b.getStandardIndex(1, 3, 0));
+
+    b.setShip(5, 8, 5, 5, 4, Constants.BATTLESHIP); // First coordinate is left section of ship as displayed in writeup
+    assertEquals(1, b.getStandardIndex(5, 7, 0));
+
+    // Set submarine that is partially under battleship
+    b.setShip(5, 5, 8, 5, 4, Constants.SUBMARINE);
+    assertEquals(Constants.SUB_UNDER_WATER, b.getStandardIndex(8, 5, 0));
+    assertEquals(Constants.SHIP_ON_TOP_SUB, b.getStandardIndex(5, 5, 1));
   }
 
 //  @Test
 //  void testGetOverlapIndex() {}
 
-  @Test
-  void testBombApplyDamage() {}
+//  @Test
+//  void testBombApplyDamage() {}
 
   @Test
   public void testSetCoord() {
@@ -60,13 +58,13 @@ class BoardTest {
   @Test
   public void testSetShip() {
     // Place horizontal ship
-    assertEquals(Constants.NONEERROR, b.setShip(0, 0, 2, 0, 3, Constants.MINESWEEPER));
+    assertEquals(Constants.NONEERROR, b.setShip(0, 0, 1, 0, 2, Constants.MINESWEEPER));
 
     // Error when place ship diagonally
     assertEquals(Constants.ERROR, b.setShip(0, 0, 1, 1, 1, Constants.MINESWEEPER));
 
     // Error when length of ship doesn't match distance between corrdinates
-    assertEquals(Constants.ERROR, b.setShip(3, 0, 7, 0, 3, Constants.MINESWEEPER));
+    assertEquals(Constants.ERROR, b.setShip(3, 0, 7, 0, 2, Constants.MINESWEEPER));
 
     // Error when try to place ship that will overlap with another ship
     assertEquals(Constants.ERROR, b.setShip(0, 0, 0, 4, 4, Constants.BATTLESHIP));

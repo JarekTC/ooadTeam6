@@ -185,7 +185,7 @@ public class Board {
   }
 
   public int setShip(int x1, int y1, int x2, int y2, int health, String ship) { // replace health
-    int label = 1;
+    int label = 1; //TODO: NEED TO PASS IN LABEL TO ACCOUNT FOR SUBMARINE, AND STACKED SHIPS
     if ((Math.abs(x1 - x2) != 0) && (Math.abs(y1 - y2) != 0)) {
       System.out.println("Cannot place ships diagonally!");
       return Constants.ERROR;
