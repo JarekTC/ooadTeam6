@@ -105,8 +105,8 @@ public class Board {
 
   public int lengthCheck(int x1, int y1, int x2, int y2, int length, String shipName){
 
-    if ((Math.abs(x1 - x2) > length) || (Math.abs(y1 - y2) > length)) {
-      System.out.println("Coordinates longer than health!");
+    if ((Math.abs(x1 - x2)+1 != length) && (Math.abs(y1 - y2)+1 != length)) {
+      System.out.println("Coordinates don't match health!");
       return Constants.ERROR;
     }
 

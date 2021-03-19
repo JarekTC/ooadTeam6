@@ -98,4 +98,41 @@ class BoardTest {
     assertEquals(Constants.NONEERROR, b.setShipArray(0, 4, 2, 4, 2, Constants.MINESWEEPER));
     assertEquals(Constants.ERROR, b.setShipArray(0, 4, 2, 8, 20, "randomString"));
   }
+
+  @Test
+  public void testDiagonal() {
+    //diagonalBoundsCheck(int x1, int y1, int x2, int y2)
+    assertEquals(Constants.ERROR,b.diagonalBoundsCheck(0, 0, 2, 2));
+    assertEquals(Constants.NONEERROR,b.diagonalBoundsCheck(0, 0, 0, 2));
+    assertEquals(Constants.ERROR,b.diagonalBoundsCheck(3, 3, 0, 0));
+  }
+
+  @Test
+  public void testLengthCheck() {
+    assertEquals(Constants.NONEERROR,b.lengthCheck(0, 1, 2, 1, 3, Constants.DESTROYER));
+    assertEquals(Constants.ERROR,b.lengthCheck(0, 1, 6, 1, 4, Constants.BATTLESHIP));
+  }
+
+  @Test
+  public void testOutOfBounds() {
+    assertEquals(Constants.ERROR,b.outOfBoundsCheck(0, 10, 0, 7, Constants.BATTLESHIP));
+    assertEquals(Constants.NONEERROR,b.outOfBoundsCheck(0, 9, 0, 6, Constants.BATTLESHIP));
+    assertEquals(Constants.ERROR,b.outOfBoundsCheck(0, 1, 0, 4, Constants.SUBMARINE));
+    assertEquals(Constants.NONEERROR,b.outOfBoundsCheck(0, 9, 0, 6, Constants.SUBMARINE));
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
