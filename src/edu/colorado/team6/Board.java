@@ -144,6 +144,33 @@ public class Board {
   }
   //-----------------------------------------------------------------------------------------------
 
+  public int setShip(int x1, int y1, int x2, int y2, int health, String ship) {
+
+    int placementStatus;
+
+    if (getCoord(x1, y1) == 0 && getCoord(x2, y2) == 0) {
+      for (int i = x1; i <= x2; i++) {
+        Point coord = new Point(i, y1);
+        if (shipLocations.containsKey(coord)) {
+          return Constants.ERROR;
+        }
+        this.setCoord(i, y1, label);
+        int success = setShipLocations(coord, ship);
+      }
+
+      for (int i = y1; i <= y2; i++) {
+        Point coord = new Point(x1, i);
+        if (shipLocations.containsKey(coord)) {
+          return Constants.ERROR;
+        }
+        this.setCoord(x1, i, label);
+        int success = setShipLocations(coord, ship);
+      }
+    }
+    return placementStatus;
+  }
+
+  /*
   public int setShip(int x1, int y1, int x2, int y2, int health, String ship) { // replace health
     int label = 1; //TODO: NEED TO PASS IN LABEL TO ACCOUNT FOR SUBMARINE, AND STACKED SHIPS
 
@@ -172,6 +199,7 @@ public class Board {
     System.out.println("ship " + ship);
     return Constants.NONEERROR;
   }
+   */
 
   //TODO: account for the fact that this function is using an arraylist
   //TODO: implement method to enforce order of arrayList to account for overlap situations
