@@ -10,6 +10,7 @@ public class Player {
   private int score = 0;
   private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
   private Board b = new Board();
+  private Boolean code;
 
   // constructor
   public Player(String name) {
@@ -36,23 +37,25 @@ public class Player {
     return this.b.setShip(x1, y1, x2, y2, health, ship);
   }
 
-  public int hit(int x, int y, Player enemy) {
+  public int hit(int x, int y, Player enemy, Boolean code) {
     int hitStat = enemy.b.getCoord(x, y); //ISAAC CHANGE THIS
-    if (hitStat
-        == Constants
-            .SEA) { // SHOULDN'T A HIT BE WHEN hitStat IS A 1. IF SO, USE SHIP final VARIABLE?
-      addRecord(x, y, Constants.SEA);
-    } else {
-      addRecord(x, y, Constants.SHIP);
+    addRecord(x, y, hitStat);
+    if (hitStat != Constants.SEA){
+      // laser
+      if (code){
+        Boolean overlap = false;
+        if(hitStat == Constants.SHIP_ON_TOP_SUB){
+          overlap = true;
+        }
+        enemy.b.laserApplyDamage(x,y,overlap);
+      }//bombs
+      else{
+        if(hitStat != Constants.SUB_UNDER_WATER) {
+          enemy.b.bombApplyDamage(x,y);
+        }
+      }
     }
-
-    if (hitStat == Constants.SHIP) {
-      System.out.println("Ship hit!");
-      return hitStat;
-    } else {
-      System.out.println("Missed!");
-      return hitStat;
-    }
+    return hitStat;
   }
 
   public int lookupRecord(int x, int y) {

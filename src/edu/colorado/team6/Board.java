@@ -67,7 +67,6 @@ public class Board {
     if (s.getShipHealth() < preHealth) {
       setCoord(x, y, Constants.SEA);
     }
-
     return 0;
   }
 
@@ -97,10 +96,8 @@ public class Board {
       }
       incrementer++;
     }
-
     return 0;
   }
-
 
   public void setCoord(int x, int y, int shipOrSea) {
     this.board[y][x] = shipOrSea;
@@ -340,38 +337,6 @@ public class Board {
     return Constants.NONEERROR;
   }
 
-
-  /*
-  public int setShip(int x1, int y1, int x2, int y2, int health, String ship) { // replace health
-    int label = 1; //TODO: NEED TO PASS IN LABEL TO ACCOUNT FOR SUBMARINE, AND STACKED SHIPS
-
-    // adapted for cartesian coordinates
-    int retVal = setShipArray(x1, y1, x2, y2, health, ship);
-    if (Math.abs(x1 - x2) != 0) {
-      for (int i = x1; i <= x2; i++) {
-        Point coord = new Point(i, y1);
-        if (shipLocations.containsKey(coord)) {
-          return Constants.ERROR;
-        }
-        this.setCoord(i, y1, label);
-        int success = setShipLocations(coord, ship);
-      }
-    } else {
-      for (int i = y1; i <= y2; i++) {
-        Point coord = new Point(x1, i);
-        if (shipLocations.containsKey(coord)) {
-          return Constants.ERROR;
-        }
-        this.setCoord(x1, i, label);
-        int success = setShipLocations(coord, ship);
-      }
-    }
-    System.out.println("health " + health);
-    System.out.println("ship " + ship);
-    return Constants.NONEERROR;
-  }
-   */
-
   //TODO: account for the fact that this function is using an arraylist
   //TODO: implement method to enforce order of arrayList to account for overlap situations
 
@@ -379,13 +344,28 @@ public class Board {
 
     switch (ship) {
       case Constants.MINESWEEPER:
-        this.shipLocations.get(coord).add(this.ms);
+        if(this.shipLocations.get(coord).get(0) == this.ss){
+          this.shipLocations.get(coord).add(0,this.ms);
+        }
+        else{
+          this.shipLocations.get(coord).add(this.ms);
+        }
         return Constants.NONEERROR;
       case Constants.DESTROYER:
-        this.shipLocations.get(coord).add(this.ds);;
+        if(this.shipLocations.get(coord).get(0) == this.ss){
+          this.shipLocations.get(coord).add(0,this.ds);
+        }
+        else{
+          this.shipLocations.get(coord).add(this.ds);
+        }
         return Constants.NONEERROR;
       case Constants.BATTLESHIP:
-        this.shipLocations.get(coord).add(this.bs);
+        if(this.shipLocations.get(coord).get(0) == this.ss){
+          this.shipLocations.get(coord).add(0,this.bs);
+        }
+        else{
+          this.shipLocations.get(coord).add(this.bs);
+        }
         return Constants.NONEERROR;
       case Constants.SUBMARINE:
         this.shipLocations.get(coord).add(this.ss);
