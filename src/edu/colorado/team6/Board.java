@@ -64,8 +64,24 @@ public class Board {
     s.takeDamage(index);
 
     // If a section of the ship is sunk, remove part of the ship from the board
-    if (s.getShipHealth() < preHealth) {
+    if(s instanceof MineSweeper && index == 0) { // Special case for minesweeper
+      Point otherPoint = new Point();
+      for (int i = 0; i < msOrientation.size(); i++) {
+        if(!msOrientation.get(i).equals(coord)) {
+          otherPoint = msOrientation.get(i);
+        }
+      }
       setCoord(x, y, Constants.SEA);
+      setCoord(otherPoint.x, otherPoint.y, Constants.SEA);
+    }
+    if (s.getShipHealth() < preHealth) {
+      if(getCoord(x, y) != Constants.SHIP_ON_TOP_SUB){
+        System.out.println("Not SHIP_ON_TOP_SUB");
+        setCoord(x, y, Constants.SEA);
+      }
+      else {
+        setCoord(x, y, Constants.SUB_UNDER_WATER);
+      }
     }
     return 0;
   }
@@ -75,10 +91,11 @@ public class Board {
   //correct functions to deal damage according to ship conditions and perk activations
   */
   public int laserApplyDamage(int x, int y, boolean overlap) {
-    if (!overlap) {
-      bombApplyDamage(x, y);
-      return 0;
-    }
+//    if (!overlap) {
+//      bombApplyDamage(x, y);
+//      return 0;
+//    }
+    if ()
 
     //ArrayList<Integer> indices = getOverlapIndex(x, y);
     Point coord = new Point(x, y);
@@ -140,15 +157,19 @@ public class Board {
     //This checks if the submarine is within bounds
     if (shipName.equals(Constants.SUBMARINE)){
       if ((x1 == 0) && (y1 < y2)){
+        System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
       if ((y1 == 9) && (x1 < x2)){
+        System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
       if ((x1 == 9) && (y1 > y2)){
+        System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
       if ((y1 == 0) && (x1 > x2)){
+        System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
     }
@@ -238,7 +259,7 @@ public class Board {
 
   public int setSub(int x1, int y1, int x2, int y2, int health, String ship){
     if(diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR ||
-            lengthCheck(x1, y1, x2, y2, health, ship) == Constants.ERROR ||
+            lengthCheck(x1, y1, x2, y2, health - 1, ship) == Constants.ERROR ||
             outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR ||
             !ship.equals(Constants.SUBMARINE)){
       return Constants.ERROR;
@@ -344,27 +365,25 @@ public class Board {
 
     switch (ship) {
       case Constants.MINESWEEPER:
-        if(this.shipLocations.get(coord).get(0) == this.ss){
-          this.shipLocations.get(coord).add(0,this.ms);
-        }
-        else{
+        if(this.shipLocations.get(coord).size() == 0) {
           this.shipLocations.get(coord).add(this.ms);
+        }
+        else {
+          this.shipLocations.get(coord).add(0,this.ms);
         }
         return Constants.NONEERROR;
       case Constants.DESTROYER:
-        if(this.shipLocations.get(coord).get(0) == this.ss){
-          this.shipLocations.get(coord).add(0,this.ds);
-        }
-        else{
+        if(this.shipLocations.get(coord).size() == 0) {
           this.shipLocations.get(coord).add(this.ds);
+        } else {
+          this.shipLocations.get(coord).add(0, this.ds);
         }
         return Constants.NONEERROR;
       case Constants.BATTLESHIP:
-        if(this.shipLocations.get(coord).get(0) == this.ss){
-          this.shipLocations.get(coord).add(0,this.bs);
-        }
-        else{
+        if(this.shipLocations.get(coord).size() == 0) {
           this.shipLocations.get(coord).add(this.bs);
+        } else {
+          this.shipLocations.get(coord).add(0,this.bs);
         }
         return Constants.NONEERROR;
       case Constants.SUBMARINE:

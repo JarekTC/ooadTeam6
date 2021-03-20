@@ -12,6 +12,10 @@ public class Player {
   private Board b = new Board();
   private Boolean code;
 
+  public Board getB() {
+    return b;
+  }
+
   // constructor
   public Player(String name) {
     this.name = name;
@@ -34,7 +38,12 @@ public class Player {
   // come back later to verify length of ship matches dist between points
   // Also, prevent overlapping ships
   public int placeShip(int x1, int y1, int x2, int y2, int health, String ship) {
-    return this.b.setShip(x1, y1, x2, y2, health, ship);
+    if(!ship.equals(Constants.SUBMARINE)){
+      return this.b.setShip(x1, y1, x2, y2, health, ship);
+    } else {
+      System.out.println("PLACING SUB");
+      return this.b.setSub(x1, y1, x2, y2, health, ship);
+    }
   }
 
   public int hit(int x, int y, Player enemy, Boolean code) {
@@ -51,11 +60,12 @@ public class Player {
       }//bombs
       else{
         if(hitStat != Constants.SUB_UNDER_WATER) {
+          System.out.println(hitStat + " sdjvbsdiuvbsidvisudvivhvvahjds");
           enemy.b.bombApplyDamage(x,y);
         }
       }
     }
-    return hitStat;
+    return enemy.b.getCoord(x, y);
   }
 
   public int lookupRecord(int x, int y) {
