@@ -30,9 +30,9 @@ public class Board {
   }
 
   public void printBoard(){
-    for(int i = 0; i < 10; i++){
-      for(int j = 0; j < 10; j++){
-        System.out.print(getCoord(i,j) + " ");
+    for(int y = 9; y >= 0; y--){
+      for(int x = 0; x < 10; x++){
+        System.out.print(getCoord(x,y) + " ");
       }
       System.out.println();
     }
@@ -242,78 +242,101 @@ public class Board {
   public int setSub(int x1, int y1, int x2, int y2, int health, String ship){
     if(diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR ||
             lengthCheck(x1, y1, x2, y2, health, ship) == Constants.ERROR ||
-            outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR) {
+            outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR ||
+            !ship.equals(Constants.SUBMARINE)){
       return Constants.ERROR;
     }
+
     // Horizontal ship (Smallest to largest coordinates)
     if ((x2 - x1) > 0) {
       for (int i = x1; i <= x2; i++) {
         System.out.println("in branch where placing vertical ship");
         // Check is there is a submarine at placement location
-        if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
+        if (getCoord(i, y1) == Constants.SHIP) {
           setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
         }
         else if (getCoord(i, y1) == Constants.SEA) {
-          setCoord(i, y1, Constants.SHIP);
+          setCoord(i, y1, Constants.SUB_UNDER_WATER);
         }
         else {
           return Constants.ERROR;
         }
         setShipLocations(new Point(i, y1), ship);
       }
-      setCoord(x2-1, y1+1, Constants.SHIP);
+      if(getCoord(x2-1, y1+1) == Constants.SHIP) {
+        setCoord(x2-1, y1+1, Constants.SHIP_ON_TOP_SUB);
+      }
+      else {
+        setCoord(x2-1, y1+1, Constants.SUB_UNDER_WATER);
+      }
       setShipLocations(new Point(x2-1, y1+1), ship);
       // Horizontal ship (Largest to smallest coordinates)
     } else if ((x2 - x1) < 0) {
       for (int i = x1; i >= x2; i--) {
         // Check is there is a submarine at placement location
-        if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
+        if (getCoord(i, y1) == Constants.SHIP) {
           setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
         }
         else if (getCoord(i, y1) == Constants.SEA) {
-          setCoord(i, y1, Constants.SHIP);
+          setCoord(i, y1, Constants.SUB_UNDER_WATER);
         }
         else {
           return Constants.ERROR;
         }
         setShipLocations(new Point(i, y1), ship);
       }
-      setCoord(x2+1, y1-1, Constants.SHIP);
+      if(getCoord(x2+1, y1-1) == Constants.SHIP) {
+        setCoord(x2+1, y1-1, Constants.SHIP_ON_TOP_SUB);
+      }
+      else {
+        setCoord(x2+1, y1-1, Constants.SUB_UNDER_WATER);
+      }
       setShipLocations(new Point(x2+1, y1-1), ship);
     }
     // Vertical ship (Smallest to largest coordinates)
     else if ((y2 - y1) > 0) {
       for (int i = y1; i <= y2; i++) {
         // Check is there is a submarine at placement location
-        if (getCoord(x1, i) == Constants.SUB_UNDER_WATER) {
+        if (getCoord(x1, i) == Constants.SHIP) {
           setCoord(x1, i, Constants.SHIP_ON_TOP_SUB);
         } else if (getCoord(x1, i) == Constants.SEA) {
-          setCoord(x1, i, Constants.SHIP);
+          setCoord(x1, i, Constants.SUB_UNDER_WATER);
         } else {
           return Constants.ERROR;
         }
         setShipLocations(new Point(x1, i), ship);
       }
-      setCoord(x1-1, y2-1, Constants.SHIP);
+      if(getCoord(x1-1, y2-1) == Constants.SHIP) {
+        setCoord(x1-1, y2-1, Constants.SHIP_ON_TOP_SUB);
+      }
+      else {
+        setCoord(x1-1, y2-1, Constants.SUB_UNDER_WATER);
+      }
       setShipLocations(new Point(x1-1, y2-1), ship);
     }
     else {
       for (int i = y1; i >= y2; i--) {
         // Check is there is a submarine at placement location
-        if (getCoord(x1, i) == Constants.SUB_UNDER_WATER) {
+        if (getCoord(x1, i) == Constants.SHIP) {
           setCoord(x1, i, Constants.SHIP_ON_TOP_SUB);
         }
         else if (getCoord(x1, i) == Constants.SEA) {
-          setCoord(x1, i, Constants.SHIP);
+          setCoord(x1, i, Constants.SUB_UNDER_WATER);
         }
         else {
           return Constants.ERROR;
         }
         setShipLocations(new Point(x1, i), ship);
       }
-      setCoord(x1+1, y2+1, Constants.SHIP);
+      if(getCoord(x1+1, y2+1) == Constants.SHIP) {
+        setCoord(x1+1, y2+1, Constants.SHIP_ON_TOP_SUB);
+      }
+      else {
+        setCoord(x1+1, y2+1, Constants.SUB_UNDER_WATER);
+      }
       setShipLocations(new Point(x1+1, y2+1), ship);
     }
+    setShipArray(x1, y1, x2, y2, health, ship);
     return Constants.NONEERROR;
   }
 
@@ -384,12 +407,19 @@ public class Board {
         Point coord = new Point(i, y1);
         posi.add(coord);
       }
+      //Add off one coordinate for sub
+      if(ship.equals(Constants.SUBMARINE)) {
+        posi.add(new Point(x2-1, y1+1));
+      }
     }
     // Horizontal ship (largest to smallest coordinates)
     else if ((x1 - x2) > 0) {
       for (int i = x1; i >= x2; i--) {
         Point coord = new Point(i, y1);
         posi.add(coord);
+      }
+      if(ship.equals(Constants.SUBMARINE)) {
+        posi.add(new Point(x2+1, y1-1));
       }
     }
     // Vertical ship (smallest to largest coordinates)
@@ -399,11 +429,17 @@ public class Board {
         System.out.println("Calling from setShipArray():" + x1 + " " + i);
         posi.add(coord);
       }
+      if(ship.equals(Constants.SUBMARINE)) {
+        posi.add(new Point(x1-1, y2-1));
+      }
     }
     else {
       for (int i = y1; i >= y2; i--) {
         Point coord = new Point(x1, i);
         posi.add(coord);
+      }
+      if(ship.equals(Constants.SUBMARINE)) {
+        posi.add(new Point(x1+1, y2+1));
       }
     }
 
@@ -416,6 +452,12 @@ public class Board {
         return Constants.NONEERROR;
       case Constants.BATTLESHIP:
         this.bsOrientation = posi;
+        return Constants.NONEERROR;
+      case Constants.SUBMARINE:
+        for (int i = 0; i < posi.size(); i++) {
+          System.out.println(ship + ": " + posi.get(i).x + ", " + posi.get(i).y);
+        }
+        this.ssOrientation = posi;
         return Constants.NONEERROR;
     }
     return Constants.ERROR;
