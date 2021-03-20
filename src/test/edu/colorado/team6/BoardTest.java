@@ -60,10 +60,19 @@ class BoardTest {
     // Place horizontal ship
     assertEquals(Constants.NONEERROR, b.setShip(0, 0, 1, 0, 2, Constants.MINESWEEPER));
 
+    // Add submarine, so destroyer at 5, 9 overlaps submarine. USE SPECIAL SUBMARINE ADD FUNCTION
+    //assertEquals(Constants.NONEERROR, b.setShip(2, 9, 5, 9, 4, Constants.SUBMARINE));
+
+    // Place horizontal ship (coordinates largest to smallest)
+    assertEquals(Constants.NONEERROR, b.setShip(5, 9, 5, 7, 3, Constants.DESTROYER));
+
+    // Error, because ship already placed at 0,0
+    assertEquals(Constants.ERROR, b.setShip(1, 0, 0, 0, 2, Constants.MINESWEEPER));
+
     // Error when place ship diagonally
     assertEquals(Constants.ERROR, b.setShip(0, 0, 1, 1, 1, Constants.MINESWEEPER));
 
-    // Error when length of ship doesn't match distance between corrdinates
+    // Error when length of ship doesn't match distance between coordinates
     assertEquals(Constants.ERROR, b.setShip(3, 0, 7, 0, 2, Constants.MINESWEEPER));
 
     // Error when try to place ship that will overlap with another ship
@@ -85,6 +94,15 @@ class BoardTest {
   public void testGetShipLocation() {
     b.setShipLocations(new Point(0, 0), Constants.MINESWEEPER);
     assertTrue(b.getShipLocations(new Point(0, 0)).get(0) instanceof MineSweeper);
+
+    b.setShipLocations(new Point(1, 0), Constants.DESTROYER);
+    assertTrue(b.getShipLocations(new Point(1, 0)).get(0) instanceof Destroyer);
+
+    b.setShipLocations(new Point(2, 0), Constants.BATTLESHIP);
+    assertTrue(b.getShipLocations(new Point(2, 0)).get(0) instanceof BattleShip);
+
+    b.setShipLocations(new Point(3, 0), Constants.SUBMARINE);
+    assertTrue(b.getShipLocations(new Point(3, 0)).get(0) instanceof Submarine);
   }
 
   @Test

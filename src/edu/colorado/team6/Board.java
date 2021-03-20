@@ -17,6 +17,14 @@ public class Board {
   private ArrayList<Point> bsOrientation = new ArrayList<Point>();
   private ArrayList<Point> ssOrientation = new ArrayList<Point>();
 
+  Board() {
+    for (int i = 0; i < 10; i++){
+      for (int j = 0; j < 10; j++) {
+        shipLocations.put(new Point(i, j), new ArrayList<Ship>());
+      }
+    }
+  }
+
   public int getCoord(int x, int y) {
     return this.board[y][x];
   }
@@ -145,30 +153,84 @@ public class Board {
   //-----------------------------------------------------------------------------------------------
 
   public int setShip(int x1, int y1, int x2, int y2, int health, String ship) {
+    // Error checking
+    if(diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR ||
+       lengthCheck(x1, y1, x2, y2, health, ship) == Constants.ERROR ||
+       outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR) {
+      return Constants.ERROR;
+    }
 
-    int placementStatus;
-
-    if (getCoord(x1, y1) == 0 && getCoord(x2, y2) == 0) {
-      for (int i = x1; i <= x2; i++) {
-        Point coord = new Point(i, y1);
-        if (shipLocations.containsKey(coord)) {
-          return Constants.ERROR;
+    // Place non-submarine ship
+    if(!ship.equals(Constants.SUBMARINE)) {
+      // Horizontal ship (Smallest to largest coordinates)
+      if ((x2 - x1) > 0) {
+        for (int i = x1; i <= x2; i++) {
+          System.out.println("in branch where placing vertical ship");
+          // Check is there is a submarine at placement location
+          if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
+            setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
+          }
+          else if (getCoord(i, y1) == Constants.SEA) {
+            setCoord(i, y1, Constants.SHIP);
+          }
+          else {
+            return Constants.ERROR;
+          }
+          setShipLocations(new Point(i, y1), ship);
         }
-        this.setCoord(i, y1, label);
-        int success = setShipLocations(coord, ship);
+        // Horizontal ship (Largest to smallest coordinates)
+      } else if ((x2 - x1) < 0) {
+        for (int i = x1; i >= x2; i--) {
+          // Check is there is a submarine at placement location
+          if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
+            setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
+          }
+          else if (getCoord(i, y1) == Constants.SEA) {
+            setCoord(i, y1, Constants.SHIP);
+          }
+          else {
+            return Constants.ERROR;
+          }
+          setShipLocations(new Point(i, y1), ship);
+        }
       }
-
-      for (int i = y1; i <= y2; i++) {
-        Point coord = new Point(x1, i);
-        if (shipLocations.containsKey(coord)) {
-          return Constants.ERROR;
+      // Vertical ship (Smallest to largest coordinates)
+      else if ((y2 - y1) > 0) {
+        for (int i = y1; i <= y2; i++) {
+          // Check is there is a submarine at placement location
+          if (getCoord(x1, i) == Constants.SUB_UNDER_WATER) {
+            setCoord(x1, i, Constants.SHIP_ON_TOP_SUB);
+          }
+          else if (getCoord(x1, i) == Constants.SEA) {
+            setCoord(x1, i, Constants.SHIP);
+          }
+          else {
+            return Constants.ERROR;
+          }
+          setShipLocations(new Point(x1, i), ship);
         }
-        this.setCoord(x1, i, label);
-        int success = setShipLocations(coord, ship);
+      }
+      // Vertical ship (Largest to smallest coordinates)
+      else {
+        for (int i = y1; i >= y2; i--) {
+          // Check is there is a submarine at placement location
+          if (getCoord(x1, i) == Constants.SUB_UNDER_WATER) {
+            setCoord(x1, i, Constants.SHIP_ON_TOP_SUB);
+          }
+          else if (getCoord(x1, i) == Constants.SEA) {
+            setCoord(x1, i, Constants.SHIP);
+          }
+          else {
+            return Constants.ERROR;
+          }
+          setShipLocations(new Point(x1, i), ship);
+        }
       }
     }
-    return placementStatus;
+    setShipArray(x1, y1, x2, y2, health, ship);
+    return Constants.NONEERROR;
   }
+
 
   /*
   public int setShip(int x1, int y1, int x2, int y2, int health, String ship) { // replace health
@@ -205,26 +267,22 @@ public class Board {
   //TODO: implement method to enforce order of arrayList to account for overlap situations
 
   public int setShipLocations(Point coord, String ship) {
-    ArrayList<Ship> ships = new ArrayList<Ship>();
 
-    if (ship.equals(Constants.MINESWEEPER)) {
-      ships.add(this.ms);
-      this.shipLocations.put(coord, ships);
-      return Constants.NONEERROR;
-    } else if (ship.equals(Constants.DESTROYER)) {
-      ships.add(this.ds);
-      this.shipLocations.put(coord, ships);
-      return Constants.NONEERROR;
-    } else if (ship.equals(Constants.BATTLESHIP)) {
-      ships.add(this.bs);
-      this.shipLocations.put(coord, ships);
-      return Constants.NONEERROR;
-    } else if (ship.equals(Constants.SUBMARINE)){
-      ships.add(this.ss);
-      this.shipLocations.put(coord, ships);
-      return Constants.NONEERROR;
-    } else {
-      return Constants.ERROR;
+    switch (ship) {
+      case Constants.MINESWEEPER:
+        this.shipLocations.get(coord).add(this.ms);
+        return Constants.NONEERROR;
+      case Constants.DESTROYER:
+        this.shipLocations.get(coord).add(this.ds);;
+        return Constants.NONEERROR;
+      case Constants.BATTLESHIP:
+        this.shipLocations.get(coord).add(this.bs);
+        return Constants.NONEERROR;
+      case Constants.SUBMARINE:
+        this.shipLocations.get(coord).add(this.ss);
+        return Constants.NONEERROR;
+      default:
+        return Constants.ERROR;
     }
   }
 
@@ -234,26 +292,45 @@ public class Board {
 
   public int setShipArray(int x1, int y1, int x2, int y2, int health, String ship) {
     ArrayList<Point> posi = new ArrayList<Point>();
-    if (Math.abs(x1 - x2) != 0) {
+    // Horizontal ship (smallest to largest coordinates)
+    if ((x1 - x2) < 0) {
       for (int i = x1; i <= x2; i++) {
         Point coord = new Point(i, y1);
         posi.add(coord);
       }
-    } else {
+    }
+    // Horizontal ship (largest to smallest coordinates)
+    else if ((x1 - x2) > 0) {
+      for (int i = x1; i >= x2; i--) {
+        Point coord = new Point(i, y1);
+        posi.add(coord);
+      }
+    }
+    // Vertical ship (smallest to largest coordinates)
+    else if ((y1 - y2) < 0) {
       for (int i = y1; i <= y2; i++) {
+        Point coord = new Point(x1, i);
+        System.out.println("Calling from setShipArray():" + x1 + " " + i);
+        posi.add(coord);
+      }
+    }
+    else {
+      for (int i = y1; i >= y2; i--) {
         Point coord = new Point(x1, i);
         posi.add(coord);
       }
     }
-    if (ship.equals(Constants.MINESWEEPER)) {
-      this.msOrientation = posi;
-      return Constants.NONEERROR;
-    } else if (ship.equals(Constants.DESTROYER)) {
-      this.dsOrientation = posi;
-      return Constants.NONEERROR;
-    } else if (ship.equals(Constants.BATTLESHIP)) {
-      this.bsOrientation = posi;
-      return Constants.NONEERROR;
+
+    switch (ship) {
+      case Constants.MINESWEEPER:
+        this.msOrientation = posi;
+        return Constants.NONEERROR;
+      case Constants.DESTROYER:
+        this.dsOrientation = posi;
+        return Constants.NONEERROR;
+      case Constants.BATTLESHIP:
+        this.bsOrientation = posi;
+        return Constants.NONEERROR;
     }
     return Constants.ERROR;
   }
