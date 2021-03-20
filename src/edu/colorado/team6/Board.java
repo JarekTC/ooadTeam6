@@ -29,6 +29,14 @@ public class Board {
     return this.board[y][x];
   }
 
+  public void printBoard(){
+    for(int i = 0; i < 10; i++){
+      for(int j = 0; j < 10; j++){
+        System.out.print(getCoord(i,j) + " ");
+      }
+      System.out.println();
+    }
+  }
 
   //Function to be called by Hit() in Player class in order to get index of non overlapped ship/sub
   public int getStandardIndex(int x, int y, int shipNumber) {
@@ -228,6 +236,84 @@ public class Board {
       }
     }
     setShipArray(x1, y1, x2, y2, health, ship);
+    return Constants.NONEERROR;
+  }
+
+  public int setSub(int x1, int y1, int x2, int y2, int health, String ship){
+    if(diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR ||
+            lengthCheck(x1, y1, x2, y2, health, ship) == Constants.ERROR ||
+            outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR) {
+      return Constants.ERROR;
+    }
+    // Horizontal ship (Smallest to largest coordinates)
+    if ((x2 - x1) > 0) {
+      for (int i = x1; i <= x2; i++) {
+        System.out.println("in branch where placing vertical ship");
+        // Check is there is a submarine at placement location
+        if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
+          setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
+        }
+        else if (getCoord(i, y1) == Constants.SEA) {
+          setCoord(i, y1, Constants.SHIP);
+        }
+        else {
+          return Constants.ERROR;
+        }
+        setShipLocations(new Point(i, y1), ship);
+      }
+      setCoord(x2-1, y1+1, Constants.SHIP);
+      setShipLocations(new Point(x2-1, y1+1), ship);
+      // Horizontal ship (Largest to smallest coordinates)
+    } else if ((x2 - x1) < 0) {
+      for (int i = x1; i >= x2; i--) {
+        // Check is there is a submarine at placement location
+        if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
+          setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
+        }
+        else if (getCoord(i, y1) == Constants.SEA) {
+          setCoord(i, y1, Constants.SHIP);
+        }
+        else {
+          return Constants.ERROR;
+        }
+        setShipLocations(new Point(i, y1), ship);
+      }
+      setCoord(x2+1, y1-1, Constants.SHIP);
+      setShipLocations(new Point(x2+1, y1-1), ship);
+    }
+    // Vertical ship (Smallest to largest coordinates)
+    else if ((y2 - y1) > 0) {
+      for (int i = y1; i <= y2; i++) {
+        // Check is there is a submarine at placement location
+        if (getCoord(x1, i) == Constants.SUB_UNDER_WATER) {
+          setCoord(x1, i, Constants.SHIP_ON_TOP_SUB);
+        } else if (getCoord(x1, i) == Constants.SEA) {
+          setCoord(x1, i, Constants.SHIP);
+        } else {
+          return Constants.ERROR;
+        }
+        setShipLocations(new Point(x1, i), ship);
+      }
+      setCoord(x1-1, y2-1, Constants.SHIP);
+      setShipLocations(new Point(x1-1, y2-1), ship);
+    }
+    else {
+      for (int i = y1; i >= y2; i--) {
+        // Check is there is a submarine at placement location
+        if (getCoord(x1, i) == Constants.SUB_UNDER_WATER) {
+          setCoord(x1, i, Constants.SHIP_ON_TOP_SUB);
+        }
+        else if (getCoord(x1, i) == Constants.SEA) {
+          setCoord(x1, i, Constants.SHIP);
+        }
+        else {
+          return Constants.ERROR;
+        }
+        setShipLocations(new Point(x1, i), ship);
+      }
+      setCoord(x1+1, y2+1, Constants.SHIP);
+      setShipLocations(new Point(x1+1, y2+1), ship);
+    }
     return Constants.NONEERROR;
   }
 
