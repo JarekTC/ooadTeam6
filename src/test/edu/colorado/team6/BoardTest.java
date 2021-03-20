@@ -38,7 +38,7 @@ class BoardTest {
     assertEquals(1, b.getStandardIndex(5, 7, 0));
 
     // Set submarine that is partially under battleship
-    b.setSub(5, 5, 8, 5, 4, Constants.SUBMARINE);
+    b.setSub(5, 5, 8, 5, 5, Constants.SUBMARINE);
     b.printBoard();
     assertEquals(3, b.getStandardIndex(8, 5, 0));
     assertEquals(0, b.getStandardIndex(5, 5, 1));

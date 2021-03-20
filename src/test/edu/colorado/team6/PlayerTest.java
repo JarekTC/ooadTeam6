@@ -39,13 +39,13 @@ class PlayerTest {
   public void testPlaceShip() {
     // Place horizontal ship
     assertEquals(Constants.NONEERROR, p2.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER));
-    assertEquals(Constants.SHIP, p1.hit(0, 0, p2,false)); // changed to SEA because it was sunk
-    assertEquals(Constants.SHIP, p1.hit(1, 0, p2,false));
+    assertEquals(Constants.SEA, p1.hit(0, 0, p2,false)); // changed to SEA because it was sunk
+    assertEquals(Constants.SEA, p1.hit(1, 0, p2,false));
 
     // Place vertical ship
     p2.placeShip(5, 5, 5, 6, 2, Constants.MINESWEEPER);
-    assertEquals(Constants.SHIP, p1.hit(5, 5, p2, false));
-    assertEquals(Constants.SHIP, p1.hit(5, 6, p2, false));
+    assertEquals(Constants.SEA, p1.hit(5, 5, p2, false));
+    assertEquals(Constants.SEA, p1.hit(5, 6, p2, false));
 
     // Error when place ship diagonally
     assertEquals(Constants.ERROR, p2.placeShip(0, 0, 1, 1, 2, Constants.MINESWEEPER));
@@ -68,9 +68,12 @@ class PlayerTest {
 
     //Using laser
     assertEquals(Constants.SEA, p1.hit(1, 0, p2,true));
-    assertEquals(Constants.SEA, p1.hit(1, 3, p2,true));
+    assertEquals(Constants.SUB_UNDER_WATER, p1.hit(1, 3, p2,true));//CHQ
     assertEquals(Constants.SEA, p1.hit(1, 0, p2,true));
 
+    p2.placeShip(0,8,2,8,3, Constants.DESTROYER);
+    p2.placeShip(0,8,0,5,5,Constants.SUBMARINE);
+    assertEquals(Constants.SEA, p1.hit(0,8, p2, true));
   }
 
   @Test

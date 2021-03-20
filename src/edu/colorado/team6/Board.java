@@ -95,7 +95,6 @@ public class Board {
 //      bombApplyDamage(x, y);
 //      return 0;
 //    }
-    if ()
 
     //ArrayList<Integer> indices = getOverlapIndex(x, y);
     Point coord = new Point(x, y);
@@ -105,7 +104,20 @@ public class Board {
 
     for (Ship s : shipList) {
       int preHealth = s.getShipHealth();
-      s.takeDamage(getStandardIndex(x, y, incrementer));
+      int index = getStandardIndex(x, y, incrementer);
+      s.takeDamage(index);
+
+//      if((s instanceof MineSweeper) && (index == 0)){
+//        for (int i = 0; i < msOrientation.size(); i++) {
+//          Point otherPoint = new Point(x, y);
+//          setCoord(otherPoint.x, otherPoint.y, Constants.SEA);
+//        }
+//      }
+//      else if((s instanceof Destroyer) && (index == 1)){
+//
+//      }
+
+
 
       // If a section of the ship is sunk, remove part of the ship from the board
       if (s.getShipHealth() < preHealth) {
