@@ -1,12 +1,12 @@
 package edu.colorado.team6;
 
-public class Submarine extends Ship{
-    public Submarine() {
+public class Submarine extends Ship {
+  public Submarine() {
 
-        super(Constants.SUBMARINE);
+    super(Constants.SUBMARINE);
 
-        initializeCorrectHealth(5);
+    initializeCorrectHealth(5);
 
-        setCaptainsQuarters(3);
-    }
+    setCaptainsQuarters(3);
+  }
 }

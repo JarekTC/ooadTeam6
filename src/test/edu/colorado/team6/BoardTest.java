@@ -40,7 +40,13 @@ class BoardTest {
     b.setShip(0, 3, 2, 3, 3, Constants.DESTROYER);
     assertEquals(1, b.getStandardIndex(1, 3, 0));
 
-    b.setShip(5, 8, 5, 5, 4, Constants.BATTLESHIP); // First coordinate is left section of ship as displayed in writeup
+    b.setShip(
+        5,
+        8,
+        5,
+        5,
+        4,
+        Constants.BATTLESHIP); // First coordinate is left section of ship as displayed in writeup
     assertEquals(1, b.getStandardIndex(5, 7, 0));
 
     // Set submarine that is partially under battleship
@@ -50,8 +56,8 @@ class BoardTest {
     assertEquals(0, b.getStandardIndex(5, 5, 1));
   }
 
-//  @Test
-//  void testGetOverlapIndex() {}
+  //  @Test
+  //  void testGetOverlapIndex() {}
 
   @Test
   void testBombApplyDamage() {
@@ -65,8 +71,6 @@ class BoardTest {
     b.setCoord(0, 0, Constants.SEA);
     assertEquals(Constants.SEA, b.getCoord(0, 0));
   }
-
-
 
   @Test
   public void testSetShip() {
@@ -102,9 +106,9 @@ class BoardTest {
     assertEquals(Constants.ERROR, b.setShip(0, 3, 0, 4, 2, Constants.MINESWEEPER));
     b.setCoord(0, 4, Constants.SEA);
 
-    //Ship on top of ship
+    // Ship on top of ship
     assertEquals(Constants.ERROR, b.setShip(4, 8, 4, 6, 3, Constants.DESTROYER));
-    //Clean up set coordinates from error ship
+    // Clean up set coordinates from error ship
     b.setCoord(4, 6, Constants.SEA);
     b.setCoord(4, 7, Constants.SEA);
 
@@ -124,14 +128,14 @@ class BoardTest {
     assertEquals(Constants.ERROR, b.setShip(0, 0, 0, 4, 4, Constants.BATTLESHIP));
     assertEquals(Constants.ERROR, b.setShip(0, 0, 4, 0, 4, Constants.BATTLESHIP));
 
-    //Error when use setShip with submarine
+    // Error when use setShip with submarine
     assertEquals(Constants.ERROR, b.setShip(0, 5, 3, 5, 5, Constants.SUBMARINE));
     b.printBoard();
   }
 
   @Test
   public void testSetSub() {
-    //Error when use setSub with non-submarine ship
+    // Error when use setSub with non-submarine ship
     assertEquals(Constants.ERROR, b.setSub(0, 0, 1, 0, 2, Constants.MINESWEEPER));
 
     // Place horizontal sub on top of sub
@@ -155,31 +159,27 @@ class BoardTest {
     b.setCoord(5, 7, Constants.SEA);
     b.setCoord(4, 7, Constants.SEA);
 
-    //Horizontal arm . largest to smallest
+    // Horizontal arm . largest to smallest
     b.setShip(7, 7, 8, 7, 2, Constants.MINESWEEPER);
     assertEquals(Constants.NONEERROR, b.setSub(9, 8, 6, 8, 5, Constants.SUBMARINE));
 
-    //vertical ship sub overlap (smallest to largest)
+    // vertical ship sub overlap (smallest to largest)
     assertEquals(Constants.NONEERROR, b.setSub(8, 4, 8, 7, 5, Constants.SUBMARINE));
 
-
-    //vertical sub sub overlap (small to large)
+    // vertical sub sub overlap (small to large)
     assertEquals(Constants.ERROR, b.setSub(8, 4, 8, 7, 5, Constants.SUBMARINE));
 
-    //vertical sub sub overlap (small to large)
-    b.setShip(5,6,6,6, 2, Constants.MINESWEEPER);
+    // vertical sub sub overlap (small to large)
+    b.setShip(5, 6, 6, 6, 2, Constants.MINESWEEPER);
     assertEquals(Constants.NONEERROR, b.setSub(6, 4, 6, 7, 5, Constants.SUBMARINE));
 
-
-    //vertical large to small, sub-sub overlap
+    // vertical large to small, sub-sub overlap
     assertEquals(Constants.ERROR, b.setSub(8, 7, 8, 4, 5, Constants.SUBMARINE));
 
-    //vertical large to small, sub-ship overlap
-    b.setShip(7,1,8,1, 2, Constants.MINESWEEPER);
+    // vertical large to small, sub-ship overlap
+    b.setShip(7, 1, 8, 1, 2, Constants.MINESWEEPER);
     assertEquals(Constants.NONEERROR, b.setSub(7, 3, 7, 0, 5, Constants.SUBMARINE));
     b.printBoard();
-
-
   }
 
   @Test
@@ -221,42 +221,27 @@ class BoardTest {
 
   @Test
   public void testDiagonal() {
-    //diagonalBoundsCheck(int x1, int y1, int x2, int y2)
-    assertEquals(Constants.ERROR,b.diagonalBoundsCheck(0, 0, 2, 2));
-    assertEquals(Constants.NONEERROR,b.diagonalBoundsCheck(0, 0, 0, 2));
-    assertEquals(Constants.ERROR,b.diagonalBoundsCheck(3, 3, 0, 0));
+    // diagonalBoundsCheck(int x1, int y1, int x2, int y2)
+    assertEquals(Constants.ERROR, b.diagonalBoundsCheck(0, 0, 2, 2));
+    assertEquals(Constants.NONEERROR, b.diagonalBoundsCheck(0, 0, 0, 2));
+    assertEquals(Constants.ERROR, b.diagonalBoundsCheck(3, 3, 0, 0));
   }
 
   @Test
   public void testLengthCheck() {
-    assertEquals(Constants.NONEERROR,b.lengthCheck(0, 1, 2, 1, 3, Constants.DESTROYER));
-    assertEquals(Constants.ERROR,b.lengthCheck(0, 1, 6, 1, 4, Constants.BATTLESHIP));
+    assertEquals(Constants.NONEERROR, b.lengthCheck(0, 1, 2, 1, 3, Constants.DESTROYER));
+    assertEquals(Constants.ERROR, b.lengthCheck(0, 1, 6, 1, 4, Constants.BATTLESHIP));
   }
 
   @Test
   public void testOutOfBounds() {
-    assertEquals(Constants.ERROR,b.outOfBoundsCheck(0, 10, 0, 7, Constants.BATTLESHIP));
-    assertEquals(Constants.NONEERROR,b.outOfBoundsCheck(0, 9, 0, 6, Constants.BATTLESHIP));
-    assertEquals(Constants.ERROR,b.outOfBoundsCheck(0, 1, 0, 4, Constants.SUBMARINE));
-    assertEquals(Constants.NONEERROR,b.outOfBoundsCheck(0, 9, 0, 6, Constants.SUBMARINE));
+    assertEquals(Constants.ERROR, b.outOfBoundsCheck(0, 10, 0, 7, Constants.BATTLESHIP));
+    assertEquals(Constants.NONEERROR, b.outOfBoundsCheck(0, 9, 0, 6, Constants.BATTLESHIP));
+    assertEquals(Constants.ERROR, b.outOfBoundsCheck(0, 1, 0, 4, Constants.SUBMARINE));
+    assertEquals(Constants.NONEERROR, b.outOfBoundsCheck(0, 9, 0, 6, Constants.SUBMARINE));
     assertEquals(Constants.ERROR, b.outOfBoundsCheck(8, 9, -9, 8, Constants.BATTLESHIP));
     assertEquals(Constants.ERROR, b.outOfBoundsCheck(0, 9, 3, 9, Constants.SUBMARINE));
     assertEquals(Constants.ERROR, b.outOfBoundsCheck(9, 9, 9, 6, Constants.SUBMARINE));
     assertEquals(Constants.ERROR, b.outOfBoundsCheck(3, 0, 0, 0, Constants.SUBMARINE));
   }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

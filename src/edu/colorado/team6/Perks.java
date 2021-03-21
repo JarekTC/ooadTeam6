@@ -7,13 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Perks {
-  //    private
-//  private Board b;
-//
-//  Perks(Board b) {
-//    this.b = b;
-//  }
-//  ;
   Janitor j = new Janitor();
 
   public HashMap<Point, Integer> sonar(Point coord, Board b) {
@@ -68,126 +61,125 @@ public class Perks {
     return radar;
   }
 
-  public ArrayList<String> moveFleet(Board b, char direction){
+  public ArrayList<String> moveFleet(Board b, char direction) {
     // for each ship, increment in direction
     // then check bounds, if no error, implement changes
     // otherwise don't modify
-    HashMap<String,ArrayList<Point>> master = b.getMasterOrientation();
+    HashMap<String, ArrayList<Point>> master = b.getMasterOrientation();
     Iterator it = master.entrySet().iterator();
     ArrayList<String> movedShips = new ArrayList<String>();
 
-    for(Map.Entry<String,ArrayList<Point>> pair: master.entrySet()){
-      String ship = (String)pair.getKey();
-      ArrayList<Point> shipCoord = (ArrayList<Point>)pair.getValue();
-      //if not submarine
+    for (Map.Entry<String, ArrayList<Point>> pair : master.entrySet()) {
+      String ship = (String) pair.getKey();
+      ArrayList<Point> shipCoord = (ArrayList<Point>) pair.getValue();
+      // if not submarine
       int len = shipCoord.size();
-      if(!ship.equals(Constants.SUBMARINE)){
-        //TODO:Check whether arraylists in master are empty or not (when have only 1 ship in fleet, get error)
+      if (!ship.equals(Constants.SUBMARINE)) {
+        // TODO:Check whether arraylists in master are empty or not (when have only 1 ship in fleet,
+        // get error)
         Point start = shipCoord.get(0);
         Point end = shipCoord.get(len - 1);
         int x1 = start.x;
         int y1 = start.y;
         int x2 = end.x;
         int y2 = end.y;
-        //check bounds
+        // check bounds
         int ok = 0;
-        switch(direction) {
-          case('N'):
-            ok = b.outOfBoundsCheck(x1,y1 + 1,x2,y2 + 1,ship);
+        switch (direction) {
+          case ('N'):
+            ok = b.outOfBoundsCheck(x1, y1 + 1, x2, y2 + 1, ship);
             break;
-          case('E'):
-            ok = b.outOfBoundsCheck(x1 + 1,y1,x2 + 1,y2,ship);
+          case ('E'):
+            ok = b.outOfBoundsCheck(x1 + 1, y1, x2 + 1, y2, ship);
             break;
-          case('S'):
-            ok = b.outOfBoundsCheck(x1,y1 - 1,x2,y2 - 1,ship);
+          case ('S'):
+            ok = b.outOfBoundsCheck(x1, y1 - 1, x2, y2 - 1, ship);
             break;
-          case('W'):
-            ok = b.outOfBoundsCheck(x1 - 1,y1,x2 - 1,y2,ship);
+          case ('W'):
+            ok = b.outOfBoundsCheck(x1 - 1, y1, x2 - 1, y2, ship);
             break;
         }
-        //move ship
-        if (ok == Constants.NONEERROR){
+        // move ship
+        if (ok == Constants.NONEERROR) {
           System.out.println("pre");
           System.out.println(b.getShipLocations(start));
           System.out.println(master);
           Ship s = b.getShipLocations(start).get(0);
           System.out.println("post");
           // call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
-          j.cleanupOnAisle5(b,s,shipCoord, ship);
+          j.cleanupOnAisle5(b, s, shipCoord, ship);
           System.out.println(master);
-          //set new ship
+          // set new ship
           int health = s.getShipHealth();
 
-          switch(direction) {
-            case('N'):
-              b.setShip(x1,y1 + 1,x2 ,y2 + 1, health,ship);
+          switch (direction) {
+            case ('N'):
+              b.setShip(x1, y1 + 1, x2, y2 + 1, health, ship);
               break;
-            case('E'):
-              b.setShip(x1 + 1,y1,x2 + 1,y2, health,ship);
+            case ('E'):
+              b.setShip(x1 + 1, y1, x2 + 1, y2, health, ship);
               break;
-            case('S'):
-              b.setShip(x1,y1 - 1,x2,y2 - 1, health,ship);
+            case ('S'):
+              b.setShip(x1, y1 - 1, x2, y2 - 1, health, ship);
               break;
-            case('W'):
-              b.setShip(x1 - 1,y1,x2 - 1,y2, health,ship);
+            case ('W'):
+              b.setShip(x1 - 1, y1, x2 - 1, y2, health, ship);
               break;
           }
           movedShips.add(ship);
         }
-      }
-      else{
+      } else {
         Point start = shipCoord.get(0);
         Point end = shipCoord.get(len - 2);
         int x1 = start.x;
         int y1 = start.y;
         int x2 = end.x;
         int y2 = end.y;
-        //check bounds
+        // check bounds
         int ok = 0;
-        switch(direction) {
-          case('N'):
-            ok = b.outOfBoundsCheck(x1,y1 + 1,x2,y2 + 1,ship);
+        switch (direction) {
+          case ('N'):
+            ok = b.outOfBoundsCheck(x1, y1 + 1, x2, y2 + 1, ship);
             break;
-          case('E'):
-            ok = b.outOfBoundsCheck(x1 + 1,y1,x2 + 1,y2,ship);
+          case ('E'):
+            ok = b.outOfBoundsCheck(x1 + 1, y1, x2 + 1, y2, ship);
             break;
-          case('S'):
-            ok = b.outOfBoundsCheck(x1,y1 - 1,x2,y2 - 1,ship);
+          case ('S'):
+            ok = b.outOfBoundsCheck(x1, y1 - 1, x2, y2 - 1, ship);
             break;
-          case('W'):
-            ok = b.outOfBoundsCheck(x1 - 1,y1,x2 - 1,y2,ship);
+          case ('W'):
+            ok = b.outOfBoundsCheck(x1 - 1, y1, x2 - 1, y2, ship);
             break;
         }
-        //move ship
-        if (ok == Constants.NONEERROR){
-          //set new ship
+        // move ship
+        if (ok == Constants.NONEERROR) {
+          // set new ship
           ArrayList<Ship> shipsThere = b.getShipLocations(start);
-          //check where sub is
+          // check where sub is
           int access;
-          if(shipsThere.size() == 1){
+          if (shipsThere.size() == 1) {
             access = 0;
-          }
-          else{
+          } else {
             access = 1;
           }
           Ship s = shipsThere.get(access);
-          //call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
-          j.cleanupOnAisle5(b,s,shipCoord, ship);
-          //move
+          // call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
+          j.cleanupOnAisle5(b, s, shipCoord, ship);
+          // move
           int health = s.getShipHealth();
 
-          switch(direction) {
-            case('N'):
-              b.setSub(x1,y1 + 1,x2 ,y2 + 1, health,ship);
+          switch (direction) {
+            case ('N'):
+              b.setSub(x1, y1 + 1, x2, y2 + 1, health, ship);
               break;
-            case('E'):
-              b.setSub(x1 + 1,y1,x2 + 1,y2, health,ship);
+            case ('E'):
+              b.setSub(x1 + 1, y1, x2 + 1, y2, health, ship);
               break;
-            case('S'):
-              b.setSub(x1,y1 - 1,x2,y2 - 1, health,ship);
+            case ('S'):
+              b.setSub(x1, y1 - 1, x2, y2 - 1, health, ship);
               break;
-            case('W'):
-              b.setSub(x1 - 1,y1,x2 - 1,y2, health,ship);
+            case ('W'):
+              b.setSub(x1 - 1, y1, x2 - 1, y2, health, ship);
               break;
           }
           movedShips.add(ship);
@@ -197,37 +189,30 @@ public class Perks {
     return movedShips;
   }
 
-  //TODO: prevent stationary ship from moving (if previously were out of bounds)
-  public void undoMove(char move, Board b){
-    //figure out reverse direction
+  // TODO: prevent stationary ship from moving (if previously were out of bounds)
+  public void undoMove(char move, Board b) {
+    // figure out reverse direction
     char reverse = 'x';
-    switch(move){
-      case('N'):
+    switch (move) {
+      case ('N'):
         reverse = 'S';
         break;
-      case('S'):
+      case ('S'):
         reverse = 'N';
         break;
-      case('W'):
+      case ('W'):
         reverse = 'E';
         break;
-      case('E'):
+      case ('E'):
         reverse = 'W';
         break;
     }
-    //call moveFleet
-    moveFleet(b,reverse);
+    // call moveFleet
+    moveFleet(b, reverse);
   }
 
-  public void redoMove(char move, Board b){
-    //call moveFleet again
-    moveFleet(b,move);
+  public void redoMove(char move, Board b) {
+    // call moveFleet again
+    moveFleet(b, move);
   }
 }
-
-
-
-
-
-
-

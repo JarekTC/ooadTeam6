@@ -44,7 +44,7 @@ public class Player {
   // come back later to verify length of ship matches dist between points
   // Also, prevent overlapping ships
   public int placeShip(int x1, int y1, int x2, int y2, int health, String ship) {
-    if(!ship.equals(Constants.SUBMARINE)){
+    if (!ship.equals(Constants.SUBMARINE)) {
       return this.b.setShip(x1, y1, x2, y2, health, ship);
     } else {
       System.out.println("PLACING SUB");
@@ -53,21 +53,21 @@ public class Player {
   }
 
   public int hit(int x, int y, Player enemy, Boolean code) {
-    int hitStat = enemy.b.getCoord(x, y); //ISAAC CHANGE THIS
+    int hitStat = enemy.b.getCoord(x, y); // ISAAC CHANGE THIS
     addRecord(x, y, hitStat);
-    if (hitStat != Constants.SEA){
+    if (hitStat != Constants.SEA) {
       // laser
-      if (code){
+      if (code) {
         Boolean overlap = false;
-        if(hitStat == Constants.SHIP_ON_TOP_SUB){
+        if (hitStat == Constants.SHIP_ON_TOP_SUB) {
           overlap = true;
         }
-        enemy.b.laserApplyDamage(x,y,overlap);
-      }//bombs
-      else{
-        if(hitStat != Constants.SUB_UNDER_WATER) {
+        enemy.b.laserApplyDamage(x, y, overlap);
+      } // bombs
+      else {
+        if (hitStat != Constants.SUB_UNDER_WATER) {
           System.out.println(hitStat + " sdjvbsdiuvbsidvisudvivhvvahjds");
-          enemy.b.bombApplyDamage(x,y);
+          enemy.b.bombApplyDamage(x, y);
         }
       }
     }

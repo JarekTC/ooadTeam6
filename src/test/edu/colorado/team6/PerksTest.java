@@ -24,7 +24,8 @@ class PerksTest {
 
   @Test
   public void testSonar() {
-    HashMap<Point, Integer> radar = new HashMap<Point, Integer>(p.sonar(new Point(3, 3), p1.getB()));
+    HashMap<Point, Integer> radar =
+        new HashMap<Point, Integer>(p.sonar(new Point(3, 3), p1.getB()));
 
     HashMap<Point, Integer> expected = new HashMap<Point, Integer>();
     expected.put(new Point(3, 4), 0);
@@ -54,32 +55,32 @@ class PerksTest {
     p1.getB().printBoard();
     System.out.println();
 
-    //Move ships, where none are overlapping
+    // Move ships, where none are overlapping
     ArrayList<String> movedS = new ArrayList<String>();
     movedS.add(Constants.MINESWEEPER);
     movedS.add(Constants.BATTLESHIP);
     movedS.add(Constants.SUBMARINE);
     ArrayList<String> actual1 = p1.moveFleetPlayer('N');
 
-    for(int i = 0; i < movedS.size(); i++) {
+    for (int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual1.get(i)));
     }
 
     ArrayList<String> actual2 = p1.moveFleetPlayer('E');
 
-    for(int i = 0; i < movedS.size(); i++) {
+    for (int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual2.get(i)));
     }
 
     ArrayList<String> actual3 = p1.moveFleetPlayer('S');
 
-    for(int i = 0; i < movedS.size(); i++) {
+    for (int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual3.get(i)));
     }
 
     ArrayList<String> actual4 = p1.moveFleetPlayer('W');
 
-    for(int i = 0; i < movedS.size(); i++) {
+    for (int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual4.get(i)));
     }
     p1.getB().printBoard();
@@ -131,5 +132,4 @@ class PerksTest {
     int[][] actual = p1.getB().getBoard();
     assertArrayEquals(expected, actual);
   }
-
 }
