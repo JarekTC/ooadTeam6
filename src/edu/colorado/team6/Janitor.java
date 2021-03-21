@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Janitor {
 
-    public void cleanupOnAisle5(Board b, Ship s, ArrayList<Point> positions){
+    public void cleanupOnAisle5(Board b, Ship s, ArrayList<Point> positions, String ship){
         // remove locations from the board
         for(int i = 0; i < positions.size(); i++){
             Point coord = positions.get(i);
@@ -35,5 +35,8 @@ public class Janitor {
         for(int i = 0; i < positions.size(); i++){
             locations.get(positions.get(i)).remove(s);
         }
+
+        //Clean up master
+        b.getMasterOrientation().put(ship, new ArrayList<Point>());
     }
 }

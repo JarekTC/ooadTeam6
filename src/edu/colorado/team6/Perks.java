@@ -14,7 +14,7 @@ public class Perks {
 //    this.b = b;
 //  }
 //  ;
-  Janitor j;
+  Janitor j = new Janitor();
 
   public HashMap<Point, Integer> sonar(Point coord, Board b) {
     int x = coord.x;
@@ -75,8 +75,8 @@ public class Perks {
     HashMap<String,ArrayList<Point>> master = b.getMasterOrientation();
     Iterator it = master.entrySet().iterator();
     ArrayList<String> movedShips = new ArrayList<String>();
-    while(it.hasNext()){
-      Map.Entry pair = (Map.Entry)it.next();
+
+    for(Map.Entry<String,ArrayList<Point>> pair: master.entrySet()){
       String ship = (String)pair.getKey();
       ArrayList<Point> shipCoord = (ArrayList<Point>)pair.getValue();
       //if not submarine
@@ -89,15 +89,49 @@ public class Perks {
         int x2 = end.x;
         int y2 = end.y;
         //check bounds
-        int ok = b.outOfBoundsCheck(x1,y1,x2,y2,ship);
+        int ok = 0;
+        switch(direction) {
+          case('N'):
+            ok = b.outOfBoundsCheck(x1,y1 + 1,x2,y2 + 1,ship);
+            break;
+          case('E'):
+            ok = b.outOfBoundsCheck(x1 + 1,y1,x2 + 1,y2,ship);
+            break;
+          case('S'):
+            ok = b.outOfBoundsCheck(x1,y1 - 1,x2,y2 - 1,ship);
+            break;
+          case('W'):
+            ok = b.outOfBoundsCheck(x1 - 1,y1,x2 - 1,y2,ship);
+            break;
+        }
+
         //move ship
         if (ok == Constants.NONEERROR){
+          System.out.println("pre");
+          System.out.println(b.getShipLocations(start));
+          System.out.println(master);
           Ship s = b.getShipLocations(start).get(0);
-          //call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
-          j.cleanupOnAisle5(b,s,shipCoord);
+          System.out.println("post");
+          // call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
+          j.cleanupOnAisle5(b,s,shipCoord, ship);
+          System.out.println(master);
           //set new ship
           int health = s.getShipHealth();
-          b.setShip(x1,y1,x2,y2, health,ship);
+
+          switch(direction) {
+            case('N'):
+              b.setShip(x1,y1 + 1,x2 ,y2 + 1, health,ship);
+              break;
+            case('E'):
+              b.setShip(x1 + 1,y1,x2 + 1,y2, health,ship);
+              break;
+            case('S'):
+              b.setShip(x1,y1 - 1,x2,y2 - 1, health,ship);
+              break;
+            case('W'):
+              b.setShip(x1 - 1,y1,x2 - 1,y2, health,ship);
+              break;
+          }
           movedShips.add(ship);
         }
       }
@@ -109,7 +143,21 @@ public class Perks {
         int x2 = end.x;
         int y2 = end.y;
         //check bounds
-        int ok = b.outOfBoundsCheck(x1,y1,x2,y2,ship);
+        int ok = 0;
+        switch(direction) {
+          case('N'):
+            ok = b.outOfBoundsCheck(x1,y1 + 1,x2,y2 + 1,ship);
+            break;
+          case('E'):
+            ok = b.outOfBoundsCheck(x1 + 1,y1,x2 + 1,y2,ship);
+            break;
+          case('S'):
+            ok = b.outOfBoundsCheck(x1,y1 - 1,x2,y2 - 1,ship);
+            break;
+          case('W'):
+            ok = b.outOfBoundsCheck(x1 - 1,y1,x2 - 1,y2,ship);
+            break;
+        }
         //move ship
         if (ok == Constants.NONEERROR){
           //set new ship
@@ -124,10 +172,24 @@ public class Perks {
           }
           Ship s = shipsThere.get(access);
           //call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
-          j.cleanupOnAisle5(b,s,shipCoord);
+          j.cleanupOnAisle5(b,s,shipCoord, ship);
           //move
           int health = s.getShipHealth();
-          b.setSub(x1,y1,x2,y2, health,ship);
+
+          switch(direction) {
+            case('N'):
+              b.setSub(x1,y1 + 1,x2 ,y2 + 1, health,ship);
+              break;
+            case('E'):
+              b.setSub(x1 + 1,y1,x2 + 1,y2, health,ship);
+              break;
+            case('S'):
+              b.setSub(x1,y1 - 1,x2,y2 - 1, health,ship);
+              break;
+            case('W'):
+              b.setSub(x1 - 1,y1,x2 - 1,y2, health,ship);
+              break;
+          }
           movedShips.add(ship);
         }
       }

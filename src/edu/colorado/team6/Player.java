@@ -2,6 +2,7 @@ package edu.colorado.team6;
 
 import java.awt.*;
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
@@ -10,6 +11,7 @@ public class Player {
   private int score = 0;
   private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
   private Board b = new Board();
+  private Perks p = new Perks();
   private Boolean code;
 
   public Board getB() {
@@ -32,6 +34,10 @@ public class Player {
 
   public void setScore(int score) {
     this.score = score;
+  }
+
+  public ArrayList<String> moveFleet(char direction) {
+    return p.moveFleet(b, direction);
   }
 
   // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS

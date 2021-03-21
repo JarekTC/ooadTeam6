@@ -27,6 +27,12 @@ class BoardTest {
   }
 
   @Test
+  public void testGetBoard() {
+    int[][] board = new int[10][10];
+    assertArrayEquals(board, b.getBoard());
+  }
+
+  @Test
   void testGetStandardIndex() {
     b.setShip(0, 0, 0, 1, 2, Constants.MINESWEEPER);
     assertEquals(0, b.getStandardIndex(0, 0, 0));

@@ -16,19 +16,21 @@ public class Board {
   private ArrayList<Point> dsOrientation = new ArrayList<Point>();
   private ArrayList<Point> bsOrientation = new ArrayList<Point>();
   private ArrayList<Point> ssOrientation = new ArrayList<Point>();
-  private HashMap<String,ArrayList<Point>> masterOrientation = new HashMap<String,ArrayList<Point>>(){{
-    masterOrientation.put(Constants.MINESWEEPER,msOrientation);
-    masterOrientation.put(Constants.DESTROYER,dsOrientation);
-    masterOrientation.put(Constants.BATTLESHIP,bsOrientation);
-    masterOrientation.put(Constants.SUBMARINE,ssOrientation);
-  }};
+  private HashMap<String,ArrayList<Point>> masterOrientation = new HashMap<String,ArrayList<Point>>();
 
   Board() {
+    // Initialize shipLocations
     for (int i = 0; i < 10; i++){
       for (int j = 0; j < 10; j++) {
         shipLocations.put(new Point(i, j), new ArrayList<Ship>());
       }
     }
+
+    // Initialize orientations
+    masterOrientation.put(Constants.MINESWEEPER,msOrientation);
+    masterOrientation.put(Constants.DESTROYER,dsOrientation);
+    masterOrientation.put(Constants.BATTLESHIP,bsOrientation);
+    masterOrientation.put(Constants.SUBMARINE,ssOrientation);
   }
 
   public int[][] getBoard() {
@@ -304,7 +306,7 @@ public class Board {
     // Horizontal ship (Smallest to largest coordinates)
     if ((x2 - x1) > 0) {
       for (int i = x1; i <= x2; i++) {
-        System.out.println("in branch where placing vertical ship");
+        //System.out.println("in branch where placing vertical ship");
         // Check is there is a submarine at placement location
         if (getCoord(i, y1) == Constants.SHIP) {
           setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
@@ -461,7 +463,7 @@ public class Board {
     else if ((y1 - y2) < 0) {
       for (int i = y1; i <= y2; i++) {
         Point coord = new Point(x1, i);
-        System.out.println("Calling from setShipArray():" + x1 + " " + i);
+        //System.out.println("Calling from setShipArray():" + x1 + " " + i);
         posi.add(coord);
       }
       if(ship.equals(Constants.SUBMARINE)) {
@@ -480,15 +482,19 @@ public class Board {
 
     switch (ship) {
       case Constants.MINESWEEPER:
+        this.masterOrientation.put(Constants.MINESWEEPER, posi);
         this.msOrientation = posi;
         return Constants.NONEERROR;
       case Constants.DESTROYER:
+        this.masterOrientation.put(Constants.DESTROYER, posi);
         this.dsOrientation = posi;
         return Constants.NONEERROR;
       case Constants.BATTLESHIP:
+        this.masterOrientation.put(Constants.BATTLESHIP, posi);
         this.bsOrientation = posi;
         return Constants.NONEERROR;
       case Constants.SUBMARINE:
+        this.masterOrientation.put(Constants.SUBMARINE, posi);
         for (int i = 0; i < posi.size(); i++) {
           System.out.println(ship + ": " + posi.get(i).x + ", " + posi.get(i).y);
         }
