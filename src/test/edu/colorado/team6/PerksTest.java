@@ -59,25 +59,25 @@ class PerksTest {
     movedS.add(Constants.MINESWEEPER);
     movedS.add(Constants.BATTLESHIP);
     movedS.add(Constants.SUBMARINE);
-    ArrayList<String> actual1 = p1.moveFleet('N');
+    ArrayList<String> actual1 = p1.moveFleetPlayer('N');
 
     for(int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual1.get(i)));
     }
 
-    ArrayList<String> actual2 = p1.moveFleet('E');
+    ArrayList<String> actual2 = p1.moveFleetPlayer('E');
 
     for(int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual2.get(i)));
     }
 
-    ArrayList<String> actual3 = p1.moveFleet('S');
+    ArrayList<String> actual3 = p1.moveFleetPlayer('S');
 
     for(int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual3.get(i)));
     }
 
-    ArrayList<String> actual4 = p1.moveFleet('W');
+    ArrayList<String> actual4 = p1.moveFleetPlayer('W');
 
     for(int i = 0; i < movedS.size(); i++) {
       assertTrue(movedS.contains(actual4.get(i)));
@@ -85,25 +85,51 @@ class PerksTest {
     p1.getB().printBoard();
   }
 
+  @Test
+  public void testUndoMove() {
+    p1.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER);
+    p1.placeShip(7, 9, 9, 9, 3, Constants.DESTROYER);
+    p1.placeShip(3, 4, 3, 7, 4, Constants.BATTLESHIP);
+    p1.placeShip(3, 5, 6, 5, 5, Constants.SUBMARINE);
+
+    int[][] expected = p1.getB().getBoard();
+    p1.moveFleetPlayer('N');
+    p.undoMove('N', p1.getB());
+    int[][] actual = p1.getB().getBoard();
+    assertArrayEquals(expected, actual);
+
+    expected = p1.getB().getBoard();
+    p1.moveFleetPlayer('E');
+    p.undoMove('E', p1.getB());
+    actual = p1.getB().getBoard();
+    assertArrayEquals(expected, actual);
+
+    expected = p1.getB().getBoard();
+    p1.moveFleetPlayer('S');
+    p.undoMove('S', p1.getB());
+    actual = p1.getB().getBoard();
+    assertArrayEquals(expected, actual);
+
+    expected = p1.getB().getBoard();
+    p1.moveFleetPlayer('W');
+    p.undoMove('W', p1.getB());
+    actual = p1.getB().getBoard();
+    assertArrayEquals(expected, actual);
+  }
+
+  @Test
+  public void testRedoMove() {
+    p1.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER);
+    p1.placeShip(7, 9, 9, 9, 3, Constants.DESTROYER);
+    p1.placeShip(3, 4, 3, 7, 4, Constants.BATTLESHIP);
+    p1.placeShip(3, 5, 6, 5, 5, Constants.SUBMARINE);
+
+    int[][] expected = p1.getB().getBoard();
+    p1.moveFleetPlayer('N');
+    p.undoMove('N', p1.getB());
+    p.redoMove('N', p1.getB());
+    int[][] actual = p1.getB().getBoard();
+    assertArrayEquals(expected, actual);
+  }
+
 }
-//0 0 0 0 0 0 0 1 1 1
-//0 0 0 0 0 0 0 0 0 0
-//0 0 0 1 0 0 0 0 0 0
-//0 0 0 1 0 2 0 0 0 0
-//0 0 0 3 2 2 2 0 0 0
-//0 0 0 1 0 0 0 0 0 0
-//0 0 0 0 0 0 0 0 0 0
-//0 0 0 0 0 0 0 0 0 0
-//0 0 0 0 2 0 0 0 0 0
-//1 1 2 2 2 2 0 0 0 0
-//
-//0 0 0 0 0 0 0 1 1 1
-//0 0 0 0 0 0 0 0 0 0
-//0 0 0 1 0 0 0 0 0 0
-//0 0 0 1 0 2 0 0 0 0
-//0 0 0 3 2 2 2 0 0 0
-//0 0 0 1 2 0 0 0 0 0
-//1 1 2 2 2 2 0 0 0 0
-//1 1 0 0 0 0 0 0 0 0
-//1 1 0 0 0 0 0 0 0 0
-//1 1 0 0 0 0 0 0 0 0

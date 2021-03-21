@@ -82,6 +82,7 @@ public class Perks {
       //if not submarine
       int len = shipCoord.size();
       if(!ship.equals(Constants.SUBMARINE)){
+        //TODO:Check whether arraylists in master are empty or not (when have only 1 ship in fleet, get error)
         Point start = shipCoord.get(0);
         Point end = shipCoord.get(len - 1);
         int x1 = start.x;
@@ -196,6 +197,7 @@ public class Perks {
     return movedShips;
   }
 
+  //TODO: prevent stationary ship from moving (if previously were out of bounds)
   public void undoMove(char move, Board b){
     //figure out reverse direction
     char reverse = 'x';

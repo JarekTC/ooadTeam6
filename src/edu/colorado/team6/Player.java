@@ -36,7 +36,7 @@ public class Player {
     this.score = score;
   }
 
-  public ArrayList<String> moveFleet(char direction) {
+  public ArrayList<String> moveFleetPlayer(char direction) {
     return p.moveFleet(b, direction);
   }
 
