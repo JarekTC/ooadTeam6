@@ -47,8 +47,12 @@ class BoardTest {
 //  @Test
 //  void testGetOverlapIndex() {}
 
-//  @Test
-//  void testBombApplyDamage() {}
+  @Test
+  void testBombApplyDamage() {
+    b.setShip(5, 5, 8, 5, 4, Constants.BATTLESHIP);
+    b.setSub(5, 5, 8, 5, 5, Constants.SUBMARINE);
+    assertEquals(0, b.bombApplyDamage(5, 5));
+  }
 
   @Test
   public void testSetCoord() {
@@ -56,16 +60,50 @@ class BoardTest {
     assertEquals(Constants.SEA, b.getCoord(0, 0));
   }
 
+
+
   @Test
   public void testSetShip() {
     // Place horizontal ship
     assertEquals(Constants.NONEERROR, b.setShip(0, 0, 1, 0, 2, Constants.MINESWEEPER));
 
     // Add submarine, so destroyer at 5, 9 overlaps submarine. USE SPECIAL SUBMARINE ADD FUNCTION
-    //assertEquals(Constants.NONEERROR, b.setShip(2, 9, 5, 9, 4, Constants.SUBMARINE));
+    assertEquals(Constants.NONEERROR, b.setSub(2, 8, 5, 8, 5, Constants.SUBMARINE));
 
     // Place horizontal ship (coordinates largest to smallest)
-    assertEquals(Constants.NONEERROR, b.setShip(5, 9, 5, 7, 3, Constants.DESTROYER));
+    assertEquals(Constants.NONEERROR, b.setShip(2, 8, 4, 8, 3, Constants.DESTROYER));
+
+    // Horizontal ship smallest to largest coordinates, ship on top of ship error
+    assertEquals(Constants.ERROR, b.setShip(1, 0, 2, 0, 2, Constants.MINESWEEPER));
+    b.setCoord(2, 0, Constants.SEA);
+
+    // Horizontal ship largest to smallest coordinates, ship on top of ship error
+    assertEquals(Constants.ERROR, b.setShip(2, 0, 1, 0, 2, Constants.MINESWEEPER));
+    b.setCoord(2, 0, Constants.SEA);
+
+    // Horizontal ship under sub, largest to smallest coordinates
+    b.setSub(0, 2, 3, 2, 5, Constants.SUBMARINE);
+    assertEquals(Constants.NONEERROR, b.setShip(4, 2, 3, 2, 2, Constants.MINESWEEPER));
+
+    // Vertical ship. Smallest to largest coordinates
+    assertEquals(Constants.NONEERROR, b.setShip(0, 2, 0, 3, 2, Constants.MINESWEEPER));
+
+    // Place ship vertically on top of existing ship. Largest to smallest coordinates.
+    assertEquals(Constants.ERROR, b.setShip(0, 4, 0, 3, 2, Constants.MINESWEEPER));
+    b.setCoord(0, 4, Constants.SEA);
+
+    // Vertical ship smallest to largest. Error stacked ships
+    assertEquals(Constants.ERROR, b.setShip(0, 3, 0, 4, 2, Constants.MINESWEEPER));
+    b.setCoord(0, 4, Constants.SEA);
+
+    //Ship on top of ship
+    assertEquals(Constants.ERROR, b.setShip(4, 8, 4, 6, 3, Constants.DESTROYER));
+    //Clean up set coordinates from error ship
+    b.setCoord(4, 6, Constants.SEA);
+    b.setCoord(4, 7, Constants.SEA);
+
+    // Vertical ship. Largest to smallest. Place ship above sub
+    assertEquals(Constants.NONEERROR, b.setShip(1, 3, 1, 2, 2, Constants.MINESWEEPER));
 
     // Error, because ship already placed at 0,0
     assertEquals(Constants.ERROR, b.setShip(1, 0, 0, 0, 2, Constants.MINESWEEPER));
@@ -79,6 +117,40 @@ class BoardTest {
     // Error when try to place ship that will overlap with another ship
     assertEquals(Constants.ERROR, b.setShip(0, 0, 0, 4, 4, Constants.BATTLESHIP));
     assertEquals(Constants.ERROR, b.setShip(0, 0, 4, 0, 4, Constants.BATTLESHIP));
+
+    //Error when use setShip with submarine
+    assertEquals(Constants.ERROR, b.setShip(0, 5, 3, 5, 5, Constants.SUBMARINE));
+    b.printBoard();
+  }
+
+  @Test
+  public void testSetSub() {
+    //Error when use setSub with non-submarine ship
+    assertEquals(Constants.ERROR, b.setSub(0, 0, 1, 0, 2, Constants.MINESWEEPER));
+
+    // Place horizontal sub on top of sub
+    b.setSub(0, 0, 3, 0, 5, Constants.SUBMARINE);
+    assertEquals(Constants.ERROR, b.setSub(3, 0, 6, 0, 5, Constants.SUBMARINE));
+
+    // Place sub, where extra part is under an existing ship
+    b.setShip(2, 4, 3, 4, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.NONEERROR, b.setSub(0, 3, 3, 3, 5, Constants.SUBMARINE));
+
+    // Horizontal sub. Largest to smallest coordinates
+    assertEquals(Constants.NONEERROR, b.setSub(3, 5, 0, 5, 5, Constants.SUBMARINE));
+
+    // Horizontal sub under ship. Largest to smallest coordinates
+    b.setShip(0, 7, 1, 7, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.NONEERROR, b.setSub(3, 7, 0, 7, 5, Constants.SUBMARINE));
+
+    // Horizontal sub on top of existing sub. Largest to smallest
+    assertEquals(Constants.ERROR, b.setSub(6, 7, 3, 7, 5, Constants.SUBMARINE));
+    b.setCoord(6, 7, Constants.SEA);
+    b.setCoord(5, 7, Constants.SEA);
+    b.setCoord(4, 7, Constants.SEA);
+
+    b.printBoard();
+
   }
 
   @Test
@@ -138,6 +210,10 @@ class BoardTest {
     assertEquals(Constants.NONEERROR,b.outOfBoundsCheck(0, 9, 0, 6, Constants.BATTLESHIP));
     assertEquals(Constants.ERROR,b.outOfBoundsCheck(0, 1, 0, 4, Constants.SUBMARINE));
     assertEquals(Constants.NONEERROR,b.outOfBoundsCheck(0, 9, 0, 6, Constants.SUBMARINE));
+    assertEquals(Constants.ERROR, b.outOfBoundsCheck(8, 9, -9, 8, Constants.BATTLESHIP));
+    assertEquals(Constants.ERROR, b.outOfBoundsCheck(0, 9, 3, 9, Constants.SUBMARINE));
+    assertEquals(Constants.ERROR, b.outOfBoundsCheck(9, 9, 9, 6, Constants.SUBMARINE));
+    assertEquals(Constants.ERROR, b.outOfBoundsCheck(3, 0, 0, 0, Constants.SUBMARINE));
   }
 
 }

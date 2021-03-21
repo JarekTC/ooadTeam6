@@ -194,7 +194,8 @@ public class Board {
     // Error checking
     if(diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR ||
        lengthCheck(x1, y1, x2, y2, health, ship) == Constants.ERROR ||
-       outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR) {
+       outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR ||
+       ship.equals(Constants.SUBMARINE)) {
       return Constants.ERROR;
     }
 
