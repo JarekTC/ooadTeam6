@@ -16,6 +16,12 @@ public class Board {
   private ArrayList<Point> dsOrientation = new ArrayList<Point>();
   private ArrayList<Point> bsOrientation = new ArrayList<Point>();
   private ArrayList<Point> ssOrientation = new ArrayList<Point>();
+  private HashMap<String,ArrayList<Point>> masterOrientation = new HashMap<String,ArrayList<Point>>(){{
+    masterOrientation.put(Constants.MINESWEEPER,msOrientation);
+    masterOrientation.put(Constants.DESTROYER,dsOrientation);
+    masterOrientation.put(Constants.BATTLESHIP,bsOrientation);
+    masterOrientation.put(Constants.SUBMARINE,ssOrientation);
+  }};
 
   Board() {
     for (int i = 0; i < 10; i++){
@@ -25,8 +31,34 @@ public class Board {
     }
   }
 
+  public int[][] getBoard() {
+    return board;
+  }
+  public HashMap<Point, ArrayList<Ship>> getShipLocations() {
+    return shipLocations;
+  }
+  public ArrayList<Point> getMsOrientation() {
+    return msOrientation;
+  }
+  public ArrayList<Point> getDsOrientation() {
+    return dsOrientation;
+  }
+  public ArrayList<Point> getBsOrientation() {
+    return bsOrientation;
+  }
+  public ArrayList<Point> getSsOrientation() {
+    return ssOrientation;
+  }
+  public HashMap<String,ArrayList<Point>> getMasterOrientation() {
+    return masterOrientation;
+  }
+
   public int getCoord(int x, int y) {
     return this.board[y][x];
+  }
+
+  public void setCoord(int x, int y, int shipOrSea) {
+    this.board[y][x] = shipOrSea;
   }
 
   public void printBoard(){
@@ -95,18 +127,15 @@ public class Board {
 //      bombApplyDamage(x, y);
 //      return 0;
 //    }
-
     //ArrayList<Integer> indices = getOverlapIndex(x, y);
     Point coord = new Point(x, y);
     ArrayList<Ship> shipList = getShipLocations(coord); // account for overlap
-
     int incrementer = 0;
 
     for (Ship s : shipList) {
       int preHealth = s.getShipHealth();
       int index = getStandardIndex(x, y, incrementer);
       s.takeDamage(index);
-
 //      if((s instanceof MineSweeper) && (index == 0)){
 //        for (int i = 0; i < msOrientation.size(); i++) {
 //          Point otherPoint = new Point(x, y);
@@ -116,9 +145,6 @@ public class Board {
 //      else if((s instanceof Destroyer) && (index == 1)){
 //
 //      }
-
-
-
       // If a section of the ship is sunk, remove part of the ship from the board
       if (s.getShipHealth() < preHealth) {
         setCoord(x, y, Constants.SEA);
@@ -128,9 +154,6 @@ public class Board {
     return 0;
   }
 
-  public void setCoord(int x, int y, int shipOrSea) {
-    this.board[y][x] = shipOrSea;
-  }
 
   public int getPos(int x, int y) {
     return this.board[y][x];
