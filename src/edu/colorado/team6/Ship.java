@@ -6,7 +6,7 @@ public class Ship {
 
   // Basic private member variables
   private final String typeName;
-  private static int health;
+  private int health;
   private int[][] hits;
 
   // Constructor, currently initialized with name of subclass type
@@ -15,20 +15,21 @@ public class Ship {
   }
 
   public int updateHealth(int update) {
-    health = update;
-    return health;
+    this.health = update;
+    return this.health;
   }
 
   // Helper function for subclasses to set proper starting health
   // and initialize array to correct size
   public int initializeCorrectHealth(int startHealth) {
-    health = startHealth;
-    hits = new int[health][2];
+    this.health = startHealth;
+    hits = new int[this.health][2];
     for (int i = 0; i < hits.length; i++) {
       hits[i][1] = 1;
     }
-    return health;
+    return this.health;
   }
+
   // hits helper
   public int updateHits(int i, int j, int a) {
     hits[i][j] = a;
@@ -37,7 +38,16 @@ public class Ship {
 
   // Decrement ship health
   public int takeDamage(int shipIndex) {
-    if (health != 0) health = health - 1;
+    if (hits[shipIndex][1]
+        == 1) { // Do not decrease the overall health of the ship if the captain's quarters has only
+      // been hit once.
+      System.out.println(this.typeName + this.health);
+      if (this.health != 0)
+        this.health =
+            this.health
+                - 1; // If at any point, the part of the ship at shipIndex is 1, decrease the
+      // overall health
+    }
 
     if (hits[shipIndex][0] == 1) {
       return captainsQuartersHit(shipIndex);
@@ -46,7 +56,8 @@ public class Ship {
     } else {
       System.out.println("Spot already reduced to 0.");
     }
-    return hits[shipIndex][0];
+
+    return hits[shipIndex][1]; // switched from 0 to 1
   }
 
   // Displays subclass type name passed into constructor
@@ -57,8 +68,8 @@ public class Ship {
 
   // Ship Health getter
   public int getShipHealth() {
-    return health;
-  }
+    return this.health;
+  } // switched to this.health
 
   // Set Captains quarters
   public int setCaptainsQuarters(int cpt) {
@@ -85,8 +96,8 @@ public class Ship {
       for (int i = 0; i < hits.length; i++) {
         hits[i][1] = 0;
       }
-      health = 0;
+      this.health = 0;
     }
-    return health;
+    return this.health;
   }
 }

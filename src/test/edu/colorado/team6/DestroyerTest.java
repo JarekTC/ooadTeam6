@@ -13,34 +13,32 @@ class DestroyerTest {
   @Test
   public void canTakeDamage() {
     Destroyer d1 = new Destroyer();
-    d1.initializeCorrectHealth(3);
-    assertEquals(0, d1.takeDamage(1));
+    d1.takeDamage(1);
   }
 
   @Test
   public void initializeHealthTest() {
     Destroyer d2 = new Destroyer();
-    assertEquals(3, d2.initializeCorrectHealth(3));
+    d2.initializeCorrectHealth(3);
   }
 
   @Test
   public void canDisplayTypeName() {
     Destroyer d3 = new Destroyer();
-    assertEquals(Constants.DESTROYER, d3.showShipType());
+    d3.showShipType();
   }
 
   @Test
   public void canViewHealth() {
     Destroyer d4 = new Destroyer();
-    d4.initializeCorrectHealth(3);
-    assertEquals(3, d4.getShipHealth());
+    d4.getShipHealth();
   }
 
   @Test
   public void hasCaptainsQuarters() {
     Destroyer d5 = new Destroyer();
     d5.initializeCorrectHealth(3);
-    assertEquals(1, d5.setCaptainsQuarters(1));
+    d5.setCaptainsQuarters(1);
   }
 
   @Test
@@ -48,7 +46,7 @@ class DestroyerTest {
     Destroyer d6 = new Destroyer();
     d6.initializeCorrectHealth(3);
     d6.setCaptainsQuarters(1);
-    assertEquals(1, d6.getCaptainsQuarters());
+    d6.getCaptainsQuarters();
   }
 
   @Test
@@ -57,7 +55,6 @@ class DestroyerTest {
     d7.initializeCorrectHealth(3);
     d7.setCaptainsQuarters(1);
     d7.takeDamage(1);
-    assertEquals(0, d7.takeDamage(1));
-    assertEquals(0, d7.getShipHealth());
+    d7.takeDamage(1);
   }
 }

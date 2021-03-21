@@ -34,7 +34,13 @@ public class ShipTest {
   public void canTakeDamage() {
     Ship ship = new Ship("TestShip");
     ship.initializeCorrectHealth(3);
-    assertEquals(0, ship.takeDamage(1));
+    assertEquals(0, ship.takeDamage(1)); // swit
+
+    BattleShip bs = new BattleShip();
+    int prehealth = bs.getShipHealth();
+    bs.takeDamage(bs.getCaptainsQuarters());
+    int poshealth = bs.getShipHealth();
+    assertEquals(prehealth, poshealth);
   }
 
   @Test
