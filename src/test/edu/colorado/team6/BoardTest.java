@@ -149,7 +149,30 @@ class BoardTest {
     b.setCoord(5, 7, Constants.SEA);
     b.setCoord(4, 7, Constants.SEA);
 
+    //Horizontal arm . largest to smallest
+    b.setShip(7, 7, 8, 7, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.NONEERROR, b.setSub(9, 8, 6, 8, 5, Constants.SUBMARINE));
+
+    //vertical ship sub overlap (smallest to largest)
+    assertEquals(Constants.NONEERROR, b.setSub(8, 4, 8, 7, 5, Constants.SUBMARINE));
+
+
+    //vertical sub sub overlap (small to large)
+    assertEquals(Constants.ERROR, b.setSub(8, 4, 8, 7, 5, Constants.SUBMARINE));
+
+    //vertical sub sub overlap (small to large)
+    b.setShip(5,6,6,6, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.NONEERROR, b.setSub(6, 4, 6, 7, 5, Constants.SUBMARINE));
+
+
+    //vertical large to small, sub-sub overlap
+    assertEquals(Constants.ERROR, b.setSub(8, 7, 8, 4, 5, Constants.SUBMARINE));
+
+    //vertical large to small, sub-ship overlap
+    b.setShip(7,1,8,1, 2, Constants.MINESWEEPER);
+    assertEquals(Constants.NONEERROR, b.setSub(7, 3, 7, 0, 5, Constants.SUBMARINE));
     b.printBoard();
+
 
   }
 
