@@ -104,7 +104,6 @@ public class Perks {
             ok = b.outOfBoundsCheck(x1 - 1,y1,x2 - 1,y2,ship);
             break;
         }
-
         //move ship
         if (ok == Constants.NONEERROR){
           System.out.println("pre");
@@ -195,6 +194,32 @@ public class Perks {
       }
     }
     return movedShips;
+  }
+
+  public void undoMove(char move, Board b){
+    //figure out reverse direction
+    char reverse = 'x';
+    switch(move){
+      case('N'):
+        reverse = 'S';
+        break;
+      case('S'):
+        reverse = 'N';
+        break;
+      case('W'):
+        reverse = 'E';
+        break;
+      case('E'):
+        reverse = 'W';
+        break;
+    }
+    //call moveFleet
+    moveFleet(b,reverse);
+  }
+
+  public void redoMove(char move, Board b){
+    //call moveFleet again
+    moveFleet(b,move);
   }
 }
 
