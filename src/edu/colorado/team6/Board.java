@@ -385,9 +385,6 @@ public class Board {
     return Constants.NONEERROR;
   }
 
-  // TODO: account for the fact that this function is using an arraylist
-  // TODO: implement method to enforce order of arrayList to account for overlap situations
-
   public int setShipLocations(Point coord, String ship) {
 
     switch (ship) {

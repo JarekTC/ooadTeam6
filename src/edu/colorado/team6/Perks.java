@@ -76,8 +76,6 @@ public class Perks {
       int len = shipCoord.size();
       if(len != 0) {
         if (!ship.equals(Constants.SUBMARINE)) {
-          // TODO:Check whether arraylists in master are empty or not (when have only 1 ship in fleet,
-          // get error)
           Point start = shipCoord.get(0);
           Point end = shipCoord.get(len - 1);
           int x1 = start.x;
