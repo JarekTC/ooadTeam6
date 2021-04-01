@@ -82,6 +82,7 @@ public class Game {
     private Boolean runTurn(Player whichPlayer, Scanner readIn){
 
         whichPlayer.getB().printBoard();
+        boardSetup(whichPlayer, readIn);
 
         System.out.println("----------");
         System.out.println("Select an option:");
@@ -103,19 +104,49 @@ public class Game {
 
     private int boardSetup(Player p, Scanner readIn){
 
-        
+        String[] listOfShips = {Constants.BATTLESHIP, Constants.SUBMARINE, Constants.DESTROYER, Constants.MINESWEEPER};
 
-        for (
+        for (String ship : listOfShips) {
+            int isError = 0;
+            String coords = "";
+
+            do {
+                try {
+                    System.out.println("Enter x and y coordinates for the endpoints of your " + ship + " separated by spaces:");
+                    coords = readIn.nextLine();
+                    int start1 = Integer.parseInt(coords.substring(0, 1));
+                    int start2 = Integer.parseInt(coords.substring(2, 3));
+                    int end1 = Integer.parseInt(coords.substring(4, 5));
+                    int end2 = Integer.parseInt(coords.substring(6, 7));
+
+                    switch (ship) {
+                      case Constants.BATTLESHIP:
+                        System.out.println(start1 + " " + start2 + " " + end1 + " " + end2);
+                          isError = p.placeShip(start1, start2, end1, end2, 4, ship);
+                        p.getB().printBoard();
+                        break;
+                      case Constants.SUBMARINE:
+                          isError = p.placeShip(start1, start2, end1, end2, 5, ship);
+                        p.getB().printBoard();
+                        break;
+                      case Constants.DESTROYER:
+                          isError = p.placeShip(start1, start2, end1, end2, 3, ship);
+                        p.getB().printBoard();
+                        break;
+                        case Constants.MINESWEEPER:
+                          isError = p.placeShip(start1, start2, end1, end2, 2, ship);
+                        p.getB().printBoard();
+                        break;
+                    }
+                }
+                catch (Exception e) {
+                    System.out.println("ERROR: problem with input. Re-enter coordinates");
+                }
+            } while (!(coords.matches("\\d\\s\\d\\s\\d\\s\\d")) || isError == Constants.ERROR);
+        }
 
             System.out.println("----------");
             System.out.println("Player One, set your ships:");
-            System.out.println("Enter x and y coordinates for the endpoints of your Destroyer separated by spaces:");
-            String coords = readIn.nextLine();
-
-
-
-
-            p.placeShip()
 
         return Constants.NONEERROR;
     }
