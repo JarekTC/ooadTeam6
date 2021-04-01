@@ -4,6 +4,7 @@ public class Main {
 
   public static void main(String[] args) {
 
-    // Ship ship = new Ship("Test");
+    Game game = new Game();
+
   }
 }

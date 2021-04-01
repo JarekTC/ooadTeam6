@@ -11,8 +11,12 @@ public class Player {
   private int score = 0;
   private HashMap<Point, Integer> record = new HashMap<Point, Integer>();
   private Board b = new Board();
+
+  //TODO: Implement method to use sonar perk
   private Perks p = new Perks();
-  private Boolean code;
+
+  //TODO: implement method to update after player sinks one ship
+  private Boolean activationCode = false;
 
   public Board getB() {
     return b;
@@ -40,9 +44,7 @@ public class Player {
     return p.moveFleet(b, direction);
   }
 
-  // COME BACK LATER TO ACTUALLY SET LOCATIONS OF SHIPS
-  // come back later to verify length of ship matches dist between points
-  // Also, prevent overlapping ships
+
   public int placeShip(int x1, int y1, int x2, int y2, int health, String ship) {
     if (!ship.equals(Constants.SUBMARINE)) {
       return this.b.setShip(x1, y1, x2, y2, health, ship);
@@ -53,7 +55,7 @@ public class Player {
   }
 
   public int hit(int x, int y, Player enemy, Boolean code) {
-    int hitStat = enemy.b.getCoord(x, y); // ISAAC CHANGE THIS
+    int hitStat = enemy.b.getCoord(x, y);
     addRecord(x, y, hitStat);
     if (hitStat != Constants.SEA) {
       // laser

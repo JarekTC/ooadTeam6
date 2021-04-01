@@ -7,6 +7,8 @@ public class Constants {
   public static final int SHIP_ON_TOP_SUB = 3;
   public static final int ERROR = -1;
   public static final int NONEERROR = 1;
+  public static final Boolean PLAYERA = true;
+  public static final Boolean PLAYERB = false;
   public static final String BATTLESHIP = "battleship";
   public static final String DESTROYER = "destroyer";
   public static final String MINESWEEPER = "minesweeper";
