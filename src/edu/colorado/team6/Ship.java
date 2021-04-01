@@ -62,7 +62,6 @@ public class Ship {
 
   // Displays subclass type name passed into constructor
   public String showShipType() {
-    System.out.println(typeName);
     return typeName;
   }
 
