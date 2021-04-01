@@ -108,23 +108,21 @@ public class Game {
 
         for (Ship ship : listOfShips) {
             int isError = 0;
-            String coords = "";
+            String[] coords;
+            String input = "";
 
             do {
                 try {
                     System.out.println("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:");
-                    coords = readIn.nextLine();
-                    int start1 = Integer.parseInt(coords.substring(0, 1));
-                    int start2 = Integer.parseInt(coords.substring(2, 3));
-                    int end1 = Integer.parseInt(coords.substring(4, 5));
-                    int end2 = Integer.parseInt(coords.substring(6, 7));
-                    isError = p.placeShip(start1, start2, end1, end2, ship.getShipHealth(), ship.showShipType());
+                    input = readIn.nextLine();
+                    coords = input.split("\\s");
+                    isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
                     p.getB().printBoard();
                 }
                 catch (Exception e) {
                     System.out.println("ERROR: problem with input. Re-enter coordinates");
                 }
-            } while (!(coords.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
+            } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
 
             System.out.println("----------");
