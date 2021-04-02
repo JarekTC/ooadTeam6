@@ -1,5 +1,8 @@
 package edu.colorado.team6;
 
+import java.awt.*;
+import java.lang.management.PlatformLoggingMXBean;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -53,7 +56,13 @@ public class Game {
 
         Scanner readIn = new Scanner(System.in);  // Create a Scanner object
 
+        System.out.println("----------");
+        System.out.println("Player One, set your ships:");
+        boardSetup(playerA, readIn);
 
+        System.out.println("----------");
+        System.out.println("Player Two, set your ships:");
+        boardSetup(playerB, readIn);
 
         while(!exit){
 
@@ -81,25 +90,41 @@ public class Game {
 
     private Boolean runTurn(Player whichPlayer, Scanner readIn){
 
+        Boolean endGame = false;
+        int correctInput = 0;
+
         whichPlayer.getB().printBoard();
-        boardSetup(whichPlayer, readIn);
 
         System.out.println("----------");
         System.out.println("Select an option:");
         System.out.println("1.End");
-        System.out.println("");
+        System.out.println("2.Move Fleet");
+        System.out.println("3.Attack Opponent");
+        System.out.println("4.User Perk");
 
 
         int select = readIn.nextInt();  // Read user input
 
-        switch (select){
-            case 1:
-                return true;
+        do {
+            switch (select) {
+                case 1:
+                    endGame = true;
+                    break;
+                case 2:
+                    userMoveFleet(whichPlayer, readIn);
+                    break;
+                case 3:
+                    userAttackOpponent(whichPlayer, readIn);
+                    break;
 
+                default:
+                    System.out.println("Please enter a choice from the menu");
+                    correctInput = -1;
+                    break;
+            }
+        } while(correctInput == -1);
 
-        }
-
-        return true;
+        return endGame;
     }
 
     private int boardSetup(Player p, Scanner readIn){
@@ -125,10 +150,38 @@ public class Game {
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
 
-            System.out.println("----------");
-            System.out.println("Player One, set your ships:");
+        return Constants.NONEERROR;
+    }
+
+    private int userMoveFleet(Player p, Scanner readIn){
+
+        Character direction = '0';
+
+        ArrayList<Character> validDirections = new ArrayList<Character>();
+
+        validDirections.add('N');
+        validDirections.add('S');
+        validDirections.add('E');
+        validDirections.add('W');
+
+        do {
+            try {
+                System.out.println("Enter the Compass direction in which to move your fleet:");
+                System.out.println("Please enter 'N', 'S', 'E', or 'W'");
+                direction = Character.toUpperCase(readIn.next().charAt(0));
+
+                p.moveFleetPlayer(direction);
+            } catch (Exception a) {
+                System.out.println("If this error is thrown, something is seriously wrong with userMoveFleet()");
+                return Constants.ERROR;
+            }
+        } while (!(validDirections.contains(direction)));
 
         return Constants.NONEERROR;
     }
+
+}
+
+private int userAttackOpponent(Player whichPlayer, Scanner readIn){
 
 }
