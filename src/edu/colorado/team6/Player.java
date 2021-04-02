@@ -27,6 +27,10 @@ public class Player {
     this.name = name;
   }
 
+  public Boolean getActivationCode(){
+    return this.activationCode;
+  }
+
   // getter for name
   public String getName() {
     return name;
@@ -53,13 +57,13 @@ public class Player {
       return this.b.setSub(x1, y1, x2, y2, health, ship);
     }
   }
-
+  //TODO: refactor design for hit to use the activation code
   public int hit(int x, int y, Player enemy, Boolean code) {
     int hitStat = enemy.b.getCoord(x, y);
     addRecord(x, y, hitStat);
     if (hitStat != Constants.SEA) {
       // laser
-      if (code) {
+      if (code) {// this.activationCode
         Boolean overlap = false;
         if (hitStat == Constants.SHIP_ON_TOP_SUB) {
           overlap = true;

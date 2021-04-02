@@ -70,7 +70,7 @@ public class Game {
             if (whoseTurn == Constants.PLAYERA){
                 System.out.println("Player One, your turn!");
 
-                exit = runTurn(playerB, readIn);
+                exit = runTurn(playerA, readIn, playerB); //should be playerA in first spot???
 
                 whoseTurn = Constants.PLAYERB;
             }
@@ -79,7 +79,7 @@ public class Game {
             else if (whoseTurn == Constants.PLAYERB){
                 System.out.println("Player Two, your turn!");
 
-                exit = runTurn(playerB, readIn);
+                exit = runTurn(playerB, readIn, playerA);
 
                 whoseTurn = Constants.PLAYERA;
             }
@@ -88,7 +88,7 @@ public class Game {
     }
 
 
-    private Boolean runTurn(Player whichPlayer, Scanner readIn){
+    private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy){
 
         Boolean endGame = false;
         int correctInput = 0;
@@ -114,7 +114,7 @@ public class Game {
                     userMoveFleet(whichPlayer, readIn);
                     break;
                 case 3:
-                    userAttackOpponent(whichPlayer, readIn);
+                    userAttackOpponent(whichPlayer, readIn, enemy);
                     break;
 
                 default:
@@ -180,8 +180,72 @@ public class Game {
         return Constants.NONEERROR;
     }
 
+
+    private int userAttackOpponent(Player whichPlayer, Scanner readIn, Player enemy){
+        int x;
+        int y;
+        String input = "";
+        String[] coords = new String[0];
+        do {
+            try {
+                System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
+                input = readIn.nextLine();
+                coords = input.split("\\s");
+                //isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
+                //which.getB().printBoard();
+            }
+            catch (Exception e) {
+                System.out.println("ERROR: problem with input. Re-enter coordinates");
+            }
+        } while (!(input.matches("\\d\\s\\d")) );//| isError == Constants.ERROR
+        Boolean code = whichPlayer.getActivationCode();
+        x = Integer.parseInt(coords[0]);
+        y = Integer.parseInt(coords[1]);
+        compare(whichPlayer.hit(x,y,enemy,code), whichPlayer.lookupRecord(x,y));
+
+        return Constants.NONEERROR;
+    }
+
+    private void compare(int hitStat, int record){
+        if(record == 0 && hitStat == 0){
+            System.out.println("You've hit water!");
+        }
+        else if(record == 1 && hitStat == 0){
+            System.out.println("You've hit a ship!");
+        }
+        else if(record == 3 && hitStat == 2){
+            System.out.println("You've hit a ship!");
+        }
+        else if(record == 1 && hitStat == 1){
+            System.out.println("You've hit the captain's quarters of a ship!");
+        }
+        else if(record == 3 && hitStat == 3){
+            System.out.println("You've hit the captain's quarters of a ship!");
+        }
+        else if(record == 3 && hitStat == 0){
+            System.out.println("You've hit part of a ship and a submarine!");
+        }
+        else if(record == 2 && hitStat == 0){
+            System.out.println("You've hit a submarine!");
+        }
+        else if(record == 2 && hitStat == 2){
+            System.out.println("You've hit the captain's quarters of a submarine!");
+        }
+    }
 }
 
-private int userAttackOpponent(Player whichPlayer, Scanner readIn){
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
