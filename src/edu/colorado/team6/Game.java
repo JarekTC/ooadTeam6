@@ -93,6 +93,8 @@ public class Game {
         Boolean endGame = false;
         int correctInput = 0;
 
+        whichPlayer.printRecord();
+        System.out.println();
         whichPlayer.getB().printBoard();
 
         System.out.println("----------");

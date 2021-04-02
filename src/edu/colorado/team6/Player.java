@@ -1,5 +1,6 @@
 package edu.colorado.team6;
 
+import javax.lang.model.type.NullType;
 import java.awt.*;
 import java.lang.Math;
 import java.util.ArrayList;
@@ -25,6 +26,26 @@ public class Player {
   // constructor
   public Player(String name) {
     this.name = name;
+  }
+
+  public void printRecord() {
+    int xyValue;
+    for (int y = 9; y >= 0; y--) {
+      for (int x = 0; x < 10; x++) {
+        try {
+          xyValue = record.get(new Point(x, y));
+          if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
+            System.out.print(" H ");
+          } else {
+            System.out.print(" M ");
+          }
+        }
+        catch (Exception e) {
+          System.out.print(" - ");
+        }
+      }
+      System.out.println();
+    }
   }
 
   public Boolean getActivationCode(){
