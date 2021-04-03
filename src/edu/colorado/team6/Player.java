@@ -20,6 +20,8 @@ public class Player {
   private Boolean activationCode = false;
   private int countHits = 0;
   private Boolean nuke = false;
+  private HashMap<Point, Integer> revealed = new HashMap<Point, Integer>();
+  private Boolean sonar = false;
 
   public Board getB() {
     return b;
@@ -49,6 +51,21 @@ public class Player {
       System.out.println();
     }
   }
+  public Boolean getSonar(){
+    return this.sonar;
+  }
+
+  public void setSonar(){
+    this.sonar = true;
+  }
+
+  public void setRevealed(HashMap<Point, Integer> rev){
+    this.revealed = rev;
+  }
+
+  public HashMap<Point, Integer> getRevealed(){return this.revealed;}
+
+  public HashMap<Point, Integer> getRecord(){return this.record;}
 
   public Boolean getActivationCode(){
     return this.activationCode;

@@ -90,11 +90,14 @@ public class Game {
 
 
     private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy){
-
         Boolean endGame = false;
         int correctInput = 0;
-        //Boolean nuke = false;
-        whichPlayer.printRecord();
+        if(whichPlayer.getSonar() == true){
+            superPrintRecord(whichPlayer.getRecord(), whichPlayer.getRevealed());
+        }
+        else{
+            whichPlayer.printRecord();
+        }
         System.out.println();
         whichPlayer.getB().printBoard();
         if(whichPlayer.getCountHits() == 6){
@@ -124,7 +127,10 @@ public class Game {
                     correctInput = 0;
                     break;
                 case 4:
-                    endGame = dealPerks(whichPlayer, readIn, enemy);
+                    correctInput = dealPerks(whichPlayer, readIn, enemy, correctInput);
+                    if(correctInput == 1){
+                        endGame = true;
+                    }
                     break;
 
                 default:
@@ -138,9 +144,7 @@ public class Game {
     }
 
     private int boardSetup(Player p, Scanner readIn){
-
         Ship[] listOfShips = {new BattleShip(), new Submarine(), new Destroyer(), new MineSweeper()};
-
         for (Ship ship : listOfShips) {
             int isError = 0;
             String[] coords;
@@ -159,28 +163,22 @@ public class Game {
                 }
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
-
         return Constants.NONEERROR;
     }
 
     private int userMoveFleet(Player p, Scanner readIn){
-
         Character direction = '0';
-
         ArrayList<Character> validDirections = new ArrayList<Character>();
-
         validDirections.add('N');
         validDirections.add('S');
         validDirections.add('E');
         validDirections.add('W');
-
         do {
             System.out.println("Enter the Compass direction in which to move your fleet:");
             System.out.println("Please enter 'N', 'S', 'E', or 'W'");
             direction = Character.toUpperCase(readIn.next().charAt(0));
             p.moveFleetPlayer(direction);
         } while (!(validDirections.contains(direction)));
-
         return Constants.NONEERROR;
     }
 
@@ -194,14 +192,11 @@ public class Game {
             System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
             input = readIn.nextLine();
             coords = input.split("\\s");
-            //isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
-            //which.getB().printBoard();
         } while (!(input.matches("\\d\\s\\d")) );//| isError == Constants.ERROR
         Boolean code = whichPlayer.getActivationCode();
         x = Integer.parseInt(coords[0]);
         y = Integer.parseInt(coords[1]);
         compare(whichPlayer.hit(x,y,enemy,code), whichPlayer.lookupRecord(x,y));
-
         return Constants.NONEERROR;
     }
 
@@ -232,28 +227,28 @@ public class Game {
         }
     }
 
-    private Boolean dealPerks(Player currentPlayer, Scanner readIn, Player enemy){
-        int correctInput = 0;
-        Boolean end = false;
+    private int dealPerks(Player currentPlayer, Scanner readIn, Player enemy, int correctInput){
+        int correctI = 0;
         do{
             System.out.println("----------");
             System.out.println("Select an option:");
             System.out.println("1.Nuke");
             System.out.println("2.Sonar");
-            System.out.println("3. [NEW FEATURE]");
-
+            System.out.println("3.Exit perks");
             int select = readIn.nextInt();  // Read user input
-
             switch (select) {
                 case 1:
                     if(currentPlayer.getNuke() == true){
                         System.out.println("You just nuked your enemy!");
-                        end = true;
+                        //end = true;
+                        correctInput = 1;
+                        correctI = 0;
                     }
                     else{
                         System.out.println("Nuke not available!");
+                        correctInput = -1;
+                        correctI = -1;
                     }
-                    correctInput = 0;
                     break;
                 case 2:
                     Perks p = currentPlayer.getPerks();
@@ -267,23 +262,54 @@ public class Game {
                     Point xandy = new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
                     Board enemyBoard = enemy.getB();
                     HashMap<Point, Integer> revealed = p.sonar(xandy, enemyBoard);
+                    currentPlayer.setRevealed(revealed);
                     //make sense of results and print nicely
+                    HashMap<Point, Integer> record = currentPlayer.getRecord();
+                    superPrintRecord(record, revealed);
+                    currentPlayer.setSonar();
                     correctInput = 0;
                     break;
                 case 3:
-                    // feature coming soon!!!!!!!!!!!!
-                    correctInput = 0;
+                    correctInput = -1;
+                    correctI = 0;
                     break;
-
                 default:
                     System.out.println("Please enter a choice from the menu");
-                    correctInput = -1;
+                    correctI = -1;
                     break;
             }
-        }while(correctInput != -1);
+        }while(correctI == -1);
+        return correctInput;
+    }
 
-
-        return end;
+    public void superPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev){
+        int xyValue;
+        for (int y = 9; y >= 0; y--) {
+            for (int x = 0; x < 10; x++) {
+                try {
+                    if(record.containsKey(new Point(x, y))){
+                        xyValue = record.get(new Point(x, y));
+                        if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
+                            System.out.print(" H ");
+                        } else {
+                            System.out.print(" M ");
+                        }
+                    }
+                    else{
+                        xyValue = rev.get(new Point(x, y));
+                        if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
+                            System.out.print(" "+xyValue+" ");
+                        } else {
+                            System.out.print(" 0 ");
+                        }
+                    }
+                }
+                catch (Exception e) {
+                    System.out.print(" - ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
 

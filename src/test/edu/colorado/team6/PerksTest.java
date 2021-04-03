@@ -44,6 +44,8 @@ class PerksTest {
     expected.put(new Point(4, 2), 0);
     expected.put(new Point(2, 2), 0);
     expected.put(new Point(2, 4), 0);
+
+    assertTrue(expected.equals(radar));
   }
 
   @Test
