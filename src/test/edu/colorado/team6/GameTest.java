@@ -29,7 +29,35 @@ class GameTest {
                     + "N\n" // Player A move fleet North
                     + "2\n" // Player B choose to move fleet
                     + "E\n" // Player B move fleet East
-                    + "3\n" // Player A attack opponent
+
+                    // BOARDS AFTER MOVE FLEETS
+                    // Player A board
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 3 0 0 0 0 0 0 0 0
+                    // 2 3 1 0 0 0 0 0 0 0
+                    // 0 3 1 1 0 0 0 0 0 0
+                    // 0 3 1 1 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    //
+                    //
+                    // Player B board
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 0 0 0 0 0 0 0 0 0
+                    // 0 1 2 0 0 0 0 0 0 0
+                    // 0 3 2 1 0 0 0 0 0 0
+                    // 0 1 2 1 1 0 0 0 0 0
+                    // 0 1 2 1 1 0 0 0 0 0
+
+
+                + "3\n" // Player A attack opponent
                     + "0 0\n" // Player A attack opponent at (0, 0), hit sea
                     + "3\n" // Player B attack opponent
                     + "yilegfvifu\n" // Player B try to attack opponent with wrong input
