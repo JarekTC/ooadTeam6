@@ -40,21 +40,21 @@ public class Game {
         System.out.println("Enter player two name:");
 
         playerNameB = myObj.nextLine();  // Read user input
-        System.out.println("player two name is: " + playerNameA);  // Output user input
+        System.out.println("player two name is: " + playerNameB);  // Output user input
 
         playerA = new Player(playerNameA);
         playerB = new Player(playerNameB);
 
-        runGame();
+        runGame(myObj);
     }
 
-    private int runGame(){
+    private int runGame(Scanner readIn){
 
         Boolean exit = false;
 
         System.out.println("The Game is afoot! Player One BEGIN!!");
 
-        Scanner readIn = new Scanner(System.in);  // Create a Scanner object
+        //Scanner readIn = new Scanner(System.in);  // Create a Scanner object
 
         System.out.println("----------");
         System.out.println("Player One, set your ships:");
@@ -97,26 +97,28 @@ public class Game {
         System.out.println();
         whichPlayer.getB().printBoard();
 
-        System.out.println("----------");
-        System.out.println("Select an option:");
-        System.out.println("1.End");
-        System.out.println("2.Move Fleet");
-        System.out.println("3.Attack Opponent");
-        System.out.println("4.User Perk");
-
-
-        int select = readIn.nextInt();  // Read user input
-
         do {
+            System.out.println("----------");
+            System.out.println("Select an option:");
+            System.out.println("1.End");
+            System.out.println("2.Move Fleet");
+            System.out.println("3.Attack Opponent");
+            System.out.println("4.User Perk");
+
+            int select = readIn.nextInt();  // Read user input
+
             switch (select) {
                 case 1:
                     endGame = true;
+                    correctInput = 0;
                     break;
                 case 2:
                     userMoveFleet(whichPlayer, readIn);
+                    correctInput = 0;
                     break;
                 case 3:
                     userAttackOpponent(whichPlayer, readIn, enemy);
+                    correctInput = 0;
                     break;
 
                 default:
@@ -167,16 +169,10 @@ public class Game {
         validDirections.add('W');
 
         do {
-            try {
-                System.out.println("Enter the Compass direction in which to move your fleet:");
-                System.out.println("Please enter 'N', 'S', 'E', or 'W'");
-                direction = Character.toUpperCase(readIn.next().charAt(0));
-
-                p.moveFleetPlayer(direction);
-            } catch (Exception a) {
-                System.out.println("If this error is thrown, something is seriously wrong with userMoveFleet()");
-                return Constants.ERROR;
-            }
+            System.out.println("Enter the Compass direction in which to move your fleet:");
+            System.out.println("Please enter 'N', 'S', 'E', or 'W'");
+            direction = Character.toUpperCase(readIn.next().charAt(0));
+            p.moveFleetPlayer(direction);
         } while (!(validDirections.contains(direction)));
 
         return Constants.NONEERROR;
@@ -189,16 +185,11 @@ public class Game {
         String input = "";
         String[] coords = new String[0];
         do {
-            try {
-                System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
-                input = readIn.nextLine();
-                coords = input.split("\\s");
-                //isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
-                //which.getB().printBoard();
-            }
-            catch (Exception e) {
-                System.out.println("ERROR: problem with input. Re-enter coordinates");
-            }
+            System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
+            input = readIn.nextLine();
+            coords = input.split("\\s");
+            //isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
+            //which.getB().printBoard();
         } while (!(input.matches("\\d\\s\\d")) );//| isError == Constants.ERROR
         Boolean code = whichPlayer.getActivationCode();
         x = Integer.parseInt(coords[0]);

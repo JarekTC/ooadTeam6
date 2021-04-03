@@ -84,7 +84,7 @@ public class Player {
     addRecord(x, y, hitStat);
     if (hitStat != Constants.SEA) {
       // laser
-      if (code) {// this.activationCode
+      if (code) {//TODO: this.activationCode
         Boolean overlap = false;
         if (hitStat == Constants.SHIP_ON_TOP_SUB) {
           overlap = true;
