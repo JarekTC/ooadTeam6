@@ -52,6 +52,10 @@ public class Player {
     return this.activationCode;
   }
 
+  public void setActivationCode(){
+    this.activationCode = true;
+  }
+
   // getter for name
   public String getName() {
     return name;
@@ -93,8 +97,13 @@ public class Player {
       } // bombs
       else {
         if (hitStat != Constants.SUB_UNDER_WATER) {
-          System.out.println(hitStat + " sdjvbsdiuvbsidvisudvivhvvahjds");
+          System.out.println("coord before " + enemy.b.getCoord(x, y));
+          Ship s = enemy.b.getShipLocations(new Point(x,y)).get(0);
           enemy.b.bombApplyDamage(x, y);
+          System.out.println(enemy.b.getCoord(x, y));
+          if(s.getShipHealth() == 0){
+            setActivationCode();
+          }
         }
       }
     }

@@ -57,7 +57,7 @@ class GameTest {
                     // 0 1 2 1 1 0 0 0 0 0
 
 
-                + "3\n" // Player A attack opponent
+                    + "3\n" // Player A attack opponent
                     + "0 0\n" // Player A attack opponent at (0, 0), hit sea
                     + "3\n" // Player B attack opponent
                     + "yilegfvifu\n" // Player B try to attack opponent with wrong input
