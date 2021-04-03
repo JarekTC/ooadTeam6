@@ -18,6 +18,8 @@ public class Player {
 
   //TODO: implement method to update after player sinks one ship
   private Boolean activationCode = false;
+  private int countHits = 0;
+  private Boolean nuke = false;
 
   public Board getB() {
     return b;
@@ -69,6 +71,22 @@ public class Player {
     this.score = score;
   }
 
+  public int getCountHits(){
+    return this.countHits;
+  }
+
+  public void setNuke(){
+    this.nuke = true;
+  }
+
+  public Boolean getNuke(){
+    return this.nuke;
+  }
+
+  public Perks getPerks(){
+    return this.p;
+  }
+
   public ArrayList<String> moveFleetPlayer(char direction) {
     return p.moveFleet(b, direction);
   }
@@ -94,13 +112,15 @@ public class Player {
           overlap = true;
         }
         enemy.b.laserApplyDamage(x, y, overlap);
+        this.countHits++;
       } // bombs
       else {
         if (hitStat != Constants.SUB_UNDER_WATER) {
-          System.out.println("coord before " + enemy.b.getCoord(x, y));
+          //System.out.println("coord before " + enemy.b.getCoord(x, y));
           Ship s = enemy.b.getShipLocations(new Point(x,y)).get(0);
           enemy.b.bombApplyDamage(x, y);
-          System.out.println(enemy.b.getCoord(x, y));
+          this.countHits++;
+          //System.out.println(enemy.b.getCoord(x, y));
           if(s.getShipHealth() == 0){
             setActivationCode();
           }

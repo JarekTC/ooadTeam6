@@ -3,6 +3,7 @@ package edu.colorado.team6;
 import java.awt.*;
 import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -92,11 +93,13 @@ public class Game {
 
         Boolean endGame = false;
         int correctInput = 0;
-
+        //Boolean nuke = false;
         whichPlayer.printRecord();
         System.out.println();
         whichPlayer.getB().printBoard();
-
+        if(whichPlayer.getCountHits() == 6){
+            whichPlayer.setNuke();
+        }
         do {
             System.out.println("----------");
             System.out.println("Select an option:");
@@ -119,6 +122,9 @@ public class Game {
                 case 3:
                     userAttackOpponent(whichPlayer, readIn, enemy);
                     correctInput = 0;
+                    break;
+                case 4:
+                    endGame = dealPerks(whichPlayer, readIn, enemy);
                     break;
 
                 default:
@@ -224,6 +230,60 @@ public class Game {
         else if(record == 2 && hitStat == 2){
             System.out.println("You've hit the captain's quarters of a submarine!");
         }
+    }
+
+    private Boolean dealPerks(Player currentPlayer, Scanner readIn, Player enemy){
+        int correctInput = 0;
+        Boolean end = false;
+        do{
+            System.out.println("----------");
+            System.out.println("Select an option:");
+            System.out.println("1.Nuke");
+            System.out.println("2.Sonar");
+            System.out.println("3. [NEW FEATURE]");
+
+            int select = readIn.nextInt();  // Read user input
+
+            switch (select) {
+                case 1:
+                    if(currentPlayer.getNuke() == true){
+                        System.out.println("You just nuked your enemy!");
+                        end = true;
+                    }
+                    else{
+                        System.out.println("Nuke not available!");
+                    }
+                    correctInput = 0;
+                    break;
+                case 2:
+                    Perks p = currentPlayer.getPerks();
+                    String input = "";
+                    String[] coords = new String[0];
+                    do {
+                        System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
+                        input = readIn.nextLine();
+                        coords = input.split("\\s");
+                    } while (!(input.matches("\\d\\s\\d")));
+                    Point xandy = new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
+                    Board enemyBoard = enemy.getB();
+                    HashMap<Point, Integer> revealed = p.sonar(xandy, enemyBoard);
+                    //make sense of results and print nicely
+                    correctInput = 0;
+                    break;
+                case 3:
+                    // feature coming soon!!!!!!!!!!!!
+                    correctInput = 0;
+                    break;
+
+                default:
+                    System.out.println("Please enter a choice from the menu");
+                    correctInput = -1;
+                    break;
+            }
+        }while(correctInput != -1);
+
+
+        return end;
     }
 }
 
