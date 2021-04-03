@@ -84,6 +84,8 @@ class GameTest {
                     + "0 0\n"
                     + "3\n" // Player A attack sub captain's quarters with laser
                     + "2 3\n"
+                    +"3\n" // PLayer B hit non-sub captains quarters where there is a stacked ship
+                    +"1 3\n"
                     + "2345\n" // Player A enter choice not on menu
                     + "1\n"; // Player B end game
 
