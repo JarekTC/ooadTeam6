@@ -95,7 +95,7 @@ class GameTest {
                     + "2\n" //Use sonar
                     + "4 3\n"
                     + "4\n" // Player B access perks menu
-                    + "344\n" // Try to use option not on menu
+                    + "844\n" // Try to use option not on menu
                     + "2\n"
                     + "3\n" // Player A attack random location
                     + "2 3\n"

@@ -268,6 +268,7 @@ public class Game {
                     superPrintRecord(record, revealed);
                     currentPlayer.setSonar();
                     correctInput = 0;
+                    correctI = 0;
                     break;
                 case 3:
                     correctInput = -1;
