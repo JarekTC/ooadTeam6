@@ -66,8 +66,12 @@ class GameTest {
                     + "1 1\n"
                     + "3\n" // Player B attack opponent submarine
                     + "1 1\n"
-                    + "3\n" // Player A random move
+                    + "3\n" // Player A random hit
                     + "9 9\n"
+                    + "4\n" // Player B access perks menu
+                    + "1\n" // Try to use Nuke (no access)
+                    + "3\n" // Player A random move
+                    + "0 0\n"
                     + "3\n" // Player B attack opponent on non-sub captains quarters
                     + "2 2\n"
                     + "3\n" // Player A sink B's minesweeper, so A can use laser
@@ -87,9 +91,45 @@ class GameTest {
                     +"3\n" // PLayer B hit non-sub captains quarters where there is a stacked ship
                     +"1 3\n"
                     + "2345\n" // Player A enter choice not on menu
-                    + "1\n"; // Player B end game
+                    + "4\n" // Player A access perks menu
+                    + "2\n" //Use sonar
+                    + "4 3\n"
+                    + "4\n" // Player B access perks menu
+                    + "344\n" // Try to use option not on menu
+                    + "2\n"
+                    + "3\n" // Player A attack random location
+                    + "2 3\n"
+                    + "3\n" // Player B attack random location. CAUSING FAILED TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    + "3 2\n"// FOR SOME REASON, THIS LINE, AND THE LINE ABOVE ARE NOT WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    + "4\n" // Player A access perks menu
+                    + "1\n"; // Use nuke
+                    //+ "1\n"; // Player B end game
 
 
+        InputStream stdin = System.in;
+
+        // Input player A's name
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        //Scanner scanner = new Scanner(System.in);
+        g = new Game();
+
+        System.setIn(stdin);
+    }
+
+    @Test
+    public void testEndGame() {
+        String input = "Neel\n" // Player A name
+                + "Stefan\n" // Player B name
+                + "1 0 1 3\n" // Player A set battleship
+                + "1 0 1 3\n" // Player A set submarine
+                + "2 0 2 2\n" // Player A set destroyer
+                + "3 0 3 1\n" // Player A set minesweeper
+                + "0 0 0 3\n" // Player B set battleship
+                + "1 0 1 3\n" // Player B set submarine
+                + "2 0 2 347rfed\n" // Player B try set destroyer with bad input
+                + "2 0 2 2\n" // Player B set destroyer
+                + "3 0 3 1\n" // Player B set minesweeper
+                + "1\n"; // Player A end game
         InputStream stdin = System.in;
 
         // Input player A's name

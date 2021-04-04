@@ -113,7 +113,6 @@ public class Player {
     if (!ship.equals(Constants.SUBMARINE)) {
       return this.b.setShip(x1, y1, x2, y2, health, ship);
     } else {
-      System.out.println("PLACING SUB");
       return this.b.setSub(x1, y1, x2, y2, health, ship);
     }
   }
@@ -133,11 +132,9 @@ public class Player {
       } // bombs
       else {
         if (hitStat != Constants.SUB_UNDER_WATER) {
-          //System.out.println("coord before " + enemy.b.getCoord(x, y));
           Ship s = enemy.b.getShipLocations(new Point(x,y)).get(0);
           enemy.b.bombApplyDamage(x, y);
           this.countHits++;
-          //System.out.println(enemy.b.getCoord(x, y));
           if(s.getShipHealth() == 0){
             setActivationCode();
           }
@@ -160,7 +157,6 @@ public class Player {
     // CHECK IF RECORD EXISTS
     Point p = new Point(x, y);
     if (this.record.containsKey(p)) {
-      System.out.println("The record already exists!");
       return false;
     }
     this.record.put(p, hitMiss);

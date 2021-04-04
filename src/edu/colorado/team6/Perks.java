@@ -100,14 +100,9 @@ public class Perks {
           }
           // move ship
           if (ok == Constants.NONEERROR) {
-            System.out.println("pre");
-            System.out.println(b.getShipLocations(start));
-            System.out.println(master);
             Ship s = b.getShipLocations(start).get(0);
-            System.out.println("post");
             // call cleanup !!!!!!!!!!!!!!!!!!!!!!!!!!!
             j.cleanupOnAisle5(b, s, shipCoord, ship);
-            System.out.println(master);
             // set new ship
             int health = s.getShipHealth();
 

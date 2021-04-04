@@ -120,7 +120,6 @@ public class Board {
     }
     if (s.getShipHealth() < preHealth) {
       if (getCoord(x, y) != Constants.SHIP_ON_TOP_SUB) {
-        System.out.println("Not SHIP_ON_TOP_SUB");
         setCoord(x, y, Constants.SEA);
       } else {
         setCoord(x, y, Constants.SUB_UNDER_WATER);
@@ -237,7 +236,6 @@ public class Board {
       // Horizontal ship (Smallest to largest coordinates)
       if ((x2 - x1) > 0) {
         for (int i = x1; i <= x2; i++) {
-          System.out.println("in branch where placing vertical ship");
           // Check is there is a submarine at placement location
           if (getCoord(i, y1) == Constants.SUB_UNDER_WATER) {
             setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
@@ -306,7 +304,6 @@ public class Board {
     // Horizontal ship (Smallest to largest coordinates)
     if ((x2 - x1) > 0) {
       for (int i = x1; i <= x2; i++) {
-        // System.out.println("in branch where placing vertical ship");
         // Check is there is a submarine at placement location
         if (getCoord(i, y1) == Constants.SHIP) {
           setCoord(i, y1, Constants.SHIP_ON_TOP_SUB);
@@ -448,7 +445,6 @@ public class Board {
     else if ((y1 - y2) < 0) {
       for (int i = y1; i <= y2; i++) {
         Point coord = new Point(x1, i);
-        // System.out.println("Calling from setShipArray():" + x1 + " " + i);
         posi.add(coord);
       }
       if (ship.equals(Constants.SUBMARINE)) {
@@ -479,9 +475,6 @@ public class Board {
         return Constants.NONEERROR;
       case Constants.SUBMARINE:
         this.masterOrientation.put(Constants.SUBMARINE, posi);
-        for (int i = 0; i < posi.size(); i++) {
-          System.out.println(ship + ": " + posi.get(i).x + ", " + posi.get(i).y);
-        }
         this.ssOrientation = posi;
         return Constants.NONEERROR;
     }

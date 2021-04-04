@@ -100,7 +100,7 @@ public class Game {
         }
         System.out.println();
         whichPlayer.getB().printBoard();
-        if(whichPlayer.getCountHits() == 6){
+        if(whichPlayer.getCountHits() == 3){
             whichPlayer.setNuke();
         }
         do {
