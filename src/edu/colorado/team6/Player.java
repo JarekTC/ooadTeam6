@@ -5,6 +5,8 @@ import java.awt.*;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Player {
 
@@ -142,6 +144,27 @@ public class Player {
       }
     }
     return enemy.b.getCoord(x, y);
+  }
+
+  public HashMap<Integer, Point> b2Bomber(Player enemy){
+    HashMap<Point,ArrayList<Ship>> targets = enemy.b.getShipLocations();
+    Iterator it = targets.entrySet().iterator();
+    for(Map.Entry<Point, ArrayList<Ship>> pair : targets.entrySet()){
+      ArrayList<Ship> potential_target = (ArrayList<Ship>) pair.getValue();
+      //if there is a ship at this location, hit it!
+      if(potential_target.size() != 0){
+        System.out.println("Target acquired!");
+        Point coord = pair.getKey();
+        int x = coord.x;
+        int y = coord.y;
+        int tar = hit(x,y,enemy,this.activationCode);
+        HashMap<Integer, Point> result = new HashMap<Integer,Point>();
+        result.put(tar,coord);
+        return result;
+      }
+    }
+    HashMap<Integer, Point> failed = new HashMap<Integer, Point>();
+    return failed;
   }
 
   public int lookupRecord(int x, int y) {

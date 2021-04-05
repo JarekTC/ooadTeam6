@@ -2,10 +2,7 @@ package edu.colorado.team6;
 
 import java.awt.*;
 import java.lang.management.PlatformLoggingMXBean;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class Game {
 
@@ -234,6 +231,7 @@ public class Game {
             System.out.println("Select an option:");
             System.out.println("1.Nuke");
             System.out.println("2.Sonar");
+            System.out.println("3.B2 Bomber");
             System.out.println("3.Exit perks");
             int select = readIn.nextInt();  // Read user input
             switch (select) {
@@ -271,6 +269,21 @@ public class Game {
                     correctI = 0;
                     break;
                 case 3:
+                    HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
+                    Iterator it = target.entrySet().iterator();
+                    int stat = 0;
+                    Point c = new Point();
+                    for(Map.Entry<Integer, Point> pair : target.entrySet()){
+                        stat = pair.getKey();
+                        c = pair.getValue();
+                    }
+                    int x = c.x;
+                    int y = c.y;
+                    compare(stat, currentPlayer.lookupRecord(x,y));
+                    correctInput = 0;
+                    correctI = 0;
+                    break;
+                case 4:
                     correctInput = -1;
                     correctI = 0;
                     break;
