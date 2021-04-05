@@ -60,10 +60,15 @@ public class Game {
         System.out.println("----------");
         System.out.println("Player One, set your ships:");
         boardSetup(playerA, readIn);
+        System.out.println("Your ships area ready!");
+        System.out.println(ASCII_Art.asciiArt.get("Ship"));
 
         System.out.println("----------");
         System.out.println("Player Two, set your ships:");
         boardSetup(playerB, readIn);
+        System.out.println("Your ships area ready!");
+        System.out.println(ASCII_Art.asciiArt.get("Ship"));
+
 
         while(!exit){
 
@@ -85,6 +90,10 @@ public class Game {
                 whoseTurn = Constants.PLAYERA;
             }
         }
+        System.out.println("Winner let's celebrate!");
+        System.out.println(ASCII_Art.asciiArt.get("Champagne"));
+        System.out.println("Here is some poop for the loser!");
+        System.out.println(ASCII_Art.asciiArt.get("Poo"));
         return Constants.NONEERROR;
     }
 
@@ -206,27 +215,43 @@ public class Game {
         }
         else if(record == 1 && hitStat == 0){
             System.out.println("You've hit a ship!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 3 && hitStat == 2){
             System.out.println("You've hit a ship!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 1 && hitStat == 1){
             System.out.println("You've hit the captain's quarters of a ship!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 3 && hitStat == 3){
             System.out.println("You've hit the captain's quarters of a ship!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 3 && hitStat == 0){
             System.out.println("You've hit part of a ship and a submarine!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 2 && hitStat == 0){
             System.out.println("You've hit a submarine!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 2 && hitStat == 2){
             System.out.println("You've hit the captain's quarters of a submarine!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
         else if(record == 3 && hitStat == 1){
             System.out.println("You've hit the captain's quarters of a stacked ship with laser!");
+            System.out.println("Have some pie!");
+            System.out.println(ASCII_Art.asciiArt.get("Pie"));
         }
 
     }
@@ -245,6 +270,7 @@ public class Game {
                 case 1:
                     if(currentPlayer.getNuke() == true){
                         System.out.println("You just nuked your enemy!");
+                        System.out.println(ASCII_Art.asciiArt.get("Nuke"));
                         //end = true;
                         correctInput = 1;
                         correctI = 0;
