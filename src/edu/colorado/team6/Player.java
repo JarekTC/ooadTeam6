@@ -24,6 +24,7 @@ public class Player {
   private Boolean nuke = false;
   private HashMap<Point, Integer> revealed = new HashMap<Point, Integer>();
   private Boolean sonar = false;
+  private int bomberAvail = 1;
 
   public Board getB() {
     return b;
@@ -53,6 +54,18 @@ public class Player {
       System.out.println();
     }
   }
+
+  public int getBomberAvail() {
+    return 1;
+  }
+//  public int getBomberAvail(){
+//    return this.bomberAvail;
+//  }
+
+  public void setBomberAvail(){
+    this.bomberAvail = 0;
+  }
+
   public Boolean getSonar(){
     return this.sonar;
   }

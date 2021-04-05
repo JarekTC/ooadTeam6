@@ -302,19 +302,42 @@ public class Game {
                     correctI = 0;
                     break;
                 case 3:
-                    HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
-                    Iterator it = target.entrySet().iterator();
-                    int stat = 0;
-                    Point c = new Point();
-                    for(Map.Entry<Integer, Point> pair : target.entrySet()){
-                        stat = pair.getKey();
-                        c = pair.getValue();
+                    System.out.println("bomberavail = "+currentPlayer.getBomberAvail());
+                    if(currentPlayer.getBomberAvail() == 1){
+                        HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
+                        int stat = 0;
+                        Point c = new Point();
+                        for(Map.Entry<Integer, Point> pair : target.entrySet()){
+                            stat = pair.getKey();
+                            c = pair.getValue();
+                        }
+                        int x = c.x;
+                        int y = c.y;
+                        compare(stat, currentPlayer.lookupRecord(x,y));
+                        correctInput = 0;
+                        correctI = 0;
+                        //disable bomber
+                        currentPlayer.setBomberAvail();
                     }
-                    int x = c.x;
-                    int y = c.y;
-                    compare(stat, currentPlayer.lookupRecord(x,y));
-                    correctInput = 0;
-                    correctI = 0;
+                    else{
+                        System.out.println("Bomber not available!");
+                        correctInput = -1;
+                        correctI = -1;
+                    }
+//                    HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
+//                    int stat = 0;
+//                    Point c = new Point();
+//                    for(Map.Entry<Integer, Point> pair : target.entrySet()){
+//                        stat = pair.getKey();
+//                        c = pair.getValue();
+//                    }
+//                    int x = c.x;
+//                    int y = c.y;
+//                    compare(stat, currentPlayer.lookupRecord(x,y));
+//                    correctInput = 0;
+//                    correctI = 0;
+                    //disable bomber
+
                     break;
                 case 4:
                     correctInput = -1;
