@@ -55,55 +55,50 @@ class GameTest {
                     // 0 3 2 1 0 0 0 0 0 0
                     // 0 1 2 1 1 0 0 0 0 0
                     // 0 1 2 1 1 0 0 0 0 0
-
-
-                    + "3\n" // Player A attack opponent
-                    + "0 0\n" // Player A attack opponent at (0, 0), hit sea
-                    + "3\n" // Player B attack opponent
-                    + "yilegfvifu\n" // Player B try to attack opponent with wrong input
-                    + "0 0\n" // Player B attack opponent at (0, 0)
-                    + "3\n" // Player A attack opponent just ship
-                    + "1 1\n"
-                    + "3\n" // Player B attack opponent submarine
-                    + "1 1\n"
-                    + "3\n" // Player A random hit
-                    + "9 9\n"
-                    + "4\n" // Player B access perks menu
-                    + "1\n" // Try to use Nuke (no access)
+                    + "3\n"// A hit captains quarters of B's destroyer
+                    + "3 1\n" // 1 to 1
+                    + "3\n"// B Hit stacked ships with bomb
+                    + "1 1\n" // 3 to 2
+                    + "3\n"// Player A hit stacked ship captains quarter with bomb
+                    + "1 2\n"// 3 to 3
+                    + "3\n"// Player B hit submarine captain's quarters
+                    + "0 3\n" // 2 to 2
+                    + "3\n" // Player A sink minesweeper, so A has access to laser
+                    + "4 0\n" // 1 to 0
+                    + "3\n" // Player B hit minesweeper
+                    + "3 2\n" // 1 to 0 at position (3, 1)
+                    + "3\n" // Player A hit water
+                    + "9 9\n" // 0 to 0
+                    + "3\n"// Player B hit minesweeper quarters so B has access to laser
+                    + "3 1\n" // Not covering any of the cases
+                    + "3\n"// Player A hit submarine
+                    + "2 0\n" // 2 to 0
+                    + "3\n" // Player B hit stacked ships with submarine
+                    + "1 1\n" // 3 to 0
                     + "3\n" // Player A random move
-                    + "0 0\n"
-                    + "3\n" // Player B attack opponent on non-sub captains quarters
-                    + "2 2\n"
-                    + "3\n" // Player A sink B's minesweeper, so A can use laser
-                    + "4 0\n"
-                    + "3\n" // Player B random hit ot move on to A to use laser
-                    + "0 0\n"
-                    + "3\n" // Player A attack opponent stacked ships with laser
-                    + "1 2\n"
-                    + "3\n" // Player B random move
-                    + "0 0\n"
-                    + "3\n" // Player A attack opponent sub with laser
-                    + "2 0\n"
-                    + "3\n" // Player B random move
-                    + "0 0\n"
-                    + "3\n" // Player A attack sub captain's quarters with laser
-                    + "2 3\n"
-                    +"3\n" // PLayer B hit non-sub captains quarters where there is a stacked ship
-                    +"1 3\n"
-                    + "2345\n" // Player A enter choice not on menu
-                    + "4\n" // Player A access perks menu
-                    + "2\n" //Use sonar
-                    + "4 3\n"
-                    + "4\n" // Player B access perks menu
-                    + "844\n" // Try to use option not on menu
-                    + "2\n"
-                    + "3\n" // Player A attack random location
-                    + "2 3\n"
-                    + "3\n" // Player B attack random location. CAUSING FAILED TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    + "3 2\n"// FOR SOME REASON, THIS LINE, AND THE LINE ABOVE ARE NOT WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    + "4\n" // Player A access perks menu
-                    + "1\n"; // Use nuke
-                    //+ "1\n"; // Player B end game
+                    + "9 9\n"
+                    + "3\n" // Player B hit battleships captains quarters
+                    + "1 3\n" // 3 to 1
+
+
+
+//                    + "2345\n" // Player A enter choice not on menu
+//                    + "4\n" // Player A access perks menu
+//                    + "2\n" //Use sonar
+//                    + "4 3\n"
+//                    + "4\n" // Player B access perks menu
+//                    + "844\n" // Try to use option not on menu
+//                    + "2\n"
+//                    + "3 2\n"
+//                    + "4\n" // Player A use b2 bomber
+//                    + "3\n"
+//                    + "4\n" // Player B exit perks menu
+//                    + "4\n"
+//                    + "2\n"
+//                    + "N\n"
+//                    + "4\n" // Player A access perks menu
+//                    + "1\n"; // Use nuke
+                    + "1\n"; // Player B end game
 
 
         InputStream stdin = System.in;

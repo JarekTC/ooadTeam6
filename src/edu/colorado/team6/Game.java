@@ -222,6 +222,10 @@ public class Game {
         else if(record == 2 && hitStat == 2){
             System.out.println("You've hit the captain's quarters of a submarine!");
         }
+        else if(record == 3 && hitStat == 1){
+            System.out.println("You've hit the captain's quarters of a stacked ship with laser!");
+        }
+
     }
 
     private int dealPerks(Player currentPlayer, Scanner readIn, Player enemy, int correctInput){
@@ -232,7 +236,7 @@ public class Game {
             System.out.println("1.Nuke");
             System.out.println("2.Sonar");
             System.out.println("3.B2 Bomber");
-            System.out.println("3.Exit perks");
+            System.out.println("4.Exit perks");
             int select = readIn.nextInt();  // Read user input
             switch (select) {
                 case 1:

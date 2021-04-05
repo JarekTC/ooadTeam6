@@ -2,6 +2,9 @@ package edu.colorado.team6;
 
 import org.junit.jupiter.api.*;
 
+import java.awt.*;
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
@@ -87,5 +90,12 @@ class PlayerTest {
   public void testAddRecord() {
     assertTrue(p1.addRecord(1, 1, Constants.SEA));
     assertFalse(p1.addRecord(1, 1, Constants.SEA));
+  }
+
+  @Test
+  public void testErrorB2Bomber() {
+    HashMap<Integer, Point> expected = new HashMap<Integer, Point>();
+    HashMap<Integer, Point> actual = p1.b2Bomber(p2);
+    assertTrue(expected.equals(actual));
   }
 }
