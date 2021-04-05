@@ -141,25 +141,82 @@ public class Board {
     Point coord = new Point(x, y);
     ArrayList<Ship> shipList = getShipLocations(coord); // account for overlap
     int incrementer = 0;
+//    Ship tempSub = new Ship(Constants.SUBMARINE);
+//    Ship s2 = new Ship();
+    int preHealthSub = 0;
+    int postHealthSub = 0;
+    int preHealthShip = 0;
+    int postHealthShip = 0;
+    Boolean thereSub = false;
+    Boolean thereShip = false;
 
     for (Ship s : shipList) {
-      int preHealth = s.getShipHealth();
+      //CHECK TYPE OF SHIP
+      if(s instanceof Submarine){
+        preHealthSub = s.getShipHealth();
+        thereSub = true;
+      }
+      else if(!(s instanceof Submarine)){
+        preHealthShip = s.getShipHealth();
+        thereShip = true;
+      }
+      //int preHealth = s.getShipHealth();
+
       int index = getStandardIndex(x, y, incrementer);
       s.takeDamage(index);
-      //      if((s instanceof MineSweeper) && (index == 0)){
-      //        for (int i = 0; i < msOrientation.size(); i++) {
-      //          Point otherPoint = new Point(x, y);
-      //          setCoord(otherPoint.x, otherPoint.y, Constants.SEA);
-      //        }
-      //      }
-      //      else if((s instanceof Destroyer) && (index == 1)){
-      //
-      //      }
-      // If a section of the ship is sunk, remove part of the ship from the board
-      if (s.getShipHealth() < preHealth) {
+
+      if(s instanceof Submarine){
+        postHealthSub = s.getShipHealth();
+      }
+      else if(!(s instanceof Submarine)){
+        postHealthShip = s.getShipHealth();
+      }
+//      if (s.getShipHealth() < preHealth) {
+//        setCoord(x, y, Constants.SEA);
+//      }
+      incrementer++;
+    }
+
+    //both
+    if(thereShip && thereSub){
+      //3->3
+      if(preHealthSub == postHealthSub && preHealthShip == postHealthShip){
+        setCoord(x, y, Constants.SHIP_ON_TOP_SUB);
+      }
+      //3->2
+      else if(preHealthSub == postHealthSub && preHealthShip > postHealthShip){
+        setCoord(x, y, Constants.SUB_UNDER_WATER);
+      }
+      //3->1
+      else if(preHealthSub > postHealthSub && preHealthShip == postHealthShip){
+        setCoord(x, y, Constants.SHIP);
+      }
+      //3->0
+      else if(preHealthSub > postHealthSub && preHealthShip > postHealthShip){
         setCoord(x, y, Constants.SEA);
       }
-      incrementer++;
+    }
+    //only sub
+    else if(thereSub && !thereShip){
+      //2->0
+      if(preHealthSub > postHealthSub){
+        setCoord(x, y, Constants.SEA);
+      }
+      //2->2
+      else if(preHealthSub == postHealthSub){
+        setCoord(x, y, Constants.SUB_UNDER_WATER);
+      }
+    }
+    //only ship
+    else if(!thereSub && thereShip){
+      //1->0
+      if(preHealthShip > postHealthShip){
+        setCoord(x, y, Constants.SEA);
+      }
+      //1->1
+      else if(preHealthShip == postHealthShip){
+        setCoord(x, y, Constants.SHIP);
+      }
     }
     return 0;
   }

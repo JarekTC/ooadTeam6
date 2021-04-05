@@ -55,6 +55,12 @@ class GameTest {
                     // 0 3 2 1 0 0 0 0 0 0
                     // 0 1 2 1 1 0 0 0 0 0
                     // 0 1 2 1 1 0 0 0 0 0
+                    + "4\n" //A tries to use nuke, when is not available
+                    + "1\n"
+                    + "3\n"//dummy for A
+                    + "9 9\n"
+                    + "3\n"//dummy for B
+                    + "9 9\n"
                     + "3\n"// A hit captains quarters of B's destroyer
                     + "3 1\n" // 1 to 1
                     + "3\n"// B Hit stacked ships with bomb
@@ -74,7 +80,7 @@ class GameTest {
                     + "3\n"// Player A hit submarine
                     + "2 0\n" // 2 to 0
                     + "3\n" // Player B hit stacked ships with submarine
-                    + "1 1\n" // 3 to 0
+                    + "1 2\n" // 3 to 0
                     + "3\n" // Player A random move
                     + "9 9\n"
                     + "3\n" // Player B hit battleships captains quarters
@@ -82,23 +88,22 @@ class GameTest {
 
 
 
-//                    + "2345\n" // Player A enter choice not on menu
-//                    + "4\n" // Player A access perks menu
-//                    + "2\n" //Use sonar
-//                    + "4 3\n"
-//                    + "4\n" // Player B access perks menu
-//                    + "844\n" // Try to use option not on menu
-//                    + "2\n"
-//                    + "3 2\n"
-//                    + "4\n" // Player A use b2 bomber
-//                    + "3\n"
-//                    + "4\n" // Player B exit perks menu
-//                    + "4\n"
-//                    + "2\n"
-//                    + "N\n"
-//                    + "4\n" // Player A access perks menu
-//                    + "1\n"; // Use nuke
-                    + "1\n"; // Player B end game
+                    + "2345\n" // Player A enter choice not on menu
+                    + "4\n" // Player A access perks menu
+                    + "2\n" //Use sonar
+                    + "4 3\n"
+                    + "4\n" // Player B access perks menu
+                    + "844\n" // Try to use option not on menu
+                    + "2\n"
+                    + "3 2\n"
+                    + "4\n" // Player A use b2 bomber
+                    + "3\n"
+                    + "4\n" // Player B exit perks menu
+                    + "4\n"
+                    + "2\n"
+                    + "N\n"
+                    + "4\n" // Player A access perks menu
+                    + "1\n"; // Use nuke
 
 
         InputStream stdin = System.in;
