@@ -44,11 +44,17 @@ class PerksTest {
     expected.put(new Point(4, 2), 0);
     expected.put(new Point(2, 2), 0);
     expected.put(new Point(2, 4), 0);
+
+    assertTrue(expected.equals(radar));
   }
 
   @Test
   public void testMoveFleet() {
     p1.placeShip(0, 0, 1, 0, 2, Constants.MINESWEEPER);
+    // Test moveFleet before all ships have been placed
+    ArrayList<String> moveMinesweeper = p1.moveFleetPlayer('N');
+    assertTrue(moveMinesweeper.contains(Constants.MINESWEEPER));
+
     p1.placeShip(7, 9, 9, 9, 3, Constants.DESTROYER);
     p1.placeShip(3, 4, 3, 7, 4, Constants.BATTLESHIP);
     p1.placeShip(3, 5, 6, 5, 5, Constants.SUBMARINE);

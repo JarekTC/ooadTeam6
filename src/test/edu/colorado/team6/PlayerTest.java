@@ -2,6 +2,9 @@ package edu.colorado.team6;
 
 import org.junit.jupiter.api.*;
 
+import java.awt.*;
+import java.util.HashMap;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerTest {
@@ -67,14 +70,56 @@ class PlayerTest {
     assertEquals(Constants.SUB_UNDER_WATER, p1.hit(1, 1, p2, false));
 
     // Using laser
-    assertEquals(Constants.SEA, p1.hit(1, 0, p2, true));
-    assertEquals(Constants.SUB_UNDER_WATER, p1.hit(1, 3, p2, true)); // CHQ
-    assertEquals(Constants.SEA, p1.hit(1, 0, p2, true));
+//    p2.placeShip(1, 1, 2, 1, 2, Constants.MINESWEEPER);
+//    assertEquals(Constants.SEA, p1.hit(2, 1, p2, true));//changed y to 1
+//    assertEquals(Constants.SUB_UNDER_WATER, p1.hit(1, 3, p2, true)); // CHQ
+//    assertEquals(Constants.SEA, p1.hit(1, 0, p2, true));
 
     p2.placeShip(0, 8, 2, 8, 3, Constants.DESTROYER);
     p2.placeShip(0, 8, 0, 5, 5, Constants.SUBMARINE);
     assertEquals(Constants.SEA, p1.hit(0, 8, p2, true));
   }
+
+  @Test
+  public void testLaserBoth33(){
+    //3->3
+    p2.placeShip(1, 0, 4, 0, 4, Constants.BATTLESHIP);
+    p2.placeShip(0,0,3,0,5,Constants.SUBMARINE);
+    assertEquals(Constants.SHIP_ON_TOP_SUB, p1.hit(3, 0, p2, true));
+  }
+
+  @Test
+  public void testLaserBoth32(){
+    //3->2
+    p2.placeShip(0, 5, 3, 5, 4, Constants.BATTLESHIP);
+    p2.placeShip(0,5,3,5,5,Constants.SUBMARINE);
+    assertEquals(Constants.SUB_UNDER_WATER, p1.hit(3,5,p2,true));
+    //3->1
+    assertEquals(Constants.SHIP, p1.hit(2,5,p2,true));
+    //3->0
+    assertEquals(Constants.SEA, p1.hit(0,5,p2,true));
+  }
+
+  @Test
+  public void testLaserSub(){
+    p2.placeShip(0,5,3,5,5,Constants.SUBMARINE);
+    //2->2
+    assertEquals(Constants.SUB_UNDER_WATER, p1.hit(3,5,p2,true));
+    //2->0
+    assertEquals(Constants.SEA, p1.hit(0,5,p2,true));
+  }
+
+  @Test
+  public void testLaserShip(){
+    p2.placeShip(0, 5, 3, 5, 4, Constants.BATTLESHIP);
+    //1->0
+    assertEquals(Constants.SEA, p1.hit(0,5,p2,true));
+    //1->1
+    assertEquals(Constants.SHIP, p1.hit(2,5,p2,true));
+  }
+
+
+
 
   @Test
   public void testLookupRecord() {
@@ -87,5 +132,12 @@ class PlayerTest {
   public void testAddRecord() {
     assertTrue(p1.addRecord(1, 1, Constants.SEA));
     assertFalse(p1.addRecord(1, 1, Constants.SEA));
+  }
+
+  @Test
+  public void testErrorB2Bomber() {
+    HashMap<Integer, Point> expected = new HashMap<Integer, Point>();
+    HashMap<Integer, Point> actual = p1.b2Bomber(p2);
+    assertTrue(expected.equals(actual));
   }
 }

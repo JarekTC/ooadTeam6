@@ -41,7 +41,6 @@ public class Ship {
     if (hits[shipIndex][1]
         == 1) { // Do not decrease the overall health of the ship if the captain's quarters has only
       // been hit once.
-      System.out.println(this.typeName + this.health);
       if (this.health != 0)
         this.health =
             this.health
@@ -62,7 +61,6 @@ public class Ship {
 
   // Displays subclass type name passed into constructor
   public String showShipType() {
-    System.out.println(typeName);
     return typeName;
   }
 

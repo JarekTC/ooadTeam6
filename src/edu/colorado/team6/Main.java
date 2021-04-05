@@ -2,8 +2,9 @@ package edu.colorado.team6;
 
 public class Main {
 
-  public static void main(String[] args) {
+  public static int main() {
 
-    // Ship ship = new Ship("Test");
+    Game game = new Game();
+    return Constants.NONEERROR;
   }
 }
