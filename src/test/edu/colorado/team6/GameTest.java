@@ -102,7 +102,9 @@ class GameTest {
                     + "4\n"
                     + "2\n"
                     + "N\n"
-                    + "4\n" // Player A access perks menu
+                    + "4\n"// Player A try to use b2 bomber again
+                    + "3\n"
+                    + "4\n" // Player B access perks menu
                     + "1\n"; // Use nuke
 
 

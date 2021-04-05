@@ -55,16 +55,16 @@ public class Player {
     }
   }
 
-  public int getBomberAvail() {
-    return 1;
-  }
+//  public int getBomberAvail() {
+//    return 1;
+//  }
 //  public int getBomberAvail(){
 //    return this.bomberAvail;
 //  }
-
-  public void setBomberAvail(){
-    this.bomberAvail = 0;
-  }
+//
+//  public void setBomberAvail(){
+//    this.bomberAvail = 0;
+//  }
 
   public Boolean getSonar(){
     return this.sonar;
