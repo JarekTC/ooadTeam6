@@ -16,6 +16,9 @@ public class Game {
     // redo Stack B
     private Stack<Board> redoStackB = new Stack<Board>();
 
+    // HashMap that will hold all ascii art
+
+
     private Player playerA;
     private Player playerB;
 
