@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="500.0" fitWidth="685.0" layoutX="-27.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../Desktop/unnamed.jpg" />
+            <Image url="@unnamed.jpg" />
          </image>
       </ImageView>
       <TilePane layoutX="248.0" layoutY="279.0" prefHeight="223.0" prefWidth="163.0">
