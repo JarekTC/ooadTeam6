@@ -1,14 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.colorado.team6.battleshipGUI"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="557.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colorado.team6.battleshipGUI">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="685.0" layoutX="-27.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../Desktop/unnamed.jpg" />
+         </image>
+      </ImageView>
+      <TilePane layoutX="248.0" layoutY="279.0" prefHeight="223.0" prefWidth="163.0">
+         <children>
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+         </children></TilePane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <AnchorPane layoutY="126.0" prefHeight="431.0" prefWidth="200.0">
+               <children>
+                  <Button layoutY="123.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="200.0" text="Button" />
+                  <Button layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Button" />
+                  <Button layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Button" />
+                  <Button layoutY="98.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Button" />
+                  <TextField layoutX="26.0" layoutY="315.0" prefHeight="25.0" prefWidth="25.0" />
+                  <TextField layoutX="26.0" layoutY="375.0" prefHeight="25.0" prefWidth="25.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <ProgressBar layoutX="248.0" layoutY="525.0" prefWidth="200.0" progress="0.0" />
+      <Label layoutX="243.0" layoutY="160.0" prefHeight="70.0" prefWidth="392.0" text="Game Status" textFill="#252323">
+         <font>
+            <Font size="51.0" />
+         </font>
+      </Label>
+      <Label layoutX="448.0" layoutY="271.0" prefHeight="225.0" prefWidth="163.0" text="record to be displayed here" />
+   </children>
 </AnchorPane>
