@@ -10,15 +10,25 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="557.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colorado.team6.battleshipGUI">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.colorado.team6.battleshipGUI">
    <children>
       <ImageView fitHeight="500.0" fitWidth="685.0" layoutX="-27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@unnamed.jpg" />
          </image>
       </ImageView>
-      <TilePane layoutX="248.0" layoutY="279.0" prefHeight="223.0" prefWidth="163.0">
+      <TilePane layoutX="248.0" layoutY="269.0" prefHeight="245.0" prefWidth="163.0">
          <children>
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
+            <Button mnemonicParsing="false" />
             <Button mnemonicParsing="false" />
             <Button mnemonicParsing="false" />
             <Button mnemonicParsing="false" />
@@ -124,7 +134,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <ProgressBar layoutX="248.0" layoutY="525.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar layoutX="243.0" layoutY="548.0" prefWidth="200.0" progress="0.0" />
       <Label layoutX="243.0" layoutY="160.0" prefHeight="70.0" prefWidth="392.0" text="Game Status" textFill="#252323">
          <font>
             <Font size="51.0" />

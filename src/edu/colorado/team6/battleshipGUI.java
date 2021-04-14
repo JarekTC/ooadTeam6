@@ -11,8 +11,8 @@ public class battleshipGUI extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("battleshipGUI.fxml"));
-        Scene scene = new Scene(root, 800, 500);
-        scene.getStylesheets().add("path/stylesheet.css");
+        Scene scene = new Scene(root, 658, 597);
+        root.getStylesheets().add(getClass().getResource("./UI.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
