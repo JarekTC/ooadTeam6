@@ -133,16 +133,9 @@ public class Board {
   //correct functions to deal damage according to ship conditions and perk activations
   */
   public int laserApplyDamage(int x, int y, boolean overlap) {
-    //    if (!overlap) {
-    //      bombApplyDamage(x, y);
-    //      return 0;
-    //    }
-    // ArrayList<Integer> indices = getOverlapIndex(x, y);
     Point coord = new Point(x, y);
     ArrayList<Ship> shipList = getShipLocations(coord); // account for overlap
     int incrementer = 0;
-//    Ship tempSub = new Ship(Constants.SUBMARINE);
-//    Ship s2 = new Ship();
     int preHealthSub = 0;
     int postHealthSub = 0;
     int preHealthShip = 0;
@@ -151,7 +144,6 @@ public class Board {
     Boolean thereShip = false;
 
     for (Ship s : shipList) {
-      //CHECK TYPE OF SHIP
       if(s instanceof Submarine){
         preHealthSub = s.getShipHealth();
         thereSub = true;
@@ -160,8 +152,6 @@ public class Board {
         preHealthShip = s.getShipHealth();
         thereShip = true;
       }
-      //int preHealth = s.getShipHealth();
-
       int index = getStandardIndex(x, y, incrementer);
       s.takeDamage(index);
 
@@ -171,12 +161,8 @@ public class Board {
       else if(!(s instanceof Submarine)){
         postHealthShip = s.getShipHealth();
       }
-//      if (s.getShipHealth() < preHealth) {
-//        setCoord(x, y, Constants.SEA);
-//      }
       incrementer++;
     }
-
     //both
     if(thereShip && thereSub){
       //3->3
