@@ -16,9 +16,6 @@ public class Game {
     // redo Stack B
     private Stack<Board> redoStackB = new Stack<Board>();
 
-    // HashMap that will hold all ascii art
-
-
     private Player playerA;
     private Player playerB;
 
@@ -54,8 +51,6 @@ public class Game {
         Boolean exit = false;
 
         System.out.println("The Game is afoot! Player One BEGIN!!");
-
-        //Scanner readIn = new Scanner(System.in);  // Create a Scanner object
 
         System.out.println("----------");
         System.out.println("Player One, set your ships:");
