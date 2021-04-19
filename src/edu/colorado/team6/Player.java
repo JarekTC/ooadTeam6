@@ -1,8 +1,6 @@
 package edu.colorado.team6;
 
-import javax.lang.model.type.NullType;
 import java.awt.*;
-import java.lang.Math;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -142,7 +140,7 @@ public class Player {
         if (hitStat == Constants.SHIP_ON_TOP_SUB) {
           overlap = true;
         }
-        enemy.b.laserApplyDamage(x, y, overlap);
+        enemy.b.laserApplyDamage(x, y);
         this.countHits++;
       } // bombs
       else {

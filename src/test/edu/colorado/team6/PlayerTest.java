@@ -10,8 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
   private Player p1;
   private Player p2;
-  private String name1 = "Neefan";
-  private String name2 = "Sefeel";
+  private final String name1 = "Neefan";
+  private final String name2 = "Sefeel";
 
   @BeforeEach
   public void setUp() {
@@ -136,8 +136,8 @@ class PlayerTest {
 
   @Test
   public void testErrorB2Bomber() {
-    HashMap<Integer, Point> expected = new HashMap<Integer, Point>();
+    HashMap<Integer, Point> expected = new HashMap<>();
     HashMap<Integer, Point> actual = p1.b2Bomber(p2);
-    assertTrue(expected.equals(actual));
+    assertEquals(actual, expected);
   }
 }

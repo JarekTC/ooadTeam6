@@ -1,6 +1,5 @@
 package edu.colorado.team6;
 
-import java.util.Arrays;
 
 public class Ship {
 

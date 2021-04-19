@@ -3,7 +3,7 @@ package edu.colorado.team6;
 import java.util.HashMap;
 
 public class ASCII_Art {
-    public static final HashMap<String, String> asciiArt = new HashMap<String, String>();
+    public static final HashMap<String, String> asciiArt = new HashMap<>();
 
   static {
     final String champagne =

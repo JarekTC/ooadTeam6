@@ -2,7 +2,6 @@ package edu.colorado.team6;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,21 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class PerksTest {
   private Perks p;
   private Player p1;
-  private Janitor j;
 
   @BeforeEach
   public void setUp() {
     p = new Perks();
     p1 = new Player("Jareel");
-    j = new Janitor();
   }
 
   @Test
   public void testSonar() {
     HashMap<Point, Integer> radar =
-        new HashMap<Point, Integer>(p.sonar(new Point(3, 3), p1.getB()));
+            new HashMap<>(p.sonar(new Point(3, 3), p1.getB()));
 
-    HashMap<Point, Integer> expected = new HashMap<Point, Integer>();
+    HashMap<Point, Integer> expected = new HashMap<>();
     expected.put(new Point(3, 4), 0);
     expected.put(new Point(3, 5), 0);
 
@@ -45,7 +42,7 @@ class PerksTest {
     expected.put(new Point(2, 2), 0);
     expected.put(new Point(2, 4), 0);
 
-    assertTrue(expected.equals(radar));
+    assertEquals(radar, expected);
   }
 
   @Test
@@ -62,7 +59,7 @@ class PerksTest {
     System.out.println();
 
     // Move ships, where none are overlapping
-    ArrayList<String> movedS = new ArrayList<String>();
+    ArrayList<String> movedS = new ArrayList<>();
     movedS.add(Constants.MINESWEEPER);
     movedS.add(Constants.BATTLESHIP);
     movedS.add(Constants.SUBMARINE);

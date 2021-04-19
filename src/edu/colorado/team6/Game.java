@@ -1,27 +1,12 @@
 package edu.colorado.team6;
 
 import java.awt.*;
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.*;
 
 public class Game {
 
-    // undo stack A
-    private Stack<Board> undoStackA = new Stack<Board>();
-    // undo stack B
-    private Stack<Board> undoStackB = new Stack<Board>();
-
-    // redo stack A
-    private Stack<Board> redoStackA = new Stack<Board>();
-    // redo Stack B
-    private Stack<Board> redoStackB = new Stack<Board>();
-
-    private Player playerA;
-    private Player playerB;
-
-    //player names for game instance
-    private String playerNameA = "";
-    private String playerNameB = "";
+    private final Player playerA;
+    private final Player playerB;
 
     private Boolean whoseTurn = Constants.PLAYERA;
 
@@ -31,13 +16,14 @@ public class Game {
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Enter player one name:");
 
-        playerNameA = myObj.nextLine();  // Read user input
+        //player names for game instance
+        String playerNameA = myObj.nextLine();  // Read user input
         System.out.println("player one name is: " + playerNameA);  // Output user input
 
         // get player b name
         System.out.println("Enter player two name:");
 
-        playerNameB = myObj.nextLine();  // Read user input
+        String playerNameB = myObj.nextLine();  // Read user input
         System.out.println("player two name is: " + playerNameB);  // Output user input
 
         playerA = new Player(playerNameA);
@@ -46,7 +32,7 @@ public class Game {
         runGame(myObj);
     }
 
-    private int runGame(Scanner readIn){
+    private void runGame(Scanner readIn){
 
         Boolean exit = false;
 
@@ -89,14 +75,13 @@ public class Game {
         System.out.println(ASCII_Art.asciiArt.get("Champagne"));
         System.out.println("Here is some poop for the loser!");
         System.out.println(ASCII_Art.asciiArt.get("Poo"));
-        return Constants.NONEERROR;
     }
 
 
     private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy){
-        Boolean endGame = false;
+        boolean endGame = false;
         int correctInput = 0;
-        if(whichPlayer.getSonar() == true){
+        if(whichPlayer.getSonar()){
             superPrintRecord(whichPlayer.getRecord(), whichPlayer.getRevealed());
         }
         else{
@@ -147,7 +132,7 @@ public class Game {
         return endGame;
     }
 
-    private int boardSetup(Player p, Scanner readIn){
+    private void boardSetup(Player p, Scanner readIn){
         Ship[] listOfShips = {new BattleShip(), new Submarine(), new Destroyer(), new MineSweeper()};
         for (Ship ship : listOfShips) {
             int isError = 0;
@@ -167,12 +152,11 @@ public class Game {
                 }
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
-        return Constants.NONEERROR;
     }
 
-    private int userMoveFleet(Player p, Scanner readIn){
-        Character direction = '0';
-        ArrayList<Character> validDirections = new ArrayList<Character>();
+    private void userMoveFleet(Player p, Scanner readIn){
+        char direction;
+        ArrayList<Character> validDirections = new ArrayList<>();
         validDirections.add('N');
         validDirections.add('S');
         validDirections.add('E');
@@ -183,15 +167,14 @@ public class Game {
             direction = Character.toUpperCase(readIn.next().charAt(0));
             p.moveFleetPlayer(direction);
         } while (!(validDirections.contains(direction)));
-        return Constants.NONEERROR;
     }
 
 
     private int userAttackOpponent(Player whichPlayer, Scanner readIn, Player enemy){
         int x;
         int y;
-        String input = "";
-        String[] coords = new String[0];
+        String input;
+        String[] coords;
         do {
             System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
             input = readIn.nextLine();
@@ -252,7 +235,7 @@ public class Game {
     }
 
     private int dealPerks(Player currentPlayer, Scanner readIn, Player enemy, int correctInput){
-        int correctI = 0;
+        int correctI;
         do{
             System.out.println("----------");
             System.out.println("Select an option:");
@@ -263,7 +246,7 @@ public class Game {
             int select = readIn.nextInt();  // Read user input
             switch (select) {
                 case 1:
-                    if(currentPlayer.getNuke() == true){
+                    if(currentPlayer.getNuke()){
                         System.out.println("You just nuked your enemy!");
                         System.out.println(ASCII_Art.asciiArt.get("Nuke"));
                         //end = true;
@@ -278,8 +261,8 @@ public class Game {
                     break;
                 case 2:
                     Perks p = currentPlayer.getPerks();
-                    String input = "";
-                    String[] coords = new String[0];
+                    String input;
+                    String[] coords;
                     do {
                         System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
                         input = readIn.nextLine();

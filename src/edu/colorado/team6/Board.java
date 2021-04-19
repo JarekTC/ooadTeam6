@@ -2,28 +2,27 @@ package edu.colorado.team6;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class Board {
-  private int[][] board = new int[10][10];
-  private HashMap<Point, ArrayList<Ship>> shipLocations = new HashMap<Point, ArrayList<Ship>>();
-  private MineSweeper ms = new MineSweeper();
-  private Destroyer ds = new Destroyer();
-  private BattleShip bs = new BattleShip();
-  private Submarine ss = new Submarine();
-  private ArrayList<Point> msOrientation = new ArrayList<Point>(); // Holds positions of each ship
-  private ArrayList<Point> dsOrientation = new ArrayList<Point>();
-  private ArrayList<Point> bsOrientation = new ArrayList<Point>();
-  private ArrayList<Point> ssOrientation = new ArrayList<Point>();
-  private HashMap<String, ArrayList<Point>> masterOrientation =
-      new HashMap<String, ArrayList<Point>>();
+  private final int[][] board = new int[10][10];
+  private final HashMap<Point, ArrayList<Ship>> shipLocations = new HashMap<>();
+  private final MineSweeper ms = new MineSweeper();
+  private final Destroyer ds = new Destroyer();
+  private final BattleShip bs = new BattleShip();
+  private final Submarine ss = new Submarine();
+  private ArrayList<Point> msOrientation = new ArrayList<>(); // Holds positions of each ship
+  private ArrayList<Point> dsOrientation = new ArrayList<>();
+  private ArrayList<Point> bsOrientation = new ArrayList<>();
+  private ArrayList<Point> ssOrientation = new ArrayList<>();
+  private final HashMap<String, ArrayList<Point>> masterOrientation =
+          new HashMap<>();
 
   Board() {
     // Initialize shipLocations
     for (int i = 0; i < 10; i++) {
       for (int j = 0; j < 10; j++) {
-        shipLocations.put(new Point(i, j), new ArrayList<Ship>());
+        shipLocations.put(new Point(i, j), new ArrayList<>());
       }
     }
 
@@ -132,7 +131,7 @@ public class Board {
   //General idea is that hit function will call getCoord to know what is at spot, then call
   //correct functions to deal damage according to ship conditions and perk activations
   */
-  public int laserApplyDamage(int x, int y, boolean overlap) {
+  public void laserApplyDamage(int x, int y) {
     Point coord = new Point(x, y);
     ArrayList<Ship> shipList = getShipLocations(coord); // account for overlap
     int incrementer = 0;
@@ -140,8 +139,8 @@ public class Board {
     int postHealthSub = 0;
     int preHealthShip = 0;
     int postHealthShip = 0;
-    Boolean thereSub = false;
-    Boolean thereShip = false;
+    boolean thereSub = false;
+    boolean thereShip = false;
 
     for (Ship s : shipList) {
       if(s instanceof Submarine){
@@ -204,7 +203,6 @@ public class Board {
         setCoord(x, y, Constants.SHIP);
       }
     }
-    return 0;
   }
 
   public int getPos(int x, int y) {
@@ -220,7 +218,7 @@ public class Board {
     return Constants.NONEERROR;
   }
 
-  public int lengthCheck(int x1, int y1, int x2, int y2, int length, String shipName) {
+  public int lengthCheck(int x1, int y1, int x2, int y2, int length) {
 
     if ((Math.abs(x1 - x2) + 1 != length) && (Math.abs(y1 - y2) + 1 != length)) {
       System.out.println("Coordinates don't match health!");
@@ -247,15 +245,15 @@ public class Board {
         System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
-      if ((y1 == 9) && (x1 < x2)) {
+      else if ((y1 == 9) && (x1 < x2)) {
         System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
-      if ((x1 == 9) && (y1 > y2)) {
+      else if ((x1 == 9) && (y1 > y2)) {
         System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
-      if ((y1 == 0) && (x1 > x2)) {
+      else if ((y1 == 0) && (x1 > x2)) {
         System.out.println("Out of bounds!");
         return Constants.ERROR;
       }
@@ -268,14 +266,13 @@ public class Board {
   public int setShip(int x1, int y1, int x2, int y2, int health, String ship) {
     // Error checking
     if (diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR
-        || lengthCheck(x1, y1, x2, y2, health, ship) == Constants.ERROR
+        || lengthCheck(x1, y1, x2, y2, health) == Constants.ERROR
         || outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR
         || ship.equals(Constants.SUBMARINE)) {
       return Constants.ERROR;
     }
 
     // Place non-submarine ship
-    if (!ship.equals(Constants.SUBMARINE)) {
       // Horizontal ship (Smallest to largest coordinates)
       if ((x2 - x1) > 0) {
         for (int i = x1; i <= x2; i++) {
@@ -331,14 +328,14 @@ public class Board {
           setShipLocations(new Point(x1, i), ship);
         }
       }
-    }
-    setShipArray(x1, y1, x2, y2, health, ship);
+
+    setShipArray(x1, y1, x2, y2, ship);
     return Constants.NONEERROR;
   }
 
   public int setSub(int x1, int y1, int x2, int y2, int health, String ship) {
     if (diagonalBoundsCheck(x1, y1, x2, y2) == Constants.ERROR
-        || lengthCheck(x1, y1, x2, y2, health - 1, ship) == Constants.ERROR
+        || lengthCheck(x1, y1, x2, y2, health - 1) == Constants.ERROR
         || outOfBoundsCheck(x1, y1, x2, y2, ship) == Constants.ERROR
         || !ship.equals(Constants.SUBMARINE)) {
       return Constants.ERROR;
@@ -421,7 +418,7 @@ public class Board {
       }
       setShipLocations(new Point(x1 + 1, y2 + 1), ship);
     }
-    setShipArray(x1, y1, x2, y2, health, ship);
+    setShipArray(x1, y1, x2, y2, ship);
     return Constants.NONEERROR;
   }
 
@@ -461,7 +458,7 @@ public class Board {
     return this.shipLocations.get(coord);
   }
 
-  public int setShipArray(int x1, int y1, int x2, int y2, int health, String ship) {
+  public int setShipArray(int x1, int y1, int x2, int y2, String ship) {
     ArrayList<Point> posi = new ArrayList<Point>();
     // Horizontal ship (smallest to largest coordinates)
     if ((x1 - x2) < 0) {

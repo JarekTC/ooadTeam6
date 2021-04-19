@@ -3,7 +3,6 @@ package edu.colorado.team6;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Perks {
@@ -12,7 +11,7 @@ public class Perks {
   public HashMap<Point, Integer> sonar(Point coord, Board b) {
     int x = coord.x;
     int y = coord.y;
-    HashMap<Point, Integer> radar = new HashMap<Point, Integer>();
+    HashMap<Point, Integer> radar = new HashMap<>();
     // up
     if (y < 9) {
       if (y < 8) {
@@ -66,12 +65,11 @@ public class Perks {
     // then check bounds, if no error, implement changes
     // otherwise don't modify
     HashMap<String, ArrayList<Point>> master = b.getMasterOrientation();
-    Iterator it = master.entrySet().iterator();
-    ArrayList<String> movedShips = new ArrayList<String>();
+    ArrayList<String> movedShips = new ArrayList<>();
 
     for (Map.Entry<String, ArrayList<Point>> pair : master.entrySet()) {
-      String ship = (String) pair.getKey();
-      ArrayList<Point> shipCoord = (ArrayList<Point>) pair.getValue();
+      String ship = pair.getKey();
+      ArrayList<Point> shipCoord = pair.getValue();
       // if not submarine
       int len = shipCoord.size();
       if(len != 0) {

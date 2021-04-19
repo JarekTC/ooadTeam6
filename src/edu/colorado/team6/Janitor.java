@@ -34,6 +34,6 @@ public class Janitor {
     }
 
     // Clean up master
-    b.getMasterOrientation().put(ship, new ArrayList<Point>());
+    b.getMasterOrientation().put(ship, new ArrayList<>());
   }
 }

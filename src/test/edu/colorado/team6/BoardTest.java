@@ -2,7 +2,6 @@ package edu.colorado.team6;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.awt.*;
 
@@ -10,9 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
   private Board b;
-  private MineSweeper ms = new MineSweeper();
-  private Destroyer ds = new Destroyer();
-  private BattleShip bs = new BattleShip();
+
 
   @BeforeEach
   public void setUp() {
@@ -213,10 +210,10 @@ class BoardTest {
     b.setShip(0, 3, 3, 3, 3, Constants.DESTROYER);
     b.setShip(0, 4, 2, 4, 2, Constants.MINESWEEPER);
 
-    assertEquals(Constants.NONEERROR, b.setShipArray(0, 2, 4, 2, 4, Constants.BATTLESHIP));
-    assertEquals(Constants.NONEERROR, b.setShipArray(0, 3, 3, 3, 3, Constants.DESTROYER));
-    assertEquals(Constants.NONEERROR, b.setShipArray(0, 4, 2, 4, 2, Constants.MINESWEEPER));
-    assertEquals(Constants.ERROR, b.setShipArray(0, 4, 2, 8, 20, "randomString"));
+    assertEquals(Constants.NONEERROR, b.setShipArray(0, 2, 4, 2, Constants.BATTLESHIP));
+    assertEquals(Constants.NONEERROR, b.setShipArray(0, 3, 3, 3, Constants.DESTROYER));
+    assertEquals(Constants.NONEERROR, b.setShipArray(0, 4, 2, 4, Constants.MINESWEEPER));
+    assertEquals(Constants.ERROR, b.setShipArray(0, 4, 2, 8, "randomString"));
   }
 
   @Test
@@ -229,8 +226,8 @@ class BoardTest {
 
   @Test
   public void testLengthCheck() {
-    assertEquals(Constants.NONEERROR, b.lengthCheck(0, 1, 2, 1, 3, Constants.DESTROYER));
-    assertEquals(Constants.ERROR, b.lengthCheck(0, 1, 6, 1, 4, Constants.BATTLESHIP));
+    assertEquals(Constants.NONEERROR, b.lengthCheck(0, 1, 2, 1, 3));
+    assertEquals(Constants.ERROR, b.lengthCheck(0, 1, 6, 1, 4));
   }
 
   @Test
