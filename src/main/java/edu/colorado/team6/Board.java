@@ -69,13 +69,15 @@ public class Board {
     this.board[y][x] = shipOrSea;
   }
 
-  public void printBoard() {
+  public String printBoard() {
+    StringBuilder board = new StringBuilder();
     for (int y = 9; y >= 0; y--) {
       for (int x = 0; x < 10; x++) {
-        System.out.print(getCoord(x, y) + " ");
+        board.append(getCoord(x, y)).append(" ").append("\\n");
       }
-      System.out.println();
+      board.append("\\n");
     }
+    return board.toString();
   }
 
   // Function to be called by Hit() in Player class in order to get index of non overlapped ship/sub

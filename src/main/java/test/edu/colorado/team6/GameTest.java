@@ -141,4 +141,9 @@ class GameTest {
         System.setIn(stdin);
     }
 
+    @Test
+    public void lanternaTest() throws IOException {
+        Game g = new Game();
+    }
+
 }

@@ -2,7 +2,9 @@ package edu.colorado.team6;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.graphics.TextGraphicsWriter;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
+import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
@@ -28,21 +30,19 @@ public class Game {
     private DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
     private Terminal terminal = new DefaultTerminalFactory().createTerminal();
     private Screen screen = new TerminalScreen(terminal);
-    final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
+    private final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
+    private TextGraphics tg = screen.newTextGraphics();
+    private TextGraphicsWriter tw = new TextGraphicsWriter(tg);
 
 
     public Game() throws IOException {
-        TextGraphics tg = screen.newTextGraphics();
         screen.startScreen();
 
         String playerNameA = readIn("Enter player one name:");
         String playerNameB = readIn("Enter player two name:");
 
-        screen.stopScreen();
-
         screen.refresh();
-        screen.readInput();
-        screen.stopScreen();
+
 
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 
@@ -59,13 +59,13 @@ public class Game {
 
         Boolean exit = false;
 
-        System.out.println("The Game is afoot! Player One BEGIN!!");
+        tw.putString("The Game is afoot! Player One BEGIN!!");
 
-        System.out.println("----------");
-        System.out.println("Player One, set your ships:");
+        tw.putString("----------");
+        tw.putString("Player One, set your ships:");
         boardSetup(playerA, readIn);
-        System.out.println("Your ships area ready!");
-        System.out.println(ASCII_Art.asciiArt.get("Ship"));
+        tw.putString("Your ships area ready!");
+        tw.putString(ASCII_Art.asciiArt.get("Ship"));
 
         System.out.println("----------");
         System.out.println("Player Two, set your ships:");
@@ -164,14 +164,16 @@ public class Game {
 
             do {
                 try {
-                    System.out.println("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:");
-                    input = readIn.nextLine();
+                    input = readIn("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:");
                     coords = input.split("\\s");
                     isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
-                    p.getB().printBoard();
+                    textGUI.addWindow(new Window() {
+
+                    });
+                    tw.putString(p.getB().printBoard());
                 }
                 catch (Exception e) {
-                    System.out.println("ERROR: problem with input. Re-enter coordinates");
+                    tw.putString("ERROR: problem with input. Re-enter coordinates");
                 }
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
