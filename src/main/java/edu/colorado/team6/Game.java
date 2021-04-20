@@ -35,11 +35,8 @@ public class Game {
         TextGraphics tg = screen.newTextGraphics();
         screen.startScreen();
 
-        String result = new TextInputDialogBuilder()
-                .setTitle("Enter player one name:")
-                .setTextBoxSize(new TerminalSize(35, 5))
-                .build()
-                .showDialog(textGUI);
+        String playerNameA = readIn("Enter player one name:");
+        String playerNameB = readIn("Enter player two name:");
 
         screen.stopScreen();
 
@@ -47,19 +44,9 @@ public class Game {
         screen.readInput();
         screen.stopScreen();
 
-
-
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter player one name:");
 
-        //player names for game instance
-        String playerNameA = myObj.nextLine();  // Read user input
         System.out.println("player one name is: " + playerNameA);  // Output user input
-
-        // get player b name
-        System.out.println("Enter player two name:");
-
-        String playerNameB = myObj.nextLine();  // Read user input
         System.out.println("player two name is: " + playerNameB);  // Output user input
 
         playerA = new Player(playerNameA);
@@ -395,6 +382,15 @@ public class Game {
             }
             System.out.println();
         }
+    }
+
+    public String readIn(String prompt) {
+
+        return new TextInputDialogBuilder()
+                .setTitle(prompt)
+                .setTextBoxSize(new TerminalSize(35, 5))
+                .build()
+                .showDialog(textGUI);
     }
 }
 
