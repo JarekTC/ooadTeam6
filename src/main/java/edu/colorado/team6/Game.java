@@ -29,8 +29,6 @@ public class Game {
         screen.startScreen();
 
         tg.putString(10, 10, "neel");
-        Menu menuFile = new Menu("File");
-        menubar.addMenu(menuFile);
 
         screen.refresh();
         screen.readInput();
