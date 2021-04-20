@@ -3,6 +3,7 @@ package edu.colorado.team6;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 
@@ -11,7 +12,7 @@ class GameTest {
     private Game g;
 
     @Test
-    public void testGame() {
+    public void testGame() throws IOException {
         String input = "Neel\n" // Player A name
                     + "Stefan\n" // Player B name
                     + "1 0 1 3\n" // Player A set battleship
@@ -117,7 +118,7 @@ class GameTest {
     }
 
     @Test
-    public void testEndGame() {
+    public void testEndGame() throws IOException {
         String input = "Neel\n" // Player A name
                 + "Stefan\n" // Player B name
                 + "1 0 1 3\n" // Player A set battleship

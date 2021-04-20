@@ -1,6 +1,13 @@
 package edu.colorado.team6;
 
+import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.screen.TerminalScreen;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.Terminal;
+
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +21,20 @@ public class Game {
     private Boolean whoseTurn = Constants.PLAYERA;
 
 
-    public Game() {
+    public Game() throws IOException {
+        DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
+        Terminal terminal = new DefaultTerminalFactory().createTerminal();
+        Screen screen = new TerminalScreen(terminal);
+        TextGraphics tg = screen.newTextGraphics();
+        screen.startScreen();
+
+        tg.putString(10, 10, "neel");
+
+        screen.refresh();
+        screen.readInput();
+        screen.stopScreen();
+
+
         //get player a name
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Enter player one name:");
