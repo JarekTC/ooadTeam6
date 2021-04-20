@@ -1,6 +1,10 @@
 package edu.colorado.team6;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
+import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
+import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -28,14 +32,22 @@ public class Game {
         TextGraphics tg = screen.newTextGraphics();
         screen.startScreen();
 
-        tg.putString(10, 10, "neel");
+        final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
+
+        String result = new TextInputDialogBuilder()
+                .setTitle("Enter player one name:")
+                .setTextBoxSize(new TerminalSize(35, 5))
+                .build()
+                .showDialog(textGUI);
+
+        screen.stopScreen();
 
         screen.refresh();
         screen.readInput();
         screen.stopScreen();
 
 
-        //get player a name
+
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Enter player one name:");
 
