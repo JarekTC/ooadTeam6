@@ -24,15 +24,16 @@ public class Game {
 
     private Boolean whoseTurn = Constants.PLAYERA;
 
+    // Private variables for CLI lantern
+    private DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
+    private Terminal terminal = new DefaultTerminalFactory().createTerminal();
+    private Screen screen = new TerminalScreen(terminal);
+    final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
+
 
     public Game() throws IOException {
-        DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
-        Terminal terminal = new DefaultTerminalFactory().createTerminal();
-        Screen screen = new TerminalScreen(terminal);
         TextGraphics tg = screen.newTextGraphics();
         screen.startScreen();
-
-        final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
 
         String result = new TextInputDialogBuilder()
                 .setTitle("Enter player one name:")
