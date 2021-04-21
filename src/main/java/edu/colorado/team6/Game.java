@@ -38,16 +38,16 @@ public class Game {
 
     public Game() throws IOException {
         screen.startScreen();
-        Window w = birthWindow("Enter player 1 name:",textGUI,10,20);
+        Window w = birthWindow("Enter player 1 name:", textGUI, 10, 20);
         textGUI.addWindow(w);
         TerminalPosition s = w.getPosition();
-        w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+        w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
         String playerNameA = readIn();
         textGUI.removeWindow(w);
-        w = birthWindow("Enter player 2 name:",textGUI,10,20);
+        w = birthWindow("Enter player 2 name:", textGUI, 10, 20);
         textGUI.addWindow(w);
         s = w.getPosition();
-        w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+        w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
         String playerNameB = readIn();
         textGUI.removeWindow(w);
 
@@ -65,42 +65,42 @@ public class Game {
         runGame(myObj);
     }
 
-    private void runGame(Scanner readIn){
+    private void runGame(Scanner readIn) {
 
         Boolean exit = false;
 
-        Window printW = birthWindow("The Game is afoot! Player One BEGIN!!",textGUI,0,0);
+        Window printW = birthWindow("The Game is afoot! Player One BEGIN!!", textGUI, 0, 0);
         textGUI.addWindow(printW);
         TerminalPosition a = printW.getPosition();
-        printW.setPosition(new TerminalPosition(a.getColumn()+0, a.getRow()+0));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        printW.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 10));
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         tw.putString("The Game is afoot! Player One BEGIN!!");
         textGUI.removeWindow(printW);
 
-        printW = birthWindow("----------"+"\n"+"Player One, set your ships:",textGUI,10,30);
+        printW = birthWindow("----------" + "\n" + "Player One, set your ships:", textGUI, 10, 30);
         textGUI.addWindow(printW);
+        TerminalPosition a1 = printW.getPosition();
+        printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
         tw.putString("----------");
         tw.putString("Player One, set your ships:");
-
         boardSetup(playerA, readIn);
         textGUI.removeWindow(printW);
+
+
         tw.putString("Your ships area ready!");
         tw.putString(ASCII_Art.asciiArt.get("Ship"));
-        printW = birthWindow("Your ships area ready!"+ASCII_Art.asciiArt.get("Ship"),textGUI,20,20);
+        printW = birthWindow("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), textGUI, 20, 20);
         textGUI.addWindow(printW);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         textGUI.removeWindow(printW);
 
-        printW = birthWindow("----------"+"Player Two, set your ships:",textGUI,20,20);
+        printW = birthWindow("----------" + "\n" + "Player Two, set your ships:", textGUI, 20, 20);
         textGUI.addWindow(printW);
+        a1 = printW.getPosition();
+        printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
         System.out.println("----------");
         System.out.println("Player Two, set your ships:");
 
@@ -108,20 +108,15 @@ public class Game {
         textGUI.removeWindow(printW);
         System.out.println("Your ships area ready!");
         System.out.println(ASCII_Art.asciiArt.get("Ship"));
-        printW = birthWindow("Your ships area ready!"+ASCII_Art.asciiArt.get("Ship"),textGUI,20,20);
+        printW = birthWindow("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), textGUI, 20, 20);
         textGUI.addWindow(printW);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         textGUI.removeWindow(printW);
 
-        while(!exit){
+        while (!exit) {
 
             //Player A turn
-            if (whoseTurn == Constants.PLAYERA){
-                System.out.println("Player One, your turn!");// pass to readIn
+            if (whoseTurn == Constants.PLAYERA) {
+                System.out.println("Player One, your turn!");// pass to readIn**********************
 
                 exit = runTurn(playerA, readIn, playerB); //should be playerA in first spot???
 
@@ -129,7 +124,7 @@ public class Game {
             }
 
             //Player B turn
-            else if (whoseTurn == Constants.PLAYERB){
+            else if (whoseTurn == Constants.PLAYERB) {
                 System.out.println("Player Two, your turn!");
 
                 exit = runTurn(playerB, readIn, playerA);
@@ -137,28 +132,25 @@ public class Game {
                 whoseTurn = Constants.PLAYERA;
             }
         }
-        printW = birthWindow("Winner let's celebrate!"+ASCII_Art.asciiArt.get("Champagne"),textGUI,20,20);
+        printW = birthWindow("Winner let's celebrate!" + ASCII_Art.asciiArt.get("Champagne"), textGUI, 20, 20);
+        textGUI.addWindow(printW);
         System.out.println("Winner let's celebrate!");
         System.out.println(ASCII_Art.asciiArt.get("Champagne"));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        textGUI.removeWindow(printW);
+        a1 = printW.getPosition();
+        printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
+        //textGUI.removeWindow(printW);
 
-        printW = birthWindow("Here is some poop for the loser!"+ASCII_Art.asciiArt.get("Poo"),textGUI,20,20);
+        Window pooW = birthWindow("Here is some poop for the loser!" + ASCII_Art.asciiArt.get("Poo"), textGUI, 20, 20);
+        textGUI.addWindow(pooW);
+        TerminalPosition a2 = pooW.getPosition();
+        pooW.setPosition(new TerminalPosition(a2.getColumn() + 80, 10));
         System.out.println("Here is some poop for the loser!");
         System.out.println(ASCII_Art.asciiArt.get("Poo"));
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        textGUI.removeWindow(printW);}
+        //textGUI.removeWindow(printW);
+    }
 
 
-    private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy){
+    private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy) {
         //display board in gui
         Panel panel = new Panel();
         Label label = new Label(whichPlayer.getB().printBoard());
@@ -169,18 +161,18 @@ public class Game {
         label.setText(whichPlayer.getB().printBoard());
         panel.addComponent(label);
         gameBoard.setComponent(panel);
+        //gameBoard.setPosition(TerminalPosition.TOP_LEFT_CORNER);
 
         boolean endGame = false;
         int correctInput = 0;
-        if(whichPlayer.getSonar()){
+        if (whichPlayer.getSonar()) {
             superPrintRecord(whichPlayer.getRecord(), whichPlayer.getRevealed());
-        }
-        else{
+        } else {
             whichPlayer.printRecord();
         }
         System.out.println();
         whichPlayer.getB().printBoard();
-        if(whichPlayer.getCountHits() == 3){
+        if (whichPlayer.getCountHits() == 3) {
             whichPlayer.setNuke();
         }
         do {
@@ -190,11 +182,11 @@ public class Game {
             System.out.println("2.Move Fleet");
             System.out.println("3.Attack Opponent");
             System.out.println("4.User Perk");
-            String menu = "----------"+"\n"+"Select an option:"+"\n"+"1.End"+"\n"+"2.Move Fleet"+"\n"+"3.Attack Opponent"+"\n"+"4.User Perk"+"\n";
-            Window w = birthWindow(menu,textGUI,10,20);
+            String menu = "----------" + "\n" + "Select an option:" + "\n" + "1.End" + "\n" + "2.Move Fleet" + "\n" + "3.Attack Opponent" + "\n" + "4.User Perk" + "\n";
+            Window w = birthWindow(menu, textGUI, 10, 20);
             textGUI.addWindow(w);
             TerminalPosition s = w.getPosition();
-            w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+            w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
             int select = Integer.parseInt(readIn());  // Read user input
             textGUI.removeWindow(w);
 
@@ -213,7 +205,7 @@ public class Game {
                     break;
                 case 4:
                     correctInput = dealPerks(whichPlayer, readIn, enemy, correctInput);
-                    if(correctInput == 1){
+                    if (correctInput == 1) {
                         endGame = true;
                     }
                     break;
@@ -223,12 +215,12 @@ public class Game {
                     correctInput = -1;
                     break;
             }
-        } while(correctInput == -1);
+        } while (correctInput == -1);
         textGUI.removeWindow(gameBoard);
         return endGame;
     }
 
-    private void boardSetup(Player p, Scanner readIn){
+    private void boardSetup(Player p, Scanner readIn) {
         Ship[] listOfShips = {new BattleShip(), new Submarine(), new Destroyer(), new MineSweeper()};
 
         Panel panel = new Panel();
@@ -238,6 +230,8 @@ public class Game {
         gameBoard.setFixedSize(new TerminalSize(20, 10));
         gameBoard.setComponent(panel);
         textGUI.addWindow(gameBoard);
+        TerminalPosition a = gameBoard.getPosition();
+        gameBoard.setPosition(new TerminalPosition(0, 0));
 
         for (Ship ship : listOfShips) {
             int isError = 0;
@@ -246,10 +240,10 @@ public class Game {
 
             do {
                 try {
-                    Window w = birthWindow("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:",textGUI,10,20);
+                    Window w = birthWindow("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:", textGUI, 10, 20);
                     textGUI.addWindow(w);
                     TerminalPosition s = w.getPosition();
-                    w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+                    w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
                     input = readIn();
                     textGUI.removeWindow(w);
                     coords = input.split("\\s");
@@ -261,8 +255,7 @@ public class Game {
                     gameBoard.setComponent(panel);
 
                     //tw.putString(p.getB().printBoard());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     tw.putString("ERROR: problem with input. Re-enter coordinates");
                 }
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
@@ -271,7 +264,7 @@ public class Game {
         textGUI.removeWindow(gameBoard);
     }
 
-    private void userMoveFleet(Player p, Scanner readIn){
+    private void userMoveFleet(Player p, Scanner readIn) {
         char direction;
         ArrayList<Character> validDirections = new ArrayList<>();
         validDirections.add('N');
@@ -281,11 +274,11 @@ public class Game {
         do {
             System.out.println("Enter the Compass direction in which to move your fleet:");
             System.out.println("Please enter 'N', 'S', 'E', or 'W'");
-            String s = "Enter the Compass direction in which to move your fleet:"+"\n"+"Please enter 'N', 'S', 'E', or 'W'"+"\n";
-            Window w = birthWindow(s,textGUI,10,20);
+            String s = "Enter the Compass direction in which to move your fleet:" + "\n" + "Please enter 'N', 'S', 'E', or 'W'" + "\n";
+            Window w = birthWindow(s, textGUI, 10, 20);
             textGUI.addWindow(w);
             TerminalPosition x = w.getPosition();
-            w.setPosition(new TerminalPosition(x.getColumn()+10, x.getRow()+20));
+            w.setPosition(new TerminalPosition(x.getColumn() + 10, x.getRow() + 20));
             direction = Character.toUpperCase(readIn().charAt(0)); //readIn.next().charAt(0)
             textGUI.removeWindow(w);
             p.moveFleetPlayer(direction);
@@ -293,7 +286,7 @@ public class Game {
     }
 
 
-    private int userAttackOpponent(Player whichPlayer, Scanner readIn, Player enemy){
+    private int userAttackOpponent(Player whichPlayer, Scanner readIn, Player enemy) {
         int x;
         int y;
         String input;
@@ -301,61 +294,54 @@ public class Game {
         do {
             System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
             String st = "Enter x and y coordinates for the location you want to attack separated by spaces:";
-            Window w = birthWindow(st,textGUI,10,20);
+            Window w = birthWindow(st, textGUI, 10, 20);
             textGUI.addWindow(w);
             TerminalPosition a = w.getPosition();
-            w.setPosition(new TerminalPosition(a.getColumn()+10, a.getRow()+20));
+            w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
             input = readIn();//.nextLine();
             textGUI.removeWindow(w);
             coords = input.split("\\s");
-        } while (!(input.matches("\\d\\s\\d")) );//| isError == Constants.ERROR
+        } while (!(input.matches("\\d\\s\\d")));//| isError == Constants.ERROR
         Boolean code = whichPlayer.getActivationCode();
         x = Integer.parseInt(coords[0]);
         y = Integer.parseInt(coords[1]);
-        compare(whichPlayer.hit(x,y,enemy,code), whichPlayer.lookupRecord(x,y));
+        compare(whichPlayer.hit(x, y, enemy, code), whichPlayer.lookupRecord(x, y));
         return Constants.NONEERROR;
     }
 
-    private void compare(int hitStat, int record){
-        if(record == 0 && hitStat == 0){
+    private void compare(int hitStat, int record) {
+        //Window cw = birthWindow()
+        if (record == 0 && hitStat == 0) {
             System.out.println("You've hit water!");
-        }
-        else if(record == 1 && hitStat == 0){
+        } else if (record == 1 && hitStat == 0) {
             System.out.println("You've hit a ship!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 3 && hitStat == 2){
+        } else if (record == 3 && hitStat == 2) {
             System.out.println("You've hit a ship!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 1 && hitStat == 1){
+        } else if (record == 1 && hitStat == 1) {
             System.out.println("You've hit the captain's quarters of a ship!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 3 && hitStat == 3){
+        } else if (record == 3 && hitStat == 3) {
             System.out.println("You've hit the captain's quarters of a ship!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 3 && hitStat == 0){
+        } else if (record == 3 && hitStat == 0) {
             System.out.println("You've hit part of a ship and a submarine!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 2 && hitStat == 0){
+        } else if (record == 2 && hitStat == 0) {
             System.out.println("You've hit a submarine!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 2 && hitStat == 2){
+        } else if (record == 2 && hitStat == 2) {
             System.out.println("You've hit the captain's quarters of a submarine!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
-        }
-        else if(record == 3 && hitStat == 1){
+        } else if (record == 3 && hitStat == 1) {
             System.out.println("You've hit the captain's quarters of a stacked ship with laser!");
             System.out.println("Have some pie!");
             System.out.println(ASCII_Art.asciiArt.get("Pie"));
@@ -363,32 +349,31 @@ public class Game {
 
     }
 
-    private int dealPerks(Player currentPlayer, Scanner readIn, Player enemy, int correctInput){
+    private int dealPerks(Player currentPlayer, Scanner readIn, Player enemy, int correctInput) {
         int correctI;
-        do{
+        do {
             System.out.println("----------");
             System.out.println("Select an option:");
             System.out.println("1.Nuke");
             System.out.println("2.Sonar");
             System.out.println("3.B2 Bomber");
             System.out.println("4.Exit perks");
-            String menu = "----------"+"\n"+"Select an option:"+"\n"+"1.Nuke"+"\n"+"2.Sonar"+"\n"+"3.B2 Bomber"+"\n"+"4.Exit perks"+"\n";
-            Window w = birthWindow(menu,textGUI,10,20);
+            String menu = "----------" + "\n" + "Select an option:" + "\n" + "1.Nuke" + "\n" + "2.Sonar" + "\n" + "3.B2 Bomber" + "\n" + "4.Exit perks" + "\n";
+            Window w = birthWindow(menu, textGUI, 10, 20);
             textGUI.addWindow(w);
             TerminalPosition a = w.getPosition();
-            w.setPosition(new TerminalPosition(a.getColumn()+10, a.getRow()+20));
+            w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
             int select = Integer.parseInt(readIn());//.nextInt();  // Read user input
             textGUI.removeWindow(w);
             switch (select) {
                 case 1:
-                    if(currentPlayer.getNuke()){
+                    if (currentPlayer.getNuke()) {
                         System.out.println("You just nuked your enemy!");
                         System.out.println(ASCII_Art.asciiArt.get("Nuke")); // WINDOW HERE!!!!!!!!!!!!!
                         //end = true;
                         correctInput = 1;
                         correctI = 0;
-                    }
-                    else{
+                    } else {
                         System.out.println("Nuke not available!"); // WINDOW HERE!!!!!!!!!!!!!
                         correctInput = -1;
                         correctI = -1;
@@ -401,10 +386,10 @@ public class Game {
                     do {
                         System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
                         String st = "Enter x and y coordinates for the location you want use the sonar at:";
-                        w = birthWindow(st,textGUI,10,20);
+                        w = birthWindow(st, textGUI, 10, 20);
                         textGUI.addWindow(w);
                         a = w.getPosition();
-                        w.setPosition(new TerminalPosition(a.getColumn()+10, a.getRow()+20));
+                        w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
                         input = readIn();//.nextLine();
                         textGUI.removeWindow(w);
                         coords = input.split("\\s");
@@ -447,13 +432,13 @@ public class Game {
                     HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
                     int stat = 0;
                     Point c = new Point();
-                    for(Map.Entry<Integer, Point> pair : target.entrySet()){
+                    for (Map.Entry<Integer, Point> pair : target.entrySet()) {
                         stat = pair.getKey();
                         c = pair.getValue();
                     }
                     int x = c.x;
                     int y = c.y;
-                    compare(stat, currentPlayer.lookupRecord(x,y));
+                    compare(stat, currentPlayer.lookupRecord(x, y));
                     correctInput = 0;
                     correctI = 0;
                     //disable bomber
@@ -468,33 +453,31 @@ public class Game {
                     correctI = -1;
                     break;
             }
-        }while(correctI == -1);
+        } while (correctI == -1);
         return correctInput;
     }
 
-    public void superPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev){
+    public void superPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev) {
         int xyValue;
         for (int y = 9; y >= 0; y--) {
             for (int x = 0; x < 10; x++) {
                 try {
-                    if(record.containsKey(new Point(x, y))){
+                    if (record.containsKey(new Point(x, y))) {
                         xyValue = record.get(new Point(x, y));
                         if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
                             System.out.print(" H ");
                         } else {
                             System.out.print(" M ");
                         }
-                    }
-                    else{
+                    } else {
                         xyValue = rev.get(new Point(x, y));
                         if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
-                            System.out.print(" "+xyValue+" ");
+                            System.out.print(" " + xyValue + " ");
                         } else {
                             System.out.print(" 0 ");
                         }
                     }
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     System.out.print(" - ");
                 }
             }
@@ -514,16 +497,16 @@ public class Game {
                 .showDialog(textGUI);
     }
 
-    public Window birthWindow(String info,WindowBasedTextGUI textGUI,int col,int row){
+    public Window birthWindow(String info, WindowBasedTextGUI textGUI, int col, int row) {
         Panel panel = new Panel();
         Label label = new Label(info);
         panel.addComponent(label);
         Window w = new BasicWindow("Menu");
         w.setFixedSize(new TerminalSize(20, 10));
         w.setComponent(panel);
-        textGUI.addWindow(w);
-        TerminalPosition a = w.getPosition();
-        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
+//        textGUI.addWindow(w);
+//        TerminalPosition a = w.getPosition();
+//        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
         return w;
     }
 }
