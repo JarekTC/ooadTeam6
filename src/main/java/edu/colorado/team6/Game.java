@@ -5,6 +5,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextGraphicsWriter;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Game {
 
@@ -38,16 +40,16 @@ public class Game {
 
     public Game() throws IOException {
         screen.startScreen();
-        Window w = birthWindow("Enter player 1 name:", textGUI, 10, 20);
+        Window w = birthWindow("Enter player 1 name:", "Player 1", 20, 1);
         textGUI.addWindow(w);
         TerminalPosition s = w.getPosition();
-        w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
+        w.setPosition(new TerminalPosition(s.getColumn() + 30, 2));
         String playerNameA = readIn();
         textGUI.removeWindow(w);
-        w = birthWindow("Enter player 2 name:", textGUI, 10, 20);
+        w = birthWindow("Enter player 2 name:", "Player 2", 20, 1);
         textGUI.addWindow(w);
         s = w.getPosition();
-        w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
+        w.setPosition(new TerminalPosition(s.getColumn() + 30, 2));
         String playerNameB = readIn();
         textGUI.removeWindow(w);
 
@@ -69,19 +71,16 @@ public class Game {
 
         Boolean exit = false;
 
-        Window printW = birthWindow("The Game is afoot! Player One BEGIN!!", textGUI, 0, 0);
-        textGUI.addWindow(printW);
+        Window printW = birthWindowWithClose("The Game is afoot! Player One BEGIN!!", "Welcome!");
+
+        textGUI.addWindowAndWait(printW);
         TerminalPosition a = printW.getPosition();
         printW.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 10));
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        tw.putString("The Game is afoot! Player One BEGIN!!");
+
+
         textGUI.removeWindow(printW);
 
-        printW = birthWindow("----------" + "\n" + "Player One, set your ships:", textGUI, 10, 30);
+        printW = birthWindow("----------" + "\n" + "Player One, set your ships:", playerA.getName(), 40, 2);
         textGUI.addWindow(printW);
         TerminalPosition a1 = printW.getPosition();
         printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
@@ -90,25 +89,25 @@ public class Game {
         boardSetup(playerA, readIn);
         textGUI.removeWindow(printW);
 
-
+        //TODO: MAKE THIS SHOW UP
         tw.putString("Your ships area ready!");
         tw.putString(ASCII_Art.asciiArt.get("Ship"));
-        printW = birthWindow("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), textGUI, 20, 20);
+        printW = birthWindow("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), playerA.getName(), 20, 2);
         textGUI.addWindow(printW);
         textGUI.removeWindow(printW);
 
-        printW = birthWindow("----------" + "\n" + "Player Two, set your ships:", textGUI, 20, 20);
+        printW = birthWindow("----------" + "\n" + "Player Two, set your ships:", playerB.getName(), 40, 2);
         textGUI.addWindow(printW);
         a1 = printW.getPosition();
         printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
         System.out.println("----------");
         System.out.println("Player Two, set your ships:");
-
+//TODO: MAKE THIS SHOW UP
         boardSetup(playerB, readIn);
         textGUI.removeWindow(printW);
         System.out.println("Your ships area ready!");
         System.out.println(ASCII_Art.asciiArt.get("Ship"));
-        printW = birthWindow("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), textGUI, 20, 20);
+        printW = birthWindow("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), playerB.getName(), 20, 20);
         textGUI.addWindow(printW);
         textGUI.removeWindow(printW);
 
@@ -132,7 +131,7 @@ public class Game {
                 whoseTurn = Constants.PLAYERA;
             }
         }
-        printW = birthWindow("Winner let's celebrate!" + ASCII_Art.asciiArt.get("Champagne"), textGUI, 20, 20);
+        printW = birthWindow("Winner let's celebrate!" + ASCII_Art.asciiArt.get("Champagne"), "Conglaturations!!", 20, 20);
         textGUI.addWindow(printW);
         System.out.println("Winner let's celebrate!");
         System.out.println(ASCII_Art.asciiArt.get("Champagne"));
@@ -140,7 +139,7 @@ public class Game {
         printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
         //textGUI.removeWindow(printW);
 
-        Window pooW = birthWindow("Here is some poop for the loser!" + ASCII_Art.asciiArt.get("Poo"), textGUI, 20, 20);
+        Window pooW = birthWindow("Here is some poop for the loser!" + ASCII_Art.asciiArt.get("Poo"), "YOU SUCK", 20, 20);
         textGUI.addWindow(pooW);
         TerminalPosition a2 = pooW.getPosition();
         pooW.setPosition(new TerminalPosition(a2.getColumn() + 80, 10));
@@ -155,7 +154,7 @@ public class Game {
         Panel panel = new Panel();
         Label label = new Label(whichPlayer.getB().printBoard());
         panel.addComponent(label);
-        Window gameBoard = new BasicWindow("test");
+        Window gameBoard = new BasicWindow(whichPlayer.getName() + "Board");
         gameBoard.setFixedSize(new TerminalSize(20, 10));
         textGUI.addWindow(gameBoard);
         label.setText(whichPlayer.getB().printBoard());
@@ -183,7 +182,7 @@ public class Game {
             System.out.println("3.Attack Opponent");
             System.out.println("4.User Perk");
             String menu = "----------" + "\n" + "Select an option:" + "\n" + "1.End" + "\n" + "2.Move Fleet" + "\n" + "3.Attack Opponent" + "\n" + "4.User Perk" + "\n";
-            Window w = birthWindow(menu, textGUI, 10, 20);
+            Window w = birthWindow(menu, "MENU", 20, 10);
             textGUI.addWindow(w);
             TerminalPosition s = w.getPosition();
             w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
@@ -226,7 +225,7 @@ public class Game {
         Panel panel = new Panel();
         Label label = new Label(p.getB().printBoard());
         panel.addComponent(label);
-        Window gameBoard = new BasicWindow("test");
+        Window gameBoard = new BasicWindow(p.getName() + " Board");
         gameBoard.setFixedSize(new TerminalSize(20, 10));
         gameBoard.setComponent(panel);
         textGUI.addWindow(gameBoard);
@@ -240,7 +239,7 @@ public class Game {
 
             do {
                 try {
-                    Window w = birthWindow("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:", textGUI, 10, 20);
+                    Window w = birthWindow("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:", "SET YOUR SHIPS", 100, 2);
                     textGUI.addWindow(w);
                     TerminalPosition s = w.getPosition();
                     w.setPosition(new TerminalPosition(s.getColumn() + 10, s.getRow() + 20));
@@ -262,6 +261,7 @@ public class Game {
         }
 
         textGUI.removeWindow(gameBoard);
+
     }
 
     private void userMoveFleet(Player p, Scanner readIn) {
@@ -275,7 +275,7 @@ public class Game {
             System.out.println("Enter the Compass direction in which to move your fleet:");
             System.out.println("Please enter 'N', 'S', 'E', or 'W'");
             String s = "Enter the Compass direction in which to move your fleet:" + "\n" + "Please enter 'N', 'S', 'E', or 'W'" + "\n";
-            Window w = birthWindow(s, textGUI, 10, 20);
+            Window w = birthWindow(s, p.getName(), 40, 5);
             textGUI.addWindow(w);
             TerminalPosition x = w.getPosition();
             w.setPosition(new TerminalPosition(x.getColumn() + 10, x.getRow() + 20));
@@ -294,7 +294,7 @@ public class Game {
         do {
             System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
             String st = "Enter x and y coordinates for the location you want to attack separated by spaces:";
-            Window w = birthWindow(st, textGUI, 10, 20);
+            Window w = birthWindow(st, whichPlayer.getName(), 20, 10);
             textGUI.addWindow(w);
             TerminalPosition a = w.getPosition();
             w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
@@ -359,7 +359,7 @@ public class Game {
             System.out.println("3.B2 Bomber");
             System.out.println("4.Exit perks");
             String menu = "----------" + "\n" + "Select an option:" + "\n" + "1.Nuke" + "\n" + "2.Sonar" + "\n" + "3.B2 Bomber" + "\n" + "4.Exit perks" + "\n";
-            Window w = birthWindow(menu, textGUI, 10, 20);
+            Window w = birthWindow(menu, "PERKS MENU", 20, 10);
             textGUI.addWindow(w);
             TerminalPosition a = w.getPosition();
             w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
@@ -386,7 +386,7 @@ public class Game {
                     do {
                         System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
                         String st = "Enter x and y coordinates for the location you want use the sonar at:";
-                        w = birthWindow(st, textGUI, 10, 20);
+                        w = birthWindow(st, "SONAR", 10, 20);
                         textGUI.addWindow(w);
                         a = w.getPosition();
                         w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
@@ -457,6 +457,35 @@ public class Game {
         return correctInput;
     }
 
+    public void guiSuperPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev) {
+        int xyValue;
+        StringBuilder Record = null;
+        for (int y = 9; y >= 0; y--) {
+            for (int x = 0; x < 10; x++) {
+                try {
+                    if (record.containsKey(new Point(x, y))) {
+                        xyValue = record.get(new Point(x, y));
+                        if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
+                            Record.append(" H ");
+                        } else {
+                            Record.append(" M ");
+                        }
+                    } else {
+                        xyValue = rev.get(new Point(x, y));
+                        if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
+                            Record.append(" " + xyValue + " ");
+                        } else {
+                            Record.append(" 0 ");
+                        }
+                    }
+                } catch (Exception e) {
+                    Record.append(" - ");
+                }
+            }
+            Record.append('\n');
+        }
+    }
+
     public void superPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev) {
         int xyValue;
         for (int y = 9; y >= 0; y--) {
@@ -485,6 +514,8 @@ public class Game {
         }
     }
 
+    
+
     public String readIn() {
 
         //TODO: create function that creates a window, all that before each readIn, assign it to a var
@@ -497,13 +528,32 @@ public class Game {
                 .showDialog(textGUI);
     }
 
-    public Window birthWindow(String info, WindowBasedTextGUI textGUI, int col, int row) {
+    public Window birthWindow(String info, String title, int col, int row) {
         Panel panel = new Panel();
         Label label = new Label(info);
         panel.addComponent(label);
-        Window w = new BasicWindow("Menu");
+
+        Window w = new BasicWindow(title);
+        w.setFixedSize(new TerminalSize(col, row));
+        w.setComponent(panel);
+//        panel.addComponent(new Button("Close", w::close));
+
+//        textGUI.addWindow(w);
+//        TerminalPosition a = w.getPosition();
+//        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
+        return w;
+    }
+
+    public Window birthWindowWithClose(String info, String title) {
+        Panel panel = new Panel();
+        Label label = new Label(info);
+        panel.addComponent(label);
+
+        Window w = new BasicWindow(title);
         w.setFixedSize(new TerminalSize(20, 10));
         w.setComponent(panel);
+        panel.addComponent(new Button("Close", w::close));
+
 //        textGUI.addWindow(w);
 //        TerminalPosition a = w.getPosition();
 //        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
