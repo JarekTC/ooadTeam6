@@ -1,10 +1,10 @@
 package edu.colorado.team6;
 
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextGraphicsWriter;
 import com.googlecode.lanterna.gui2.*;
-import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
@@ -29,7 +29,6 @@ public class Game {
     private Boolean whoseTurn = Constants.PLAYERA;
 
     // Private variables for CLI lantern
-    private DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
     private Terminal terminal = new DefaultTerminalFactory().createTerminal();
     private Screen screen = new TerminalScreen(terminal);
     private final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
@@ -39,11 +38,20 @@ public class Game {
 
     public Game() throws IOException {
         screen.startScreen();
+        Window w = birthWindow("Enter player 1 name:",textGUI,10,20);
+        textGUI.addWindow(w);
+        TerminalPosition s = w.getPosition();
+        w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+        String playerNameA = readIn();
+        textGUI.removeWindow(w);
+        w = birthWindow("Enter player 2 name:",textGUI,10,20);
+        textGUI.addWindow(w);
+        s = w.getPosition();
+        w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+        String playerNameB = readIn();
+        textGUI.removeWindow(w);
 
-        String playerNameA = readIn("Enter player one name:");
-        String playerNameB = readIn("Enter player two name:");
-
-        screen.refresh();
+        //screen.refresh();
 
 
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
@@ -61,26 +69,59 @@ public class Game {
 
         Boolean exit = false;
 
+        Window printW = birthWindow("The Game is afoot! Player One BEGIN!!",textGUI,0,0);
+        textGUI.addWindow(printW);
+        TerminalPosition a = printW.getPosition();
+        printW.setPosition(new TerminalPosition(a.getColumn()+0, a.getRow()+0));
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         tw.putString("The Game is afoot! Player One BEGIN!!");
+        textGUI.removeWindow(printW);
 
+        printW = birthWindow("----------"+"\n"+"Player One, set your ships:",textGUI,10,30);
+        textGUI.addWindow(printW);
         tw.putString("----------");
         tw.putString("Player One, set your ships:");
+
         boardSetup(playerA, readIn);
+        textGUI.removeWindow(printW);
         tw.putString("Your ships area ready!");
         tw.putString(ASCII_Art.asciiArt.get("Ship"));
+        printW = birthWindow("Your ships area ready!"+ASCII_Art.asciiArt.get("Ship"),textGUI,20,20);
+        textGUI.addWindow(printW);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        textGUI.removeWindow(printW);
 
+        printW = birthWindow("----------"+"Player Two, set your ships:",textGUI,20,20);
+        textGUI.addWindow(printW);
         System.out.println("----------");
         System.out.println("Player Two, set your ships:");
+
         boardSetup(playerB, readIn);
+        textGUI.removeWindow(printW);
         System.out.println("Your ships area ready!");
         System.out.println(ASCII_Art.asciiArt.get("Ship"));
-
+        printW = birthWindow("Your ships area ready!"+ASCII_Art.asciiArt.get("Ship"),textGUI,20,20);
+        textGUI.addWindow(printW);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        textGUI.removeWindow(printW);
 
         while(!exit){
 
             //Player A turn
             if (whoseTurn == Constants.PLAYERA){
-                System.out.println("Player One, your turn!");
+                System.out.println("Player One, your turn!");// pass to readIn
 
                 exit = runTurn(playerA, readIn, playerB); //should be playerA in first spot???
 
@@ -96,11 +137,25 @@ public class Game {
                 whoseTurn = Constants.PLAYERA;
             }
         }
+        printW = birthWindow("Winner let's celebrate!"+ASCII_Art.asciiArt.get("Champagne"),textGUI,20,20);
         System.out.println("Winner let's celebrate!");
         System.out.println(ASCII_Art.asciiArt.get("Champagne"));
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        textGUI.removeWindow(printW);
+
+        printW = birthWindow("Here is some poop for the loser!"+ASCII_Art.asciiArt.get("Poo"),textGUI,20,20);
         System.out.println("Here is some poop for the loser!");
         System.out.println(ASCII_Art.asciiArt.get("Poo"));
-    }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        textGUI.removeWindow(printW);}
 
 
     private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy){
@@ -136,7 +191,12 @@ public class Game {
             System.out.println("3.Attack Opponent");
             System.out.println("4.User Perk");
             String menu = "----------"+"\n"+"Select an option:"+"\n"+"1.End"+"\n"+"2.Move Fleet"+"\n"+"3.Attack Opponent"+"\n"+"4.User Perk"+"\n";
-            int select = Integer.parseInt(readIn(menu));  // Read user input
+            Window w = birthWindow(menu,textGUI,10,20);
+            textGUI.addWindow(w);
+            TerminalPosition s = w.getPosition();
+            w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+            int select = Integer.parseInt(readIn());  // Read user input
+            textGUI.removeWindow(w);
 
             switch (select) {
                 case 1:
@@ -159,7 +219,7 @@ public class Game {
                     break;
 
                 default:
-                    System.out.println("Please enter a choice from the menu");
+                    System.out.println("Please enter a choice from the menu"); // WINDOW HERE!!!!!!!!!!!!!
                     correctInput = -1;
                     break;
             }
@@ -186,7 +246,12 @@ public class Game {
 
             do {
                 try {
-                    input = readIn("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:");
+                    Window w = birthWindow("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:",textGUI,10,20);
+                    textGUI.addWindow(w);
+                    TerminalPosition s = w.getPosition();
+                    w.setPosition(new TerminalPosition(s.getColumn()+10, s.getRow()+20));
+                    input = readIn();
+                    textGUI.removeWindow(w);
                     coords = input.split("\\s");
                     isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
 
@@ -217,7 +282,12 @@ public class Game {
             System.out.println("Enter the Compass direction in which to move your fleet:");
             System.out.println("Please enter 'N', 'S', 'E', or 'W'");
             String s = "Enter the Compass direction in which to move your fleet:"+"\n"+"Please enter 'N', 'S', 'E', or 'W'"+"\n";
-            direction = Character.toUpperCase(readIn(s).charAt(0)); //readIn.next().charAt(0)
+            Window w = birthWindow(s,textGUI,10,20);
+            textGUI.addWindow(w);
+            TerminalPosition x = w.getPosition();
+            w.setPosition(new TerminalPosition(x.getColumn()+10, x.getRow()+20));
+            direction = Character.toUpperCase(readIn().charAt(0)); //readIn.next().charAt(0)
+            textGUI.removeWindow(w);
             p.moveFleetPlayer(direction);
         } while (!(validDirections.contains(direction)));
     }
@@ -230,7 +300,13 @@ public class Game {
         String[] coords;
         do {
             System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
-            input = readIn("Enter x and y coordinates for the location you want to attack separated by spaces:");//.nextLine();
+            String st = "Enter x and y coordinates for the location you want to attack separated by spaces:";
+            Window w = birthWindow(st,textGUI,10,20);
+            textGUI.addWindow(w);
+            TerminalPosition a = w.getPosition();
+            w.setPosition(new TerminalPosition(a.getColumn()+10, a.getRow()+20));
+            input = readIn();//.nextLine();
+            textGUI.removeWindow(w);
             coords = input.split("\\s");
         } while (!(input.matches("\\d\\s\\d")) );//| isError == Constants.ERROR
         Boolean code = whichPlayer.getActivationCode();
@@ -297,18 +373,23 @@ public class Game {
             System.out.println("3.B2 Bomber");
             System.out.println("4.Exit perks");
             String menu = "----------"+"\n"+"Select an option:"+"\n"+"1.Nuke"+"\n"+"2.Sonar"+"\n"+"3.B2 Bomber"+"\n"+"4.Exit perks"+"\n";
-            int select = Integer.parseInt(readIn(menu));//.nextInt();  // Read user input
+            Window w = birthWindow(menu,textGUI,10,20);
+            textGUI.addWindow(w);
+            TerminalPosition a = w.getPosition();
+            w.setPosition(new TerminalPosition(a.getColumn()+10, a.getRow()+20));
+            int select = Integer.parseInt(readIn());//.nextInt();  // Read user input
+            textGUI.removeWindow(w);
             switch (select) {
                 case 1:
                     if(currentPlayer.getNuke()){
                         System.out.println("You just nuked your enemy!");
-                        System.out.println(ASCII_Art.asciiArt.get("Nuke"));
+                        System.out.println(ASCII_Art.asciiArt.get("Nuke")); // WINDOW HERE!!!!!!!!!!!!!
                         //end = true;
                         correctInput = 1;
                         correctI = 0;
                     }
                     else{
-                        System.out.println("Nuke not available!");
+                        System.out.println("Nuke not available!"); // WINDOW HERE!!!!!!!!!!!!!
                         correctInput = -1;
                         correctI = -1;
                     }
@@ -319,7 +400,13 @@ public class Game {
                     String[] coords;
                     do {
                         System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
-                        input = readIn("Enter x and y coordinates for the location you want use the sonar at:");//.nextLine();
+                        String st = "Enter x and y coordinates for the location you want use the sonar at:";
+                        w = birthWindow(st,textGUI,10,20);
+                        textGUI.addWindow(w);
+                        a = w.getPosition();
+                        w.setPosition(new TerminalPosition(a.getColumn()+10, a.getRow()+20));
+                        input = readIn();//.nextLine();
+                        textGUI.removeWindow(w);
                         coords = input.split("\\s");
                     } while (!(input.matches("\\d\\s\\d")));
                     Point xandy = new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
@@ -328,7 +415,7 @@ public class Game {
                     currentPlayer.setRevealed(revealed);
                     //make sense of results and print nicely
                     HashMap<Point, Integer> record = currentPlayer.getRecord();
-                    superPrintRecord(record, revealed);
+                    superPrintRecord(record, revealed);// WINDOW HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     currentPlayer.setSonar();
                     correctInput = 0;
                     correctI = 0;
@@ -415,22 +502,29 @@ public class Game {
         }
     }
 
-    public String readIn(String prompt) {
-        Panel panel = new Panel();
-        Label label = new Label(prompt);
-        panel.addComponent(label);
-        Window gameBoard = new BasicWindow("Menu");
-        gameBoard.setFixedSize(new TerminalSize(20, 10));
-        gameBoard.setComponent(panel);
-        textGUI.addWindow(gameBoard);
+    public String readIn() {
+
         //TODO: create function that creates a window, all that before each readIn, assign it to a var
         //and then removeWindow after readIn
 
         return new TextInputDialogBuilder()
-                .setTitle(prompt)
+                .setTitle("-")
                 .setTextBoxSize(new TerminalSize(35, 5))
                 .build()
                 .showDialog(textGUI);
+    }
+
+    public Window birthWindow(String info,WindowBasedTextGUI textGUI,int col,int row){
+        Panel panel = new Panel();
+        Label label = new Label(info);
+        panel.addComponent(label);
+        Window w = new BasicWindow("Menu");
+        w.setFixedSize(new TerminalSize(20, 10));
+        w.setComponent(panel);
+        textGUI.addWindow(w);
+        TerminalPosition a = w.getPosition();
+        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
+        return w;
     }
 }
 
