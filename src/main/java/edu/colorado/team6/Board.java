@@ -73,9 +73,9 @@ public class Board {
     StringBuilder board = new StringBuilder();
     for (int y = 9; y >= 0; y--) {
       for (int x = 0; x < 10; x++) {
-        board.append(getCoord(x, y)).append(" ").append("\\n");
+        board.append(getCoord(x, y)).append(" ");
       }
-      board.append("\\n");
+      board.append("\n");
     }
     return board.toString();
   }

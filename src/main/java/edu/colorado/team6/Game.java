@@ -3,9 +3,11 @@ package edu.colorado.team6;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextGraphicsWriter;
-import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
+import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.GridLayout;
+import com.googlecode.lanterna.gui2.Label;
+import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
-import com.googlecode.lanterna.gui2.WindowBasedTextGUI;
 import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -157,6 +159,14 @@ public class Game {
 
     private void boardSetup(Player p, Scanner readIn){
         Ship[] listOfShips = {new BattleShip(), new Submarine(), new Destroyer(), new MineSweeper()};
+
+        Panel panel = new Panel();
+        Label label = new Label(p.getB().printBoard());
+        panel.addComponent(label);
+        Window gameBoard = new BasicWindow("test");
+        gameBoard.setFixedSize(new TerminalSize(20, 10));
+        textGUI.addWindow(gameBoard);
+
         for (Ship ship : listOfShips) {
             int isError = 0;
             String[] coords;
@@ -167,10 +177,13 @@ public class Game {
                     input = readIn("Enter x and y coordinates for the endpoints of your " + ship.showShipType() + " separated by spaces:");
                     coords = input.split("\\s");
                     isError = p.placeShip(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]), Integer.parseInt(coords[2]), Integer.parseInt(coords[3]), ship.getShipHealth(), ship.showShipType());
-                    textGUI.addWindow(new Window() {
 
-                    });
-                    tw.putString(p.getB().printBoard());
+                    //panel.setLayoutManager(new GridLayout(1));
+                    label.setText(p.getB().printBoard());
+                    panel.addComponent(label);
+                    gameBoard.setComponent(panel);
+
+                    //tw.putString(p.getB().printBoard());
                 }
                 catch (Exception e) {
                     tw.putString("ERROR: problem with input. Re-enter coordinates");
