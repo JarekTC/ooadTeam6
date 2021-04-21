@@ -162,6 +162,10 @@ public class Game {
         gameBoard.setComponent(panel);
         //gameBoard.setPosition(TerminalPosition.TOP_LEFT_CORNER);
 
+        String record = guiSuperPrintRecord(whichPlayer.getRecord(), whichPlayer.getRevealed());
+        Window recordDisplay = birthWindow(record, whichPlayer.getName() + " Record",35, 10);
+
+
         boolean endGame = false;
         int correctInput = 0;
         if (whichPlayer.getSonar()) {
@@ -169,6 +173,10 @@ public class Game {
         } else {
             whichPlayer.printRecord();
         }
+        textGUI.addWindow(recordDisplay);
+        TerminalPosition displayPos = recordDisplay.getPosition();
+        recordDisplay.setPosition(new TerminalPosition(displayPos.getColumn() + 20, 0));
+
         System.out.println();
         whichPlayer.getB().printBoard();
         if (whichPlayer.getCountHits() == 3) {
@@ -216,6 +224,7 @@ public class Game {
             }
         } while (correctInput == -1);
         textGUI.removeWindow(gameBoard);
+        textGUI.removeWindow(recordDisplay);
         return endGame;
     }
 
@@ -457,33 +466,34 @@ public class Game {
         return correctInput;
     }
 
-    public void guiSuperPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev) {
+    public String guiSuperPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev) {
         int xyValue;
-        StringBuilder Record = null;
+        StringBuilder guiRecord = new StringBuilder();
         for (int y = 9; y >= 0; y--) {
             for (int x = 0; x < 10; x++) {
                 try {
                     if (record.containsKey(new Point(x, y))) {
                         xyValue = record.get(new Point(x, y));
                         if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
-                            Record.append(" H ");
+                            guiRecord.append(" H ");
                         } else {
-                            Record.append(" M ");
+                            guiRecord.append(" M ");
                         }
                     } else {
                         xyValue = rev.get(new Point(x, y));
                         if (xyValue == 1 || xyValue == 2 || xyValue == 3) {
-                            Record.append(" " + xyValue + " ");
+                            guiRecord.append(" " + xyValue + " ");
                         } else {
-                            Record.append(" 0 ");
+                            guiRecord.append(" 0 ");
                         }
                     }
                 } catch (Exception e) {
-                    Record.append(" - ");
+                    guiRecord.append(" - ");
                 }
             }
-            Record.append('\n');
+            guiRecord.append('\n');
         }
+        return guiRecord.toString();
     }
 
     public void superPrintRecord(HashMap<Point, Integer> record, HashMap<Point, Integer> rev) {
@@ -514,7 +524,7 @@ public class Game {
         }
     }
 
-    
+
 
     public String readIn() {
 
