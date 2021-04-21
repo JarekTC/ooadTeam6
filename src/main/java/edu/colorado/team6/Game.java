@@ -104,6 +104,17 @@ public class Game {
 
 
     private Boolean runTurn(Player whichPlayer, Scanner readIn, Player enemy){
+        //display board in gui
+        Panel panel = new Panel();
+        Label label = new Label(whichPlayer.getB().printBoard());
+        panel.addComponent(label);
+        Window gameBoard = new BasicWindow("test");
+        gameBoard.setFixedSize(new TerminalSize(20, 10));
+        textGUI.addWindow(gameBoard);
+        label.setText(whichPlayer.getB().printBoard());
+        panel.addComponent(label);
+        gameBoard.setComponent(panel);
+
         boolean endGame = false;
         int correctInput = 0;
         if(whichPlayer.getSonar()){
@@ -124,8 +135,8 @@ public class Game {
             System.out.println("2.Move Fleet");
             System.out.println("3.Attack Opponent");
             System.out.println("4.User Perk");
-
-            int select = readIn.nextInt();  // Read user input
+            String menu = "----------"+"\n"+"Select an option:"+"\n"+"1.End"+"\n"+"2.Move Fleet"+"\n"+"3.Attack Opponent"+"\n"+"4.User Perk"+"\n";
+            int select = Integer.parseInt(readIn(menu));  // Read user input
 
             switch (select) {
                 case 1:
@@ -153,7 +164,7 @@ public class Game {
                     break;
             }
         } while(correctInput == -1);
-
+        textGUI.removeWindow(gameBoard);
         return endGame;
     }
 
@@ -165,6 +176,7 @@ public class Game {
         panel.addComponent(label);
         Window gameBoard = new BasicWindow("test");
         gameBoard.setFixedSize(new TerminalSize(20, 10));
+        gameBoard.setComponent(panel);
         textGUI.addWindow(gameBoard);
 
         for (Ship ship : listOfShips) {
@@ -190,6 +202,8 @@ public class Game {
                 }
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
+
+        textGUI.removeWindow(gameBoard);
     }
 
     private void userMoveFleet(Player p, Scanner readIn){
@@ -202,7 +216,8 @@ public class Game {
         do {
             System.out.println("Enter the Compass direction in which to move your fleet:");
             System.out.println("Please enter 'N', 'S', 'E', or 'W'");
-            direction = Character.toUpperCase(readIn.next().charAt(0));
+            String s = "Enter the Compass direction in which to move your fleet:"+"\n"+"Please enter 'N', 'S', 'E', or 'W'"+"\n";
+            direction = Character.toUpperCase(readIn(s).charAt(0)); //readIn.next().charAt(0)
             p.moveFleetPlayer(direction);
         } while (!(validDirections.contains(direction)));
     }
@@ -215,7 +230,7 @@ public class Game {
         String[] coords;
         do {
             System.out.println("Enter x and y coordinates for the location you want to attack separated by spaces:");
-            input = readIn.nextLine();
+            input = readIn("Enter x and y coordinates for the location you want to attack separated by spaces:");//.nextLine();
             coords = input.split("\\s");
         } while (!(input.matches("\\d\\s\\d")) );//| isError == Constants.ERROR
         Boolean code = whichPlayer.getActivationCode();
@@ -281,7 +296,8 @@ public class Game {
             System.out.println("2.Sonar");
             System.out.println("3.B2 Bomber");
             System.out.println("4.Exit perks");
-            int select = readIn.nextInt();  // Read user input
+            String menu = "----------"+"\n"+"Select an option:"+"\n"+"1.Nuke"+"\n"+"2.Sonar"+"\n"+"3.B2 Bomber"+"\n"+"4.Exit perks"+"\n";
+            int select = Integer.parseInt(readIn(menu));//.nextInt();  // Read user input
             switch (select) {
                 case 1:
                     if(currentPlayer.getNuke()){
@@ -303,7 +319,7 @@ public class Game {
                     String[] coords;
                     do {
                         System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
-                        input = readIn.nextLine();
+                        input = readIn("Enter x and y coordinates for the location you want use the sonar at:");//.nextLine();
                         coords = input.split("\\s");
                     } while (!(input.matches("\\d\\s\\d")));
                     Point xandy = new Point(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
@@ -400,6 +416,15 @@ public class Game {
     }
 
     public String readIn(String prompt) {
+        Panel panel = new Panel();
+        Label label = new Label(prompt);
+        panel.addComponent(label);
+        Window gameBoard = new BasicWindow("Menu");
+        gameBoard.setFixedSize(new TerminalSize(20, 10));
+        gameBoard.setComponent(panel);
+        textGUI.addWindow(gameBoard);
+        //TODO: create function that creates a window, all that before each readIn, assign it to a var
+        //and then removeWindow after readIn
 
         return new TextInputDialogBuilder()
                 .setTitle(prompt)
