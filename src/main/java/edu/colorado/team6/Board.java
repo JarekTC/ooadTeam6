@@ -18,6 +18,8 @@ public class Board {
   private final HashMap<String, ArrayList<Point>> masterOrientation =
           new HashMap<>();
 
+  private String message;
+
   Board() {
     // Initialize shipLocations
     for (int i = 0; i < 10; i++) {
@@ -32,6 +34,8 @@ public class Board {
     masterOrientation.put(Constants.BATTLESHIP, bsOrientation);
     masterOrientation.put(Constants.SUBMARINE, ssOrientation);
   }
+
+  public String getMessage() {return this.message;}
 
   public int[][] getBoard() {
     return board;
@@ -215,6 +219,7 @@ public class Board {
   public int diagonalBoundsCheck(int x1, int y1, int x2, int y2) {
     if ((Math.abs(x1 - x2) != 0) && (Math.abs(y1 - y2) != 0)) {
       System.out.println("Cannot place ships diagonally!");
+      this.message = "Cannot place ships diagonally!";
       return Constants.ERROR;
     }
     return Constants.NONEERROR;
@@ -224,6 +229,7 @@ public class Board {
 
     if ((Math.abs(x1 - x2) + 1 != length) && (Math.abs(y1 - y2) + 1 != length)) {
       System.out.println("Coordinates don't match health!");
+      this.message = "Coordinates don't match health!";
       return Constants.ERROR;
     }
 
@@ -245,18 +251,22 @@ public class Board {
     if (shipName.equals(Constants.SUBMARINE)) {
       if ((x1 == 0) && (y1 < y2)) {
         System.out.println("Out of bounds!");
+        this.message = "Out of bounds!";
         return Constants.ERROR;
       }
       else if ((y1 == 9) && (x1 < x2)) {
         System.out.println("Out of bounds!");
+        this.message = "Out of bounds!";
         return Constants.ERROR;
       }
       else if ((x1 == 9) && (y1 > y2)) {
         System.out.println("Out of bounds!");
+        this.message = "Out of bounds!";
         return Constants.ERROR;
       }
       else if ((y1 == 0) && (x1 > x2)) {
         System.out.println("Out of bounds!");
+        this.message = "Out of bounds!";
         return Constants.ERROR;
       }
     }

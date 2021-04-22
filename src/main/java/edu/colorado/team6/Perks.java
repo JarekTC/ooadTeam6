@@ -20,15 +20,15 @@ public class Perks {
       radar.put(new Point(x, y + 1), b.getPos(x, y + 1));
     }
     // south
-    if (y > 1) {
-      if (y > 2) {
+    if (y > 0) {
+      if (y > 1) {
         radar.put(new Point(x, y - 2), b.getPos(x, y - 2));
       }
       radar.put(new Point(x, y - 1), b.getPos(x, y - 1));
     }
     // west
-    if (x > 1) {
-      if (x > 2) {
+    if (x > 0) {
+      if (x > 1) {
         radar.put(new Point(x - 2, y), b.getPos(x - 2, y));
       }
       radar.put(new Point(x - 1, y), b.getPos(x - 1, y));
@@ -42,7 +42,7 @@ public class Perks {
     }
     // diagonals
     // north west
-    if ((y < 9) && (x > 1)) {
+    if ((y < 9) && (x > 0)) {
       radar.put(new Point(x - 1, y + 1), b.getPos(x - 1, y + 1));
     }
     // north east
@@ -50,11 +50,11 @@ public class Perks {
       radar.put(new Point(x + 1, y + 1), b.getPos(x + 1, y + 1));
     }
     // south west
-    if ((y > 1) && (x > 1)) {
+    if ((y > 0) && (x > 0)) {
       radar.put(new Point(x - 1, y - 1), b.getPos(x - 1, y - 1));
     }
     // south east
-    if ((y > 1) && (x < 9)) {
+    if ((y > 0) && (x < 9)) {
       radar.put(new Point(x + 1, y - 1), b.getPos(x + 1, y - 1));
     }
     return radar;
