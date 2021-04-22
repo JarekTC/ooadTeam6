@@ -158,7 +158,7 @@ public class Game {
         Panel panel = new Panel();
         Label label = new Label(whichPlayer.getB().printBoard());
         panel.addComponent(label);
-        Window gameBoard = new BasicWindow(whichPlayer.getName() + "Board");
+        Window gameBoard = new BasicWindow(whichPlayer.getName() + "'s Board");
         gameBoard.setFixedSize(new TerminalSize(20, 10));
         textGUI.addWindow(gameBoard);
         label.setText(whichPlayer.getB().printBoard());
@@ -167,7 +167,7 @@ public class Game {
         //gameBoard.setPosition(TerminalPosition.TOP_LEFT_CORNER);
 
         String record = guiSuperPrintRecord(whichPlayer.getRecord(), whichPlayer.getRevealed());
-        Window recordDisplay = birthWindow(record, whichPlayer.getName() + " Record",35, 10);
+        Window recordDisplay = birthWindow(record, whichPlayer.getName() + "'s Record",35, 10);
 
 
         boolean endGame = false;
@@ -240,7 +240,7 @@ public class Game {
         Panel panel = new Panel();
         Label label = new Label(p.getB().printBoard());
         panel.addComponent(label);
-        Window gameBoard = new BasicWindow(p.getName() + " Board");
+        Window gameBoard = new BasicWindow(p.getName() + "'s Board");
         gameBoard.setFixedSize(new TerminalSize(20, 10));
         gameBoard.setComponent(panel);
         textGUI.addWindow(gameBoard);
