@@ -2,13 +2,14 @@ package edu.colorado.team6;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.bundle.LanternaThemes;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.graphics.TextGraphicsWriter;
-import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.Window;
+import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.gui2.dialogs.TextInputDialogBuilder;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Game {
 
@@ -40,6 +40,10 @@ public class Game {
 
     public Game() throws IOException {
         screen.startScreen();
+
+        // set theme
+        textGUI.setTheme(LanternaThemes.getRegisteredTheme("businessmachine"));
+
         Window w = birthWindow("Enter player 1 name:", "Player 1", 20, 1);
         textGUI.addWindow(w);
         TerminalPosition s = w.getPosition();
