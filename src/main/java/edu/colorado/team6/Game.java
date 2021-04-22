@@ -135,7 +135,7 @@ public class Game {
                 whoseTurn = Constants.PLAYERA;
             }
         }
-        printW = birthWindowWithClose("Winner let's celebrate!" + ASCII_Art.asciiArt.get("Champagne"), "Conglaturations!!", 80, 20);
+        printW = birthWindowWithClose("Winner let's celebrate!" + ASCII_Art.asciiArt.get("Champagne"), "Conglaturations!!", 80, 60);
         textGUI.addWindowAndWait(printW);
         System.out.println("Winner let's celebrate!");
         System.out.println(ASCII_Art.asciiArt.get("Champagne"));
@@ -222,6 +222,8 @@ public class Game {
                     break;
 
                 default:
+                    Window errW = birthWindowWithClose("Please enter a choice from the menu","ERROR",40,1);
+                    textGUI.addWindowAndWait(errW);
                     System.out.println("Please enter a choice from the menu"); // WINDOW HERE!!!!!!!!!!!!!
                     correctInput = -1;
                     break;
@@ -297,6 +299,10 @@ public class Game {
             TerminalPosition x = w.getPosition();
             w.setPosition(new TerminalPosition(x.getColumn() + 10, x.getRow() + 20));
             direction = Character.toUpperCase(readIn().charAt(0)); //readIn.next().charAt(0)
+            if(!(validDirections.contains(direction))){
+                Window errW = birthWindowWithClose(s,"ERROR",40,5);
+                textGUI.addWindowAndWait(errW);
+            }
             textGUI.removeWindow(w);
             p.moveFleetPlayer(direction);
         } while (!(validDirections.contains(direction)));
@@ -318,6 +324,12 @@ public class Game {
             input = readIn();//.nextLine();
             textGUI.removeWindow(w);
             coords = input.split("\\s");
+
+            if(!(input.matches("\\d\\s\\d"))){
+                Window err = birthWindowWithClose("Out of bounds!", "ERROR",20,2);
+                textGUI.addWindowAndWait(err);
+            }
+
         } while (!(input.matches("\\d\\s\\d")));//| isError == Constants.ERROR
         Boolean code = whichPlayer.getActivationCode();
         x = Integer.parseInt(coords[0]);
@@ -420,7 +432,7 @@ public class Game {
                     do {
                         System.out.println("Enter x and y coordinates for the location you want use the sonar at:");
                         String st = "Enter x and y coordinates for the location you want use the sonar at:";
-                        w = birthWindow(st, "SONAR", 10, 20);
+                        w = birthWindow(st, "SONAR", 100, 2);
                         textGUI.addWindow(w);
                         a = w.getPosition();
                         w.setPosition(new TerminalPosition(a.getColumn() + 10, a.getRow() + 20));
@@ -551,12 +563,7 @@ public class Game {
         }
     }
 
-
-
     public String readIn() {
-
-        //TODO: create function that creates a window, all that before each readIn, assign it to a var
-        //and then removeWindow after readIn
 
         return new TextInputDialogBuilder()
                 .setTitle("-")
@@ -573,11 +580,6 @@ public class Game {
         Window w = new BasicWindow(title);
         w.setFixedSize(new TerminalSize(col, row));
         w.setComponent(panel);
-//        panel.addComponent(new Button("Close", w::close));
-
-//        textGUI.addWindow(w);
-//        TerminalPosition a = w.getPosition();
-//        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
         return w;
     }
 
@@ -590,10 +592,6 @@ public class Game {
         w.setFixedSize(new TerminalSize(col, row));
         w.setComponent(panel);
         panel.addComponent(new Button("Close", w::close));
-
-//        textGUI.addWindow(w);
-//        TerminalPosition a = w.getPosition();
-//        w.setPosition(new TerminalPosition(a.getColumn()+col, a.getRow()+row));
         return w;
     }
 }
