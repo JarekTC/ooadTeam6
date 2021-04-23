@@ -34,8 +34,7 @@ public class Game {
     private Terminal terminal = new DefaultTerminalFactory().createTerminal();
     private Screen screen = new TerminalScreen(terminal);
     private final WindowBasedTextGUI textGUI = new MultiWindowTextGUI(screen);
-    private TextGraphics tg = screen.newTextGraphics();
-    private TextGraphicsWriter tw = new TextGraphicsWriter(tg);
+
 
 
     public Game() throws IOException {
@@ -88,14 +87,10 @@ public class Game {
         textGUI.addWindow(printW);
         TerminalPosition a1 = printW.getPosition();
         printW.setPosition(new TerminalPosition(a1.getColumn() + 80, 0));
-        tw.putString("----------");
-        tw.putString("Player One, set your ships:");
+
         boardSetup(playerA, readIn);
         textGUI.removeWindow(printW);
 
-        //TODO: MAKE THIS SHOW UP
-        tw.putString("Your ships area ready!");
-        tw.putString(ASCII_Art.asciiArt.get("Ship"));
         printW = birthWindowWithClose("Your ships area ready!" + ASCII_Art.asciiArt.get("Ship"), "Set",80,20);
         textGUI.addWindowAndWait(printW);
 //        textGUI.removeWindow(printW);
@@ -274,7 +269,7 @@ public class Game {
 
                     //tw.putString(p.getB().printBoard());
                 } catch (Exception e) {
-                    tw.putString("ERROR: problem with input. Re-enter coordinates");
+                    System.out.println("ERROR: problem with input. Re-enter coordinates");
                 }
             } while (!(input.matches("\\d\\s\\d\\s\\d\\s\\d")) | isError == Constants.ERROR); //Use single | so no short circuiting
         }
