@@ -1,6 +1,5 @@
 package edu.colorado.team6;
 
-
 public class Ship {
 
   // Basic private member variables

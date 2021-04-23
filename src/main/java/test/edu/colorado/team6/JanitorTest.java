@@ -3,7 +3,6 @@ package edu.colorado.team6;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class JanitorTest {
   private Player p1;
   private Janitor j;

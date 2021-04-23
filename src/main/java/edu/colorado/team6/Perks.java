@@ -72,7 +72,7 @@ public class Perks {
       ArrayList<Point> shipCoord = pair.getValue();
       // if not submarine
       int len = shipCoord.size();
-      if(len != 0) {
+      if (len != 0) {
         if (!ship.equals(Constants.SUBMARINE)) {
           Point start = shipCoord.get(0);
           Point end = shipCoord.get(len - 1);

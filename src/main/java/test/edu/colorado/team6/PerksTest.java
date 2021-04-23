@@ -21,8 +21,7 @@ class PerksTest {
 
   @Test
   public void testSonar() {
-    HashMap<Point, Integer> radar =
-            new HashMap<>(p.sonar(new Point(3, 3), p1.getB()));
+    HashMap<Point, Integer> radar = new HashMap<>(p.sonar(new Point(3, 3), p1.getB()));
 
     HashMap<Point, Integer> expected = new HashMap<>();
     expected.put(new Point(3, 4), 0);

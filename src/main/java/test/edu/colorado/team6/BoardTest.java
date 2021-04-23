@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardTest {
   private Board b;
 
-
   @BeforeEach
   public void setUp() {
     b = new Board();
