@@ -446,35 +446,12 @@ public class Game {
                     currentPlayer.setRevealed(revealed);
                     //make sense of results and print nicely
                     HashMap<Point, Integer> record = currentPlayer.getRecord();
-                    superPrintRecord(record, revealed);// WINDOW HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    superPrintRecord(record, revealed);
                     currentPlayer.setSonar();
                     correctInput = 0;
                     correctI = 0;
                     break;
                 case 3:
-//                    System.out.println("bomberavail = "+currentPlayer.getBomberAvail());
-//                    if(currentPlayer.getBomberAvail() == 1){
-//                        HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
-//                        int stat = 0;
-//                        Point c = new Point();
-//                        for(Map.Entry<Integer, Point> pair : target.entrySet()){
-//                            stat = pair.getKey();
-//                            c = pair.getValue();
-//                        }
-//                        int x = c.x;
-//                        int y = c.y;
-//                        compare(stat, currentPlayer.lookupRecord(x,y));
-//                        correctInput = 0;
-//                        correctI = 0;
-//                        //disable bomber
-//                        currentPlayer.setBomberAvail();
-//                    }
-//                    else{
-//                        System.out.println("Bomber not available!");
-//                        correctInput = -1;
-//                        correctI = -1;
-//                    }
-
                     HashMap<Integer, Point> target = currentPlayer.b2Bomber(enemy);
                     int stat = 0;
                     Point c = new Point();
