@@ -60,3 +60,4 @@ fabric.properties
 # Misc
 .idea/misc.xml
 .idea/.gitignore
+target/
