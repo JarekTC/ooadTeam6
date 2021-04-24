@@ -20,7 +20,7 @@ We are utilizing the following technologies for our project:
 ### <ins>Project Structure</ins>
 `src/edu/colorado/team6`: All Battleship source code.<br><br>
 `src/test/edu/colorado/team6`: All Battleship test code.<br><br>
-`docs`:  Location for all PDF's. Includes CRC cards and group contract.<br><br>
+`docs`: All project documentation. `/docs/Battleship Documentation.pdf` contains final docs submission.<br><br>
 `.gitignore`: git ignore file configured to ignore user-specific IntelliJ directories and files<br><br>
 `README.md`: Contains a brief project overview, for additional details or progress see the project wiki or project board.
 <br><br>
