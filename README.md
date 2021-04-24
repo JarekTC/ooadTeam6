@@ -1,4 +1,21 @@
 # CSCI 4448-5448 Team 6 Battleship
+### <ins>Play the game in IntelliJ </ins>
+1. Install Java 11 JDK and JRE
+2. Install IntelliJ
+3. Clone the repo
+4. Open project in IntelliJ
+5. If IntelliJ prompts to install dependencies click 'OK'
+6. Open Main.java
+7. Click on the 'Run' menu tab
+8. Click 'Run Main'
+<br><br>
+
+1. Install OpenJDK Java 11 Runtime. <br>
+2. Download BattleShip.jar <br>
+3. Navigate to the directory containing BattleShip.jar <br>
+4. Run the following terminal command ` java -cp BattleShip.jar edu.colorado.team6.Main` <br>
+<br><br>
+
 ### <ins>Download and play as a jar file (pre-release alpha)</ins>
 1. Install OpenJDK Java 11 Runtime. <br>
 2. Download BattleShip.jar <br>
