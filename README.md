@@ -3,7 +3,7 @@
 * Isaac Vance
 * Neel Karsanbhai
 * Stefan Primelles
-* Jarek Carlson (Reynolds)
+* Jarek Carlson
 <br><br>
 ### <ins>Battleship Description</ins>
 Battleship is a 2-player board game. To start the game, each player places 5 ships (battleship, destroyer, minesweeper, and submarine) on their board. Each player then has the opportunity to end the game, move their fleet (north, east, south, or west), attack their opponent, or use a perk. For the perks, a player can use a nuke, sonar, or B2-Bomber once they have met certain conditions that unlock individual perks. The game ends when one of the players decides to end the game on their turn, or a player sinks all of their opponent’s ships.
