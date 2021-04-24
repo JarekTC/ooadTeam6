@@ -4,9 +4,8 @@ import java.io.IOException;
 
 public class Main {
 
-  public static int main() throws IOException {
+  public static void main(String[] args) throws IOException {
 
     Game game = new Game();
-    return Constants.NONEERROR;
   }
 }
