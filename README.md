@@ -1,4 +1,10 @@
 # CSCI 4448-5448 Team 6 Battleship
+### <ins>Download & Play the Game as a jar file (pre-release alpha)</ins>
+1. Install OpenJDK Java 11 Runtime. <br>
+2. Download BattleShip.jar <br>
+3. Navigate to the directory containing BattleShip.jar <br>
+4. Run the following terminal command ` java -cp BattleShip.jar edu.colorado.team6.Main` <br>
+
 ### <ins>Team Members</ins>
 * Isaac Vance
 * Neel Karsanbhai
